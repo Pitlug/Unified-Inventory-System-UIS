@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        ul{
+            padding-left:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <div class="p-3 border bg-light">Prelim ERD</div>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                        <li>Inventory<ul>
+                            <li>Inventory ID</li>
+                            <li>Name</li>
+                            <li>Description</li>
+                            <li>Quantity</li>
+                            <li>BundleID</li>
+                        </ul></li>
+
+                        <li>Bundle<ul>
+                            <li>BundleID</li>
+                            <li>Bundle Info</li>
+                        </ul></li>
+
+                        <li>BundleItems<ul>
+                            <li>ID</li>
+                            <li>BundleID</li>
+                            <li>InventoryID</li>
+                            <li>Quantity</li>
+                        </ul></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                        <li>Users<ul>
+                            <li>UserID</li>
+                            <li>Username</li>
+                            <li>Password</li>
+                            <li>Credential Level</li>
+                        </ul></li>
+
+                        <li>Orders<ul>
+                            <li>OrderID</li>
+                            <li>OrderStatus</li>
+                            <li>Notes</li>
+                            <li>Date</li>
+                        </ul></li>
+
+                        <li>OrderItems<ul>
+                            <li>ID</li>
+                            <li>OrderID</li>
+                            <li>InventoryID</li>
+                            <li>Name</li>
+                            <li>Quantity</li>
+                            <li>Price</li>
+                        </ul></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Stack Choices</div>
+                <div>
+                    <ul>
+                        <li>Front-End<ul>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>PHP</li>
+                            <li>JavaScript</li>
+                        </ul></li>
+                    </ul>
+                    <ul>
+                        <li>Back-End<ul>
+                            <li>PHP</li>
+                            <li>JavaScript</li>
+                        </ul></li>
+                    </ul>
+                    <ul>
+                        <li>DB<ul>
+                            <li>MySQL</li>
+                            <li>MariaDB</li>
+                        </ul></li>
+                    </ul>
+                    <ul>
+                        <li>Server<ul>
+                            <li>Apache Server</li>
+                        </ul></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="p-3 border bg-light">Prelim Sitemap</div>
+                <div class="row">
+                    <div class="col">
+                        --src
+	- sitevars.php
+	--web
+		- index.php
+		- orders.php
+		- inventory.php (have categories for the page)
+		- users.php
+		- login.php
+		- signup.php
+		--inventory
+			- Invisible pages for management of 			inventory.
+		--includes
+			- header.php
+			- footer.php
+			- navbar.php
+		--classes
+			- OrderItemClass.php
+			- InventoryItemClass.php
+	--api
+		--ToDo
+--docs
+	--api
+		--ToDo
+	--dbfiles
+		-ToDo
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 border bg-light">Column 5</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
