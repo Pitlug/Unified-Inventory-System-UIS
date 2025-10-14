@@ -6,6 +6,6 @@
 - Rein Alderfer
 - Alexander Pellet
 - Drew Urenko
-- Hector Franco
+- Hector Franco  
 Team UIS from Etown college, 2025 Software Engineering - CS 341
 
