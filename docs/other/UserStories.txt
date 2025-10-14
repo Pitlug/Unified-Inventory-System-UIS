@@ -1,0 +1,19 @@
+# **User Stories UIS 2025**
+---
+# Head Cordinator and Systems Admin - Rein Alderfer
+-
+  
+# Head Software Developer - Alexander Pellet
+- 
+  
+# Technical Programmer - Drew Urenko
+- 
+  
+# Developer - Hector Franco
+- 
+  
+# Client - Old Brick
+- Old Brick enjoys using UIS to manage his inventory for his company.  
+He uses Shopify to recieve orders from clients and to order needed inventory. But to track internal inventory he uses UIS. UIS allows him to see what the company ordered from the manufacturer, see what is currently in inventory, and to input new inventory. Allowing them to be able to better track inevntory allowing for more streamlined ineventory management.
+
+  
