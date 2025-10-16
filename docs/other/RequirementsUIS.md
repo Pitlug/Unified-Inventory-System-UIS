@@ -6,6 +6,7 @@
 3. A client can delete records in inventory.
 4. A client can edit records in inventory.
 5. A client can view items ordered from manufacturer, but not in inventory.
+6. Build a web server and host the site from on a url.
 ---
 ## Non-Functional
 1. Only Use php, html, javascript, and css for front end. And only use php, Javascript, and sql database for backend.
