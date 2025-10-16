@@ -11,7 +11,7 @@
 - ToDo, add a description of your role.
 ---
 ## Developer - Hector Franco
-- ToDo, add a description of your role.
+- Hector is responsible for testing and developing core functionality of the system. Making sure on creating a reliable and effeicent user interface that seamless works with the backend logic for inventory commands. Making sure to contribute to designing database interactions, code efficiency, and debugging system issues. 
 ---
 ## Client - Old Brick
 - Old Brick enjoys using UIS to manage his inventory for his company.  
