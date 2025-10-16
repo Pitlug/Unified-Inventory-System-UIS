@@ -8,7 +8,7 @@
 - Also responsible for most of the front-end design and development.
 ---
 ## Technical Programmer - Drew Urenko
-- ToDo, add a description of your role.
+- Drew is responsible for creating, developing, implementing, and testing the API functions and the Singleton class used by the program. He is focused in ensuring any actions made on the website are reflected in the database.
 ---
 ## Developer - Hector Franco
 - Hector is responsible for testing and developing core functionality of the system. Making sure to create a reliable and efficient user interface that seamlessly integrates with the backend logic for inventory commands. Making sure to contribute to designing database interactions, code efficiency, and debugging system issues.
