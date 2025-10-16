@@ -4,7 +4,8 @@
 - Rein is the cordinator of the team. Making sure that everyone has wok to do and knows what tasks need to be done. Making sure that the vision of the project is fufilled. That any company that uses UIS is able to effortlessy track and manage their inventory. He also is in charge of maintaining the self hosted website.
 ---
 ## Head Software Developer - Alexander Pellet
-- ToDo, add a description of your role.
+- Alexander is the most senior developer on the team. Responsible for managing the patterns and overarching functionality of the site. 
+- Also responsible for most of the front-end design and development.
 ---
 ## Technical Programmer - Drew Urenko
 - ToDo, add a description of your role.
