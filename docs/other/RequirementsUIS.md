@@ -6,7 +6,10 @@
 3. A client can delete records in inventory.
 4. A client can edit records in inventory.
 5. A client can view items ordered from manufacturer, but not in inventory.
-6. Build a web server and host the site from on a url.
+6. Build a web server and host the site on the internet.
+7. Make the API that implements a singleton pattern.
+8. Test code for vulnerabilities.
+9. User interactions, login, users page, and register users.
 ---
 ## Non-Functional
 1. Only Use php, html, javascript, and css for front end. And only use php, Javascript, and sql database for backend.
