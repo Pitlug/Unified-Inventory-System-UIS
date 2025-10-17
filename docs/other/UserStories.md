@@ -14,7 +14,16 @@
 - Hector is responsible for testing and developing core functionality of the system. Making sure to create a reliable and efficient user interface that seamlessly integrates with the backend logic for inventory commands. Making sure to contribute to designing database interactions, code efficiency, and debugging system issues.
 ---
 ## Client - Old Brick
-- Old Brick enjoys using UIS to manage his inventory for his company.  
-He uses Shopify to receive orders from clients and to order needed inventory. But to track internal inventory he uses UIS. UIS allows him to see what the company ordered from the manufacturer, see what is currently in inventory, and to input new inventory. Allowing them to be able to better track inventory allowing for more streamlined inventory management.
-
+- Old Brick enjoys using UIS to manage their inventory for the company.  
+They use Shopify to receive orders from clients and to order needed inventory. But to track internal inventory they use UIS. UIS allows them to see what the company has ordered from the manufacturer, see what is currently in inventory, and to input new inventory. Allowing them to be able to better track inventory allowing for more streamlined inventory management.
+---
+## Inventory Manager
+- The inventory manager working for Old Brick uses UIS to track & manage the inventory levels for various products and resources. He can use the tool to make sure the company is not missing inventory, and inform the ordering manager when they require new stock.
+- The inventory manager can also track employee transactions in inventory, and report about usage statistics to the boss.
+---
+## Ordering Manager
+- The ordering manager works at Old Brick, tracking orders and managing the budget allocated to inventory supplies. By coordinating with the inventory manager, they are able to track inventory amounts and currently in route inventory orders directly through UIS.
+---
+# Employee
+- Employees at Old Brick use UIS to take out and put in inventory items. They can track who use what items, and let the managers know when they are running low on certain items. Employee transactions are recorded in an audit log to allow granular tracking of inventory.
   
