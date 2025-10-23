@@ -1,5 +1,4 @@
 <?PHP
-$installDir = "Unified-Inventory-System-UIS/src";
 function url(){
     global $installDir;
     if($installDir!=""){
