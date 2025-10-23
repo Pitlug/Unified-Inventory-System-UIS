@@ -3,11 +3,11 @@
     class NavBar {
         private $links = [];
         private /*static*/ $defaultNavLinks = [
-            "Home" => ["url" => "/web/index.php", "icon" => "bi bi-0-circle-fill"],
-            "Inventory" => ["url" => "/web/inventory.php", "icon" => "bi bi-0-circle-fill"],
-            "Orders" => ["url" => "/web/orders.php", "icon" => "bi bi-0-circle-fill"],
-            "Users" => ["url" => "/web/users.php", "icon" => "bi bi-0-circle-fill"],
-            "Login" => ["url" => "/web/login.php", "icon" => "bi bi-0-circle-fill"]
+            "Home" => ["url" => "/index.php", "icon" => "bi bi-0-circle-fill"],
+            "Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-0-circle-fill"],
+            "Orders" => ["url" => "/orders.php", "icon" => "bi bi-0-circle-fill"],
+            "Users" => ["url" => "/users.php", "icon" => "bi bi-0-circle-fill"],
+            "Login" => ["url" => "/login.php", "icon" => "bi bi-0-circle-fill"]
         ];
 
         public function __construct($installdir="",$links = []) {
@@ -44,7 +44,7 @@
             $html .= "<ul class='navbar-nav ml-auto'>";
         
             foreach ($this->links as $text => $info) {
-                $url = $info['url'];
+                $url = $GLOBALS['webRoot'].$info['url'];
                 $icon = isset($info['icon']) ? "<i class='{$info['icon']}'></i> " : "";
                 $html .= "<li class='nav-item'><a class='navbar-link' href='{$url}'>{$icon}{$text}</a></li>";
             }

@@ -41,6 +41,7 @@ $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'?"https:/
 include_once "sitefunctions.php";
 
 $url = url();
+$GLOBALS['webRoot'] = $url;
 $GLOBALS['cssUrl'] = $url.'/css/';
 $GLOBALS['jsUrl'] = $url.'/js/';
 $GLOBALS['imgUrl'] = $url.'/images/';
