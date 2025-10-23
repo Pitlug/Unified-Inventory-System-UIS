@@ -1,7 +1,7 @@
 /* https://www.w3schools.com/cssref/index.php */
 
 /* root varables */
-:root {/*
+:root {
     --primary: #5185b9;
     --secondary: #3498db;
     --accent: #e74c3c;
@@ -9,7 +9,7 @@
     --border: #dee2e6;
     --modeColor: #ffffff;
     --modeColorOPP: #111827;
-    */
+    /*
     --primary: #1f2937; 
     --secondary: #5dade2; 
     --accent: #f1948a; 
@@ -17,7 +17,8 @@
     --border: #4b5563; 
     --modeColor: #111827; 
     --modeColorOPP: #f9fafb; 
-    
+    */
+    --helper-text-color: #9ca3af;
     --footerHoverColor: #5dade2;
     --btnprimaryHover: #2980b9;
     --btnDangerHover: #c0392b;
@@ -35,10 +36,18 @@
     --border: #4b5563; /* Subtle dividing lines/borders */
     --modeColor: #111827; /* Deepest background color */ 
     --modeColorOPP: #f9fafb; /* Lightest background color */
+    --helper-text-color: #9ca3af; /* Muted text color for hints/placeholders */
 }
 
 /* global Styles */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
+.form-text {
+  margin-top: .25rem;
+  font-size: .875em;
+  color: var(--helper-text-color);
+}
 
 body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -172,7 +181,7 @@ label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--primary);
+    color: var(--modeColorOPP);
 }
 
 input[type="text"], input[type="email"], input[type="password"],
