@@ -3,9 +3,9 @@ $installDir = "Unified-Inventory-System-UIS/src";
 function url(){
     global $installDir;
     if($installDir!=""){
-        $baseFilePath = "/".$installDir."/web";
+        $baseFilePath = "/".$installDir."/src/web";
     }else{
-        $baseFilePath = "/web";
+        $baseFilePath = "/src/web";
     }
     if(isset($_SERVER['HTTPS'])){
         $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
@@ -17,7 +17,7 @@ function url(){
 }
 
 function includeFiles(){
-    include_once 'sitevars.php';
+    //TBD
 }
 
 ?>
