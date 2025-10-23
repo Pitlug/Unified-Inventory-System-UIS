@@ -2,7 +2,7 @@
     include_once 'Navbar.php';
     include_once 'Header.php';
     include_once 'Footer.php';
-    include_once __DIR__."\..\includes\sitefunctions.php";
+    include_once "/opt/lampp/htdocs/Unified-Inventory-System-UIS/src/web/includes/sitefunctions.php";
     includeFiles();
     class PageClass {
         private $pageContent;
