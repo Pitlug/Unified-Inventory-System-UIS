@@ -24,7 +24,7 @@ $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'?"https:/
 
     } else {
         $installDir = "";
-        $fullInstallPath = "/var/www/uis.pitlug.com/Unified-Inventory-System-UIS/src/web";
+        $fullInstallPath = "/var/www/uis.pitlug.com/Unified-Inventory-System-UIS";
     }
 
     /*I don't think we are using this.
