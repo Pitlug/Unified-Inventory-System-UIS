@@ -3,11 +3,11 @@
     class NavBar {
         private $links = [];
         private /*static*/ $defaultNavLinks = [
-            "Home" => ["url" => "/web/index.php", "icon" => "bi bi-0-circle-fill"],
-            "Inventory" => ["url" => "/web/inventory.php", "icon" => "bi bi-0-circle-fill"],
-            "Orders" => ["url" => "/web/orders.php", "icon" => "bi bi-0-circle-fill"],
-            "Users" => ["url" => "/web/users.php", "icon" => "bi bi-0-circle-fill"],
-            "Login" => ["url" => "/web/login.php", "icon" => "bi bi-0-circle-fill"]
+            "Home" => ["url" => "/index.php", "icon" => "bi bi-0-circle-fill"],
+            "Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-0-circle-fill"],
+            "Orders" => ["url" => "/orders.php", "icon" => "bi bi-0-circle-fill"],
+            "Users" => ["url" => "/users.php", "icon" => "bi bi-0-circle-fill"],
+            "Login" => ["url" => "/login.php", "icon" => "bi bi-0-circle-fill"]
         ];
 
         public function __construct($installdir="",$links = []) {
@@ -38,13 +38,13 @@
             $this->links = $this->defaultNavLinks;
             $html = "<nav class='navbar navbar-expand-lg navbar'>";
             $html .= "<a class='navbar-brand' href='".$this->links["Home"]["url"]."'>";
-            $html .= "<img id='logo' src='".".."/*Need a sitevar for this*/."/images/logo.png' alt='Logo' width='100px.'>";
+            $html .= "<img id='logo' src='".$GLOBALS['imgUrl']."/logo.png' alt='Logo' width='100px.'>";
             $html .= "</a>";
             $html .= "<div class='collapse navbar-collapse' id='navbarNav'>";            
             $html .= "<ul class='navbar-nav ml-auto'>";
         
             foreach ($this->links as $text => $info) {
-                $url = $info['url'];
+                $url = $GLOBALS['webRoot'].$info['url'];
                 $icon = isset($info['icon']) ? "<i class='{$info['icon']}'></i> " : "";
                 $html .= "<li class='nav-item'><a class='navbar-link' href='{$url}'>{$icon}{$text}</a></li>";
             }

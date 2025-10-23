@@ -2,8 +2,7 @@
     include_once 'Navbar.php';
     include_once 'Header.php';
     include_once 'Footer.php';
-    include_once __DIR__."\..\includes\sitefunctions.php";
-    includeFiles();
+    include_once __DIR__.'/../includes/sitevars.php';
     class PageClass {
         private $pageContent;
         private $passedContent;

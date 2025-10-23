@@ -1,0 +1,29 @@
+GET - Retrieves orders
+
+GET /apiorders.php - Returns all orders
+GET /apiorders.php?orderID=123 - Returns a specific order with its items
+
+POST - Creates a new order with items
+
+Accepts: {orderStatus, notes, date, items: [{inventoryID, name, quantity, price}]}
+
+PUT - Completely replaces an order (updates order and replaces all items)
+
+Accepts: {orderID, orderStatus, notes, date, items: [...]}
+
+DELETE - Removes an order and its items
+
+Accepts: {orderID}
+
+PATCH - Partially updates an order (e.g., just change status)
+
+Accepts: {orderID, orderStatus?, notes?, date?}
+
+Key features:
+
+Proper HTTP status codes (200, 201, 400, 404, 500)
+Transaction support for data integrity
+JSON request/response format
+CORS headers for frontend integration
+Error handling and validation
+Respects foreign key constraints from your database

@@ -1,0 +1,32 @@
+GET - Retrieves users (passwords excluded for security)
+
+GET /apiusers.php - Returns all users
+GET /apiusers.php?userID=123 - Returns a specific user by ID
+GET /apiusers.php?username=john - Returns a specific user by username
+
+POST - Creates a new user
+
+Accepts: {username, password, credentialLevel}
+Passwords are automatically hashed using PHP's password_hash()
+Checks for duplicate usernames
+
+PUT - Completely replaces/updates a user
+
+Accepts: {userID, username, password, credentialLevel}
+Optional password field (only updates if provided)
+
+DELETE - Removes a user
+
+Accepts: {userID}
+
+PATCH - Partially updates a user
+
+Accepts: {userID, username?, password?, credentialLevel?}
+Only updates the fields provided
+
+Key security features:
+
+Passwords are hashed before storage
+Passwords are never returned in GET requests
+Username uniqueness is enforced
+Proper validation and error handling throughout
