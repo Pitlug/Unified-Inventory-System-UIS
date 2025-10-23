@@ -37,7 +37,7 @@
         public function render() {
             $this->links = $this->defaultNavLinks;
             $html = "<nav class='navbar navbar-expand-lg navbar'>";
-            $html .= "<a class='navbar-brand' href='".$this->links["Home"]["url"]."'>";
+            $html .= "<a class='navbar-brand' href='".$GLOBALS['webRoot'].$this->links["Home"]["url"]."'>";
             $html .= "<img id='logo' src='".$GLOBALS['imgUrl']."/logo-light.png' alt='Logo' width='100px.'>";
             $html .= "</a>";
             $html .= "<div class='collapse navbar-collapse' id='navbarNav'>";            
