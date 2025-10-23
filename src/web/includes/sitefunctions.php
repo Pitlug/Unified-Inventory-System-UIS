@@ -2,7 +2,7 @@
 function url(){
     global $installDir;
     if($installDir!=""){
-        $baseFilePath = "/".$installDir."/src/web";
+        $baseFilePath = "/".$installDir;
     }else{
         $baseFilePath = "/src/web";
     }

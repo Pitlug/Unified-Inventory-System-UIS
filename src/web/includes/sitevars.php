@@ -7,7 +7,7 @@ $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'?"https:/
 
     if ($domain == "127.0.0.1" || $domain == "localhost") {
 
-        $installDir = "Unified-Inventory-System-UIS";
+        $installDir = "Unified-Inventory-System-UIS/src/web";
         if (PHP_OS == "Darwin") {
 
             $fullInstallPath = "/Applications/XAMPP/xamppfiles/htdocs/Unified-Inventory-System-UIS";
@@ -24,7 +24,7 @@ $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'?"https:/
 
     } else {
         $installDir = "";
-        $fullInstallPath = "/var/www/uis.pitlug.com/Unified-Inventory-System-UIS";
+        $fullInstallPath = "/var/www/uis.pitlug.com/Unified-Inventory-System-UIS/src/web";
     }
 
     /*I don't think we are using this.
