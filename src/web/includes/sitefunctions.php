@@ -2,9 +2,9 @@
 function url(){
     global $installDir;
     if($installDir!=""){
-        $baseFilePath = "/".$installDir."/src/web";
+        $baseFilePath = "/".$installDir;
     }else{
-        $baseFilePath = "/src/web";
+        $baseFilePath = "";
     }
     if(isset($_SERVER['HTTPS'])){
         $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
