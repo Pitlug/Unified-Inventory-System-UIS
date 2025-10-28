@@ -1,3 +1,6 @@
+SHOW DATABASES;
+DROP DATABASE inventorymanagement;
+
 CREATE DATABASE IF NOT EXISTS inventorymanagement;
 USE inventorymanagement;
 
@@ -17,7 +20,7 @@ CREATE TABLE IF NOT EXISTS inventory (
     bundleID int NOT NULL,
     
     PRIMARY KEY (inventoryID),
-    CONSTRAINT fk_bundleID FOREIGN KEY (bundleID) REFERENCES bundle(bundleID)
+    CONSTRAINT fk_bundleID1 FOREIGN KEY (bundleID) REFERENCES bundle(bundleID)
 );
 
 CREATE TABLE IF NOT EXISTS bundleItems (
@@ -27,8 +30,8 @@ CREATE TABLE IF NOT EXISTS bundleItems (
     quantity int NOT NULL,
     
     PRIMARY KEY (ID),
-    CONSTRAINT fk_bundleID FOREIGN KEY (bundleID) REFERENCES bundle(bundleID),
-    CONSTRAINT fk_inventoryID FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
+    CONSTRAINT fk_bundleID2 FOREIGN KEY (bundleID) REFERENCES bundle(bundleID),
+    CONSTRAINT fk_inventoryID1 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
 );
 
 -- Tables for users
@@ -46,8 +49,11 @@ CREATE TABLE IF NOT EXISTS orders (
     orderStatus varchar(45) NOT NULL,
     notes varchar(255),
     date date NOT NULL,
+    userID int NOT NULL,
+    timestamp timestamp,
     
-    PRIMARY KEY (orderID)
+    PRIMARY KEY (orderID),
+    CONSTRAINT fk_userID1 FOREIGN KEY (userID) REFERENCES users(userID)
 );
 
 CREATE TABLE IF NOT EXISTS orderItems (
@@ -59,6 +65,18 @@ CREATE TABLE IF NOT EXISTS orderItems (
     price double NOT NULL,
     
     PRIMARY KEY (ID),
-    CONSTRAINT fk_orderID FOREIGN KEY (orderID) REFERENCES orders(orderID),
-    CONSTRAINT fk_inventoryID FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
+    CONSTRAINT fk_orderID1 FOREIGN KEY (orderID) REFERENCES orders(orderID),
+    CONSTRAINT fk_inventoryID2 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
+);
+
+CREATE TABLE IF NOT EXISTS logs (
+	logID int AUTO_INCREMENT,
+    userID int NOT NULL,
+    inventoryID int NOT NULL,
+    action text,
+    timestamp timestamp,
+    
+    PRIMARY KEY (logID),
+    CONSTRAINT fk_userID2 FOREIGN KEY (userID) REFERENCES users(userID),
+    CONSTRAINT fk_inventoryID3 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
 );
