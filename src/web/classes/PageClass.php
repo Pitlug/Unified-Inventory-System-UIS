@@ -6,6 +6,7 @@
     class PageClass {
         private $pageContent;
         private $passedContent;
+        private $bodyTag;
         private $pageName;
         private $header;
         private $navBar;
@@ -17,6 +18,15 @@
             $this->header = new Header($pageName,$styles,$jsfiles);
             $this->navBar = new Navbar();
             $this->footer = new Footer();
+            if(isset($_COOKIE['theme']) && $_COOKIE['theme']=='dark'){
+                $this->bodyTag = '<body class="dark-mode">';
+                $this->navBar->themeChange('dark');
+            }else{
+                $this->bodyTag = '<body>';
+                $this->navBar->themeChange('light');
+            }
+            $this->header->addJS('mode-toggle.js');
+            
         }
 
         public function standardize(){
@@ -26,8 +36,10 @@
         public function render() {
             $this->pageContent = $this->header->render();
             $this->pageContent .= $this->navBar->render();    
+            $this->pageContent .= $this->bodyTag;
             $this->pageContent .= $this->passedContent;
             $this->pageContent .= $this->footer->render();
+            $this->pageContent .= '</body>';
             return $this->pageContent;
         }
 

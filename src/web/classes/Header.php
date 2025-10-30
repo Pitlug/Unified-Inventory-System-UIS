@@ -8,7 +8,7 @@
             $jsUrl = $GLOBALS['jsUrl'];
 
             $this->headContent = '<html><head>
-            <title>'.$cssUrl.'</title>';
+            <title>'.$pageName.'</title>';
 
             if(isset($extraStyles) && is_array($extraStyles) && count($extraStyles)>0){
                 foreach($extraStyles as $cssfile){
@@ -21,7 +21,7 @@
 
             if(isset($jsFiles) && is_array($jsFiles) && count($jsFiles)>0 ){
                 foreach($jsFiles as $jsfile){
-                    $this->jsContent.='<script src="'.$jsUrl.$jsfile.'"></script>';
+                    $this->jsContent.='<script type="module" src="'.$jsUrl.$jsfile.'"></script>';
                 }
             }
             $this->jsContent.='<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>';
