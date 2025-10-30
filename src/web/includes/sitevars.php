@@ -1,6 +1,6 @@
 <?php
 global $installDir, $urlForNavBar,$protocol_used,$domain, $data_config_path,$fullInstallPath;
- 
+
 $domain = $_SERVER["HTTP_HOST"];
 $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'?"https://":"http://";
 //$data_config_path = "data_src/api/includes/db_config.php";
@@ -41,6 +41,8 @@ $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'?"https:/
 include_once "sitefunctions.php";
 
 $url = url();
+$GLOBALS['src'] = dirname(dirname(__DIR__)).'\\';
+$GLOBALS['apiUrl'] = $GLOBALS['src'].'api\\';
 $GLOBALS['webRoot'] = $url;
 $GLOBALS['cssUrl'] = $url.'/css/';
 $GLOBALS['jsUrl'] = $url.'/js/';

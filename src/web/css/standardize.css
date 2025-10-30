@@ -9,15 +9,7 @@
     --border: #dee2e6;
     --modeColor: #ffffff;
     --modeColorOPP: #111827;
-    /*
-    --primary: #1f2937; 
-    --secondary: #5dade2; 
-    --accent: #f1948a; 
-    --light: #d1d5db; 
-    --border: #4b5563; 
-    --modeColor: #111827; 
-    --modeColorOPP: #f9fafb; 
-    */
+
     --helper-text-color: #9ca3af;
     --footerHoverColor: #5dade2;
     --btnprimaryHover: #2980b9;
@@ -42,6 +34,9 @@
 /* global Styles */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+.hidden{
+    display:none;
+}
 
 .form-text {
   margin-top: .25rem;
@@ -73,8 +68,8 @@ main { flex: 1; padding: 2rem; max-width: 1400px; margin: 0 auto; width: 100%; }
 
 .navbar-brand { display: flex; align-items: center; text-decoration: none; }
 
-#logo { color:var(--modeColorOPP);height: 60px; width: auto; transition: transform 0.3s ease; }
-#logo:hover { transform: scale(1.05); }
+.logo { color:var(--modeColorOPP);height: 60px; width: auto; transition: transform 0.3s ease; }
+.logo:hover { transform: scale(1.05); }
 
 .navbar-nav {
     display: flex;
@@ -211,6 +206,10 @@ input:focus, textarea:focus, select:focus {
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
+}
+
+body.dark-mode .btn{
+    --bs-btn-color:var(--light);
 }
 
 .btn-primary { background-color: var(--secondary); color: var(--modeColor); }
