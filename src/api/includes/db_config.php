@@ -16,6 +16,6 @@ if($_SERVER["HTTP_HOST"] == "127.0.0.1" || $_SERVER["HTTP_HOST"] == "localhost")
 } else {
     $host = "146.135.13.90";
     $database = "inventorymanagement";
-    $dbUsername = "urenkoa";
-    $dbPassword = "!nbNmKXJ!BQee2P";
+    $dbUsername = "amxp";
+    $dbPassword = "tmp";
 }

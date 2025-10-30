@@ -3,11 +3,11 @@
     class NavBar {
         private $links = [];
         private /*static*/ $defaultNavLinks = [
-            "Home" => ["url" => "/index.php", "icon" => "bi bi-0-circle-fill"],
-            "Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-0-circle-fill"],
-            "Orders" => ["url" => "/orders.php", "icon" => "bi bi-0-circle-fill"],
-            "Users" => ["url" => "/users.php", "icon" => "bi bi-0-circle-fill"],
-            "Login" => ["url" => "/login.php", "icon" => "bi bi-0-circle-fill"]
+            "Home" => ["url" => "/index.php", "icon" => "bi bi-house-fill"],
+            "Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
+            "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],
+            "Users" => ["url" => "/users.php", "icon" => "bi bi-person-badge-fill"],
+            "Login" => ["url" => "/login.php", "icon" => "bi bi-unlock2-fill"]
         ];
 
         public function __construct($installdir="",$links = []) {
@@ -37,8 +37,8 @@
         public function render() {
             $this->links = $this->defaultNavLinks;
             $html = "<nav class='navbar navbar-expand-lg navbar'>";
-            $html .= "<a class='navbar-brand' href='".$this->links["Home"]["url"]."'>";
-            $html .= "<img id='logo' src='".$GLOBALS['imgUrl']."/logo.png' alt='Logo' width='100px.'>";
+            $html .= "<a class='navbar-brand' href='".$GLOBALS['webRoot'].$this->links["Home"]["url"]."'>";
+            $html .= "<img id='logo' src='".$GLOBALS['imgUrl']."/logo-light.png' alt='Logo' width='100px.'>";
             $html .= "</a>";
             $html .= "<div class='collapse navbar-collapse' id='navbarNav'>";            
             $html .= "<ul class='navbar-nav ml-auto'>";
