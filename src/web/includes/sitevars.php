@@ -47,4 +47,6 @@ $GLOBALS['jsUrl'] = $url.'/js/';
 $GLOBALS['imgUrl'] = $url.'/images/';
 $GLOBALS['classUrl'] = $url.'/classes/';
 $GLOBALS['includeUrl'] = $url.'/includes/';
+$GLOBALS['api-orders'] = $url.'/api/orders/api_orders.php';
+$GLOBALS['inventory'] = $url.'/inventory/';
 ?>

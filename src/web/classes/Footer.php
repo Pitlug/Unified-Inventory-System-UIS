@@ -7,7 +7,7 @@
 
         public function __construct($text="") {
             $this->text = $text;
-            $this->text .= "<br>Copyright 2025<br>";
+            $this->text .= "<br>Copyright UIS 2025<br>";
         }
 
         public function render() {
