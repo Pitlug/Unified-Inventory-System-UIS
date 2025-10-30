@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS users (
     userID int AUTO_INCREMENT,
 	username varchar(45) UNIQUE NOT NULL,
     password varchar(45) NOT NULL,
-    credentialLevel varchar(45),
+    credentialLevel int NOT NULL,
     
     PRIMARY KEY (userID)
 );
