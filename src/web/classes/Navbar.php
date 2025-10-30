@@ -3,11 +3,11 @@
     class NavBar {
         private $links = [];
         private /*static*/ $defaultNavLinks = [
-            "Home" => ["url" => "/index.php", "icon" => "bi bi-0-circle-fill"],
-            "Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-0-circle-fill"],
-            "Orders" => ["url" => "/orders.php", "icon" => "bi bi-0-circle-fill"],
-            "Users" => ["url" => "/users.php", "icon" => "bi bi-0-circle-fill"],
-            "Login" => ["url" => "/login.php", "icon" => "bi bi-0-circle-fill"]
+            "Home" => ["url" => "/index.php", "icon" => "bi bi-house-fill"],
+            "Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
+            "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],
+            "Users" => ["url" => "/users.php", "icon" => "bi bi-person-badge-fill"],
+            "Login" => ["url" => "/login.php", "icon" => "bi bi-unlock2-fill"]
         ];
 
         public function __construct($installdir="",$links = []) {

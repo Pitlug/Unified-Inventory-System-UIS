@@ -15,9 +15,9 @@
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <button type="mode-toggle" class="btn btn-primary">Dark/Light Mode</button>
+  <button type="button" id="mode-toggle" class="btn btn-primary">Dark/Light Mode</button>
 </form>';
-    $page = new PageClass('Home',$pageContent);
+    $page = new PageClass('Home',$pageContent,[],['mode-toggle.js']);
     $page->standardize();
     echo $page->render();
 ?>

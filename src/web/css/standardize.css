@@ -221,3 +221,12 @@ input:focus, textarea:focus, select:focus {
 
 .btn-secondary { background-color: var(--btnSecondaryBG); color: var(--modeColor); }
 .btn-secondary:hover { background-color: var(--btnSecondaryHover); }
+
+
+/* smooth transitions for color changes */
+body, .navbar, footer, .card, table,
+input[type="text"], input[type="email"], input[type="password"],
+input[type="number"], textarea, select, label, th, td,
+.form-check-label, .form-text {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
