@@ -34,3 +34,29 @@ Team UIS from Etown college, 2025 Software Engineering - CS 341
     how to run locally
     Also how to setup the server
     link to the site
+
+
+# Credential Levels
+ - has ability to do what ever is listed as well as below them
+**0. Admin** 
+ - All seeing, able to create/delete/modify users
+ - Able to view all audit logs and system reports
+ - Full system configuration control 
+ - Override any action or restriction
+
+**1. Manager**
+ - Able to add, edit, and delete inventory records
+ - Create and manage orders
+ - Generate reports and analytics
+ - Approve/reject requests from lower levels
+
+**2. Staff**
+ - Able to add and edit inventory records
+ - View all inventory across categories
+ - Create order requests (may need manager approval)
+ - Update stock levels and item details
+
+**3. Viewer/read-only**
+ - Able to view inventory by category
+ - View current stock levels
+ - View order status
