@@ -8,4 +8,10 @@
 <body>
     <p>Coming soon</p>
 </body>
+<script>
+    if (!sessionStorage.getItem("redirected")) {
+        sessionStorage.setItem("redirected", "true");
+        window.location.href = "src/web/index.php";
+    }
+</script>
 </html>
