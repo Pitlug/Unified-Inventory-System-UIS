@@ -21,6 +21,7 @@
     
 
     <div>
+        <br>
         <label for="categorylist" class="form-label">Category</label>
         <input class="form-control" list="categoryList" id="categorylist" placeholder="Type to search...">
         <datalist id="categoryList">
@@ -32,8 +33,15 @@
             <option value="food">
         </datalist>
     </div>
+
+    <div>
+        <br>
+        <button type="button" class="btn btn-outline-danger">Submit</button>
+        <br>
+        <br>
+    </div>
     ';
-    $page = new PageClass('Inventory Creation',$pageContent);
+    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js']);
     $page->standardize();
     echo $page->render();
 ?>
