@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updatePHP(){
-        document.cookie = "theme="+localStorage.getItem('theme-mode');
+        document.cookie = "theme="+localStorage.getItem('theme-mode')+";Domain=";
     }
     
     // Add click event listener
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Load the saved mode on page load
+    console.log(document.cookie);
     updatePHP();
     loadMode();
 });

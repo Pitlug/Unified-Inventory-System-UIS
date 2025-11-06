@@ -1,0 +1,77 @@
+@import url("config_vars.css");
+
+/*
+=======================
+Start Main
+=======================
+*/
+.page-content{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    background-color:bisque;
+}
+
+.main-content{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow:3;
+    height:120vh;
+    padding:20px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-bottom:20px;
+    background-color:#16A2D7;
+}
+/*
++++++++++++++++++++++++
+End Main
++=+=+=+=+=+=+=+=+=+=+=+
+Start Sidebar
+=======================
+*/
+.inventory-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow:1;
+    padding: 10px;
+    margin-top:50px;
+}
+
+.sizer{
+    height:0px;
+    visibility: hidden;
+}
+
+.category-list{
+    position:fixed;
+    background-color:var(--primary);
+    border-radius: 30px;
+    height:50vh;
+    width:16vw;
+    padding:10px;
+}
+
+.category-item{
+    text-align:center;
+    padding-left:10px;
+    padding-right:10px;
+    border-top: 1px solid var(--modeColor);
+    border-bottom: 1px solid var(--modeColor);
+}
+
+.category-item a{
+    cursor: pointer;
+    color: var(--modeColorOPP);
+}
+.category-item.selected {
+    background-color: #EEF3F5;
+    border-radius: 4px;
+}
+/*
++++++++++++++++++++++++
+End Sidebar
++++++++++++++++++++++++
+*/
