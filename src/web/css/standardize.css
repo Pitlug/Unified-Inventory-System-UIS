@@ -1,35 +1,6 @@
 /* https://www.w3schools.com/cssref/index.php */
 
-/* root varables */
-:root {
-    --primary: #5185b9;
-    --secondary: #3498db;
-    --accent: #e74c3c;
-    --light: #f8f9fa;
-    --border: #dee2e6;
-    --modeColor: #ffffff;
-    --modeColorOPP: #111827;
-
-    --helper-text-color: #9ca3af;
-    --footerHoverColor: #5dade2;
-    --btnprimaryHover: #2980b9;
-    --btnDangerHover: #c0392b;
-    --btnSecondaryHover: #7f8c8d;
-    --btnSecondaryBG: #95a5a6;
-
-}
-
-/* Override variables for dark mode */
-.dark-mode {
-    --primary: #1f2937; /* Dark background/base */
-    --secondary: #5dade2; /* Lighter accent blue for links/buttons */
-    --accent: #f1948a; /* Lighter accent red for errors/alerts */
-    --light: #d1d5db; /* Main text/foreground color */
-    --border: #4b5563; /* Subtle dividing lines/borders */
-    --modeColor: #111827; /* Deepest background color */ 
-    --modeColorOPP: #f9fafb; /* Lightest background color */
-    --helper-text-color: #9ca3af; /* Muted text color for hints/placeholders */
-}
+ @import url("config_vars.css");
 
 /* global Styles */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -106,6 +77,7 @@ footer {
     text-align: center;
     margin-top: auto;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    position:sticky;
 }
 
 footer p { margin: 0; line-height: 1.8; }
