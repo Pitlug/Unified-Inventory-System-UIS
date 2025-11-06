@@ -90,8 +90,26 @@ CREATE TABLE IF NOT EXISTS logs (
     inventoryID int NOT NULL,
     action text,
     timestamp timestamp,
+    logActionID int NOT NULL,
     
     PRIMARY KEY (logID),
     CONSTRAINT fk_userID2 FOREIGN KEY (userID) REFERENCES users(userID),
-    CONSTRAINT fk_inventoryID3 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
+    CONSTRAINT fk_inventoryID3 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID),
+    CONSTRAINT fk_logActionID1 FOREIGN KEY (logActionID) REFERENCES logActions(logACtionID)
 );
+
+DROP TABLE IF EXISTS logActions;
+CREATE TABLE IF NOT EXISTS logActions (
+	logActionID int auto_increment,
+    orderID int,
+    inventoryID int,
+    bundleID int,
+    userID int,
+    
+    PRIMARY KEY (logActionID),
+    CONSTRAINT fk_orderID2 FOREIGN KEY (orderID) REFERENCES orders(orderID),
+    CONSTRAINT fk_inventoryID4 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID),
+    CONSTRAINT fk_bundleID3 FOREIGN KEY (bundleID) REFERENCES bundles(bundleID),
+    CONSTRAINT fk_userID3 FOREIGN KEY (userID) REFERENCES users(userID)
+);
+    
