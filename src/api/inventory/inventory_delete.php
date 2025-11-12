@@ -15,7 +15,7 @@ function handleDelete($pdo, $input) {
             return;
         }
         
-        // Check if order exists
+        // Check if item exists
         $stmt = $pdo->prepare("SELECT inventoryID FROM inventory WHERE inventoryID = ?");
         $stmt->execute([$input['inventoryID']]);
         if (!$stmt->fetch()) {
