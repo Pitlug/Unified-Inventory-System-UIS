@@ -5,7 +5,7 @@
         private $lHidden = '';
         private $dHIdden = '';
         private $themeTxt = '';
-        private /*static*/ $defaultNavLinks = [
+        private $defaultNavLinks = [
             "Home" => ["url" => "/index.php", "icon" => "bi bi-house-fill"],
             "Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
             "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],
