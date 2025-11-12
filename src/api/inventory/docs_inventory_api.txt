@@ -1,0 +1,27 @@
+GET - Retrieves items in inventory
+
+
+POST - Adds a new item to inventory
+
+Accepts: {inventoryID, name, description, quantity, categoryID}
+
+PUT - Completely replaces an item in inventory
+
+Accepts: {inventoryID, name, description, quantity, categoryID}
+
+DELETE - Removes an item from inventory
+
+Accepts: {inventoryID}
+
+PATCH - Partially updates an item in inventory (e.g., price change or updating quantity)
+
+Accepts: {inventoryID, name?, description?, quantity?}
+
+Key features:
+
+Proper HTTP status codes (200, 201, 400, 404, 500)
+Transaction support for data integrity
+JSON request/response format
+CORS headers for frontend integration
+Error handling and validation
+Respects foreign key constraints from your database
