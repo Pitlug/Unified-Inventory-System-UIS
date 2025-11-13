@@ -41,6 +41,8 @@
             $this->headContent.=$this->cssContent;
             $this->headContent.=$this->jsContent;
             $this->headContent.='</head>';
+            // Make base/API URLs available to front-end JS
+            $this->headContent .= "<script>window.UIS_BASE='".($GLOBALS['webRoot'] ?? '')."';window.UIS_API='".($GLOBALS['apiUrl'] ?? '')."';</script>";
             return $this->headContent;
         }
     }
