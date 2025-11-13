@@ -3,7 +3,7 @@
     class NavBar {
         private $links = [];
         private $lHidden = '';
-        private $dHIdden = '';
+        private $dHidden = '';
         private $themeTxt = '';
         private $defaultNavLinks = [
             "Home" => ["url" => "/index.php", "icon" => "bi bi-house-fill"],

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 $_SESSION['userID'] = $user['userID'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['credentialLevel'] = $user['credentialLevel'];
-                $_SESSION['isAdmin'] = ($user['credentialLevel'] === 'admin');
+                $_SESSION['isAdmin'] = ($user['credentialLevel'] === '0');
                 
                 // Redirect to home page
                 header('Location: index.php');
