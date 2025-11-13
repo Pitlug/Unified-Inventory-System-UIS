@@ -34,6 +34,10 @@
         }
 
         public function render() {
+            if ($this->pageName!='Home'){
+                GetCredlevel();
+            }
+            
             $this->pageContent = $this->header->render();
             $this->pageContent .= $this->navBar->render();    
             $this->pageContent .= $this->bodyTag;
