@@ -64,4 +64,6 @@ $GLOBALS['classUrl'] = $url . '/classes/';
 $GLOBALS['includeUrl'] = $url . '/includes/';
 $GLOBALS['api-orders'] = $url . '/api/orders/api_orders.php';
 $GLOBALS['inventory'] = $url . '/inventory/';
+$GLOBALS['apiUrl']  = $GLOBALS['webRoot'] . '/api';
+$GLOBALS['urlForNavBar'] = $GLOBALS['webRoot'];
 ?>

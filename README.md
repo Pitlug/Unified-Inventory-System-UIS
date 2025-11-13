@@ -60,3 +60,12 @@ Team UIS from Etown college, 2025 Software Engineering - CS 341
  - Able to view inventory by category
  - View current stock levels
  - View order status
+
+ # Site Configuration by Devs
+ - The site is setup to run one of many different ways, here are the ways:
+ **1. Hostinger Hosted Apache Web Server
+ - Hostinger Apache web server with Unified-Inventory-System-UIS as root.
+ **2. Home Lab Apache Web Server
+ - Home lab Apache server with web folder as root.
+ **3. XAMPP Local Testing
+ - And locally tested on XAMPP with Unified-Inventory-System-UIS as root.
