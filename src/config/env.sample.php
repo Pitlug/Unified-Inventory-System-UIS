@@ -19,7 +19,7 @@ return [
   // Database defaults (override with env.local.php or environment variables)
   'db' => [
     'local' => [
-      'host' => '127.0.0.1',
+      'host' => 'localhost',
       'name' => 'inventorymanagement',
       'user' => 'root',
       'pass' => '',
@@ -33,9 +33,9 @@ return [
       'port' => 3306,
     ],
     'homelab' => [
-      'host' => '192.0.2.123', // <-- replace with your homelab MariaDB IPv4
+      'host' => '146.135.13.90', // <-- replace with your homelab MariaDB IPv4
       'name' => 'inventorymanagement',
-      'user' => 'uis_user',     // <-- replace with your homelab DB user
+      'user' => 'rein',     // <-- replace with your homelab DB user
       'pass' => getenv('DB_PASS') ?: '',
       'port' => 3306,
     ],
