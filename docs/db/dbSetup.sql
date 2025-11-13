@@ -11,6 +11,15 @@ CREATE TABLE IF NOT EXISTS bundle (
     PRIMARY KEY (bundleID)
 );
 
+DROP TABLE IF EXISTS categories;
+CREATE TABLE IF NOT EXISTS categories (
+	categoryID int auto_increment,
+    categoryName varchar(45) NOT NULL,
+    categoryDesc varchar(255) NOT NULL,
+    
+    PRIMARY KEY (categoryID)
+);
+
 DROP TABLE IF EXISTS inventory;
 CREATE TABLE IF NOT EXISTS inventory (
     inventoryID int AUTO_INCREMENT,
@@ -35,14 +44,7 @@ CREATE TABLE IF NOT EXISTS bundleItems (
     CONSTRAINT fk_inventoryID1 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
 );
 
-DROP TABLE IF EXISTS categories;
-CREATE TABLE IF NOT EXISTS categories (
-	categoryID int auto_increment,
-    categoryName varchar(45) NOT NULL,
-    categoryDesc varchar(255) NOT NULL,
-    
-    PRIMARY KEY (categoryID)
-);
+
     
 
 -- Tables for users
@@ -83,6 +85,21 @@ CREATE TABLE IF NOT EXISTS orderItems (
     CONSTRAINT fk_inventoryID2 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
 );
 
+DROP TABLE IF EXISTS logActions;
+CREATE TABLE IF NOT EXISTS logActions (
+	logActionID int auto_increment,
+    orderID int,
+    inventoryID int,
+    bundleID int,
+    userID int,
+    
+    PRIMARY KEY (logActionID),
+    CONSTRAINT fk_orderID2 FOREIGN KEY (orderID) REFERENCES orders(orderID),
+    CONSTRAINT fk_inventoryID4 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID),
+    CONSTRAINT fk_bundleID3 FOREIGN KEY (bundleID) REFERENCES bundle(bundleID),
+    CONSTRAINT fk_userID3 FOREIGN KEY (userID) REFERENCES users(userID)
+);
+
 DROP TABLE IF EXISTS logs;
 CREATE TABLE IF NOT EXISTS logs (
 	logID int AUTO_INCREMENT,
@@ -95,21 +112,5 @@ CREATE TABLE IF NOT EXISTS logs (
     PRIMARY KEY (logID),
     CONSTRAINT fk_userID2 FOREIGN KEY (userID) REFERENCES users(userID),
     CONSTRAINT fk_inventoryID3 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID),
-    CONSTRAINT fk_logActionID1 FOREIGN KEY (logActionID) REFERENCES logActions(logACtionID)
+    CONSTRAINT fk_logActionID1 FOREIGN KEY (logActionID) REFERENCES logActions(logActionID)
 );
-
-DROP TABLE IF EXISTS logActions;
-CREATE TABLE IF NOT EXISTS logActions (
-	logActionID int auto_increment,
-    orderID int,
-    inventoryID int,
-    bundleID int,
-    userID int,
-    
-    PRIMARY KEY (logActionID),
-    CONSTRAINT fk_orderID2 FOREIGN KEY (orderID) REFERENCES orders(orderID),
-    CONSTRAINT fk_inventoryID4 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID),
-    CONSTRAINT fk_bundleID3 FOREIGN KEY (bundleID) REFERENCES bundles(bundleID),
-    CONSTRAINT fk_userID3 FOREIGN KEY (userID) REFERENCES users(userID)
-);
-    
