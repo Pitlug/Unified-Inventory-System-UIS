@@ -36,10 +36,13 @@ function getHostType() {
         return "UNKNOWN";
     }
 }
-function GetCredlevel(){
+function GetCredlevel($location){
     // Check if user is logged in
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-        header('Location: login.php');
+        $_SESSION['credentialLevel'] = null;
+        if($location!='Login'){
+            header("Location: {$GLOBALS['webRoot']}/login.php");
+        }
         return false;
         exit();
     }

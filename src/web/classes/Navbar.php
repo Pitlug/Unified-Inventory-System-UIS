@@ -16,19 +16,16 @@
         ];
 
         public function __construct($installdir="",$links = []) {
-            echo var_dump($_SESSION);
-
-            if ($_SESSION['loggedin'] === false){
+            if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] === false){
                 $this->links = ["Login" => ["url" => "/login.php", "icon" => "bi bi-unlock2-fill"]];
-
-            }
-            if ($_SESSION['credentialLevel'] === 0){
-                $this->links = array_merge($this->defaultNavLinks, ["Users" => ["url" => "/users.php", "icon" => "bi bi-person-badge-fill"],"Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
-                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],"Logout" => ["url" => "/includes/logout.php", "icon" => "bi bi-unlock2-fill"]]);
+            }elseif (isset($_SESSION['credentialLevel']) && $_SESSION['credentialLevel'] === 0){
+                $this->links = ["Users" => ["url" => "/users.php", "icon" => "bi bi-person-badge-fill"],"Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
+                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],"Logout" => ["url" => "/includes/logout.php", "icon" => "bi bi-unlock2-fill"]];
             }else{
-                $this->links = array_merge($this->defaultNavLinks, ["Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
-                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],"Logout" => ["url" => "/includes/logout.php", "icon" => "bi bi-unlock2-fill"]]);
+                $this->links = ["Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
+                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],"Logout" => ["url" => "/includes/logout.php", "icon" => "bi bi-unlock2-fill"]];
             }
+            $this->links = array_merge($this->defaultNavLinks,$this->links);
         }
 
         public function themeChange($theme){
