@@ -14,6 +14,12 @@
 
         public function __construct($pageName,$content,$styles=[],$jsfiles=[]) {
             $this->pageName = $pageName;
+            if (($this->pageName =='Home') or ($this->pageName=='Login')){
+                $this->pageContent.= "not wokry";
+            }else{
+                //GetCredlevel();
+                $this->pageContent.= "workey";
+            }
             $this->passedContent = $content;
             $this->header = new Header($pageName,$styles,$jsfiles);
             $this->navBar = new Navbar();
@@ -34,10 +40,6 @@
         }
 
         public function render() {
-            if ($this->pageName!='Home'){
-                GetCredlevel();
-            }
-            
             $this->pageContent = $this->header->render();
             $this->pageContent .= $this->navBar->render();    
             $this->pageContent .= $this->bodyTag;

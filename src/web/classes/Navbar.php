@@ -16,12 +16,13 @@
         ];
 
         public function __construct($installdir="",$links = []) {
+            echo var_dump($_SESSION);
 
-            if (GetCredlevel() === false){
+            if ($_SESSION['loggedin'] === false){
                 $this->links = ["Login" => ["url" => "/login.php", "icon" => "bi bi-unlock2-fill"]];
 
             }
-            if (GetCredlevel() === 0){
+            if ($_SESSION['credentialLevel'] === 0){
                 $this->links = array_merge($this->defaultNavLinks, ["Users" => ["url" => "/users.php", "icon" => "bi bi-person-badge-fill"],"Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
                 "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],"Logout" => ["url" => "/includes/logout.php", "icon" => "bi bi-unlock2-fill"]]);
             }else{
