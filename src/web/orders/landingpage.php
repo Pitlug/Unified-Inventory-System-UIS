@@ -15,7 +15,7 @@
             <button id="add-order-btn">Add Order</button>
         </a>
         
-        <button id="add-order-btn">Edit Order</button>
+        <button id="edit-order-btn">Edit Order</button>
     </div>
     ';
 
