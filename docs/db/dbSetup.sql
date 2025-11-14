@@ -1,8 +1,10 @@
 DROP DATABASE IF EXISTS inventorymanagement;
+DROP DATABASE IF EXISTS inventorymanagement;
 CREATE DATABASE IF NOT EXISTS inventorymanagement;
 USE inventorymanagement;
 
 -- Tables for items
+DROP TABLE IF EXISTS bundle;
 DROP TABLE IF EXISTS bundle;
 CREATE TABLE IF NOT EXISTS bundle (
     bundleID int auto_increment,
@@ -27,11 +29,14 @@ CREATE TABLE IF NOT EXISTS inventory (
     description varchar(255) NOT NULL,
     quantity int NOT NULL,
     categoryID int NOT NULL,
+    categoryID int NOT NULL,
     
     PRIMARY KEY (inventoryID),
     CONSTRAINT fk_categoryID1 FOREIGN KEY (categoryID) REFERENCES categories(categoryID)
+    CONSTRAINT fk_categoryID1 FOREIGN KEY (categoryID) REFERENCES categories(categoryID)
 );
 
+DROP TABLE IF EXISTS bundleItems;
 DROP TABLE IF EXISTS bundleItems;
 CREATE TABLE IF NOT EXISTS bundleItems (
     ID int auto_increment,
@@ -49,15 +54,18 @@ CREATE TABLE IF NOT EXISTS bundleItems (
 
 -- Tables for users
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
     userID int AUTO_INCREMENT,
 	username varchar(45) UNIQUE NOT NULL,
     password varchar(45) NOT NULL,
     credentialLevel varchar(45),
+    credentialLevel varchar(45),
     
     PRIMARY KEY (userID)
 );
 
+DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS orders;
 CREATE TABLE IF NOT EXISTS orders (
     orderID int AUTO_INCREMENT,
@@ -71,6 +79,7 @@ CREATE TABLE IF NOT EXISTS orders (
     CONSTRAINT fk_userID1 FOREIGN KEY (userID) REFERENCES users(userID)
 );
 
+DROP TABLE IF EXISTS orderItems;
 DROP TABLE IF EXISTS orderItems;
 CREATE TABLE IF NOT EXISTS orderItems (
     ID int AUTO_INCREMENT,
@@ -107,6 +116,7 @@ CREATE TABLE IF NOT EXISTS logs (
     inventoryID int NOT NULL,
     action text,
     timestamp timestamp,
+    logActionID int NOT NULL,
     logActionID int NOT NULL,
     
     PRIMARY KEY (logID),

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE){
+    session_start();
+};
 include_once 'classes/PageClass.php';
 
 // Handle login submission
@@ -32,9 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 $_SESSION['userID'] = $user['userID'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['credentialLevel'] = $user['credentialLevel'];
-                $_SESSION['isAdmin'] = ($user['credentialLevel'] === '0');
+                $_SESSION['isAdmin'] = ($user['credentialLevel'] === 0);
                 
                 // Redirect to home page
+                $pdo=null;
                 header('Location: index.php');
                 exit();
             } else {

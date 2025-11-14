@@ -1,4 +1,7 @@
 <?PHP
+if (session_status() === PHP_SESSION_NONE){
+    session_start();
+};
 function url(){
     global $installDir;
 
@@ -32,6 +35,31 @@ function getHostType() {
     } else {
         return "UNKNOWN";
     }
+}
+function GetCredlevel($location){
+    // Check if user is logged in
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        $_SESSION['credentialLevel'] = null;
+        if($location!='Login'){
+            header("Location: {$GLOBALS['webRoot']}/login.php");
+        }
+        return false;
+        exit();
+    }
+    return $_SESSION['credentialLevel'];
+}
+
+function Logout(){
+    // Set session variables
+    $_SESSION['loggedin'] = false;
+    $_SESSION['userID'] = null;
+    $_SESSION['username'] = null;
+    $_SESSION['credentialLevel'] = null;
+    $_SESSION['isAdmin'] = null;
+                
+    // Redirect to home page
+    header("Location: {$GLOBALS['webRoot']}/index.php");
+    exit();
 }
 
 ?>
