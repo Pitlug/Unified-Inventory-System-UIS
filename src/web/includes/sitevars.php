@@ -65,5 +65,6 @@ $GLOBALS['includeUrl'] = $url . '/includes/';
 $GLOBALS['apiorders'] = $url . '/api/orders/api_orders.php';
 $GLOBALS['apiInventory'] = $fullInstallPath . '/src/api/inventory/api_inventory.php';
 $GLOBALS['inventory'] = $url . '/inventory/';
-$GLOBALS['database'] = $fullInstallPath . '/src/api/includes/database.php';
+$GLOBALS['database'] = '../../../src/api/includes/database.php';
+$GLOBALS['datacon'] = '../../../src/api/includes/db_config.php'; //Database configuration file
 ?>

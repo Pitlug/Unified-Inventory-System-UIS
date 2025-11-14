@@ -1,4 +1,5 @@
 <?php
+include_once '../../web/includes/sitevars.php';
 // Database.php
 final class Database
 {
@@ -35,7 +36,7 @@ final class Database
     public static function getInstance(): Database
     {
         if (self::$instance === null) {
-            $config = require __DIR__ . '/config.php';
+            $config = require $GLOBALS ['datacon'];
             self::$instance = new self($config['db']);
         }
         return self::$instance;

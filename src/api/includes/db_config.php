@@ -1,36 +1,146 @@
 <?php
+/**
+ * UIS unified DB config (returns ['db' => [...]])
+ * Works with Database::getInstance() which does: require $GLOBALS['datacon']; $config['db'] ...
+ *
+ * Resolution order for secrets:
+ *   1) src/config/env.local.php  (not committed; safest if placed outside web root)
+ *   2) Environment variables: UIS_DB_HOST, UIS_DB_PORT, UIS_DB_NAME, UIS_DB_USER, UIS_DB_PASS, UIS_DB_PERSISTENT, UIS_ENV
+ *   3) Built-in defaults per environment
+ */
 
-// Security stuff: don't worry about it for now
-//global $salt1, $salt2, $GLOBAL_API_KEY;
-//$GLOBAL_API_KEY = "";
-//$salt_1 = "";
-//$salt_2 = "";
+declare(strict_types=1);
 
+/**
+ * Safe loader for env.local.php.
+ * Must return an array like:
+ *   [
+ *     'env'  => 'local'|'hostinger'|'homelab',
+ *     'db' => [
+ *       'local'     => ['pass' => '...'],
+ *       'hostinger' => ['pass' => '...'],
+ *       'homelab'   => ['user' => '...', 'pass' => '...'],
+ *     ],
+ *     'bases' => [] // optional
+ *   ]
+ */
+function uis_load_env_local(): array
+{
+    // Adjust path if your file lives elsewhere
+    $envFile = __DIR__ . '/../../config/env.local.php';
+    if (is_file($envFile)) {
+        /** @noinspection PhpIncludeInspection */
+        $env = require $envFile;
+        if (is_array($env)) {
+            return $env;
+        }
+    }
+    return [];
+}
 
-//global $host, $database, $dbUsername, $dbPassword;
-//if($_SERVER["HTTP_HOST"] == "127.0.0.1" || $_SERVER["HTTP_HOST"] == "localhost") {
-//    $host = "localhost";
-//    $database = "inventorymanagement";
-//    $dbUsername = "root";
-//    $dbPassword = "";
-//} else {
-//    $host = "146.135.13.90";
-//    $database = "inventorymanagement";
-//    $dbUsername = "amxp";
-//    $dbPassword = "tmp";
-//} 
+/** Detect runtime environment */
+function uis_detect_env(array $envLocal): string
+{
+    // Highest priority: explicit override via env var
+    $forced = getenv('UIS_ENV');
+    if ($forced) {
+        return strtolower($forced); // 'local'|'hostinger'|'homelab'
+    }
 
-// config.php
-return [
-    'db' => [
-        'host'     => '127.0.0.1',   // or 'localhost'
-        'port'     => 3306,
-        'dbname'   => 'your_database',
-        'username' => 'your_user',   // avoid using 'root' in production
-        'password' => 'your_password',
-        'charset'  => 'utf8mb4',
-        // Optional: set to true if you want a persistent connection
+    // Next: explicit in env.local.php
+    if (!empty($envLocal['env'])) {
+        return strtolower((string)$envLocal['env']);
+    }
+
+    // Web hostnames
+    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''));
+    if ($host === 'uis.etowndb.com') return 'hostinger';
+    if ($host === 'uis.pitlug.com')  return 'homelab';
+    if ($host === '127.0.0.1' || $host === 'localhost' || $host === '') return 'local';
+
+    // CLI / unknown → local
+    if (PHP_SAPI === 'cli') return 'local';
+
+    return 'local';
+}
+
+/** Baseline defaults by environment (non-secret) */
+$defaults = [
+    'local' => [
+        'host'       => '127.0.0.1',
+        'port'       => 3306,
+        'dbname'     => 'inventorymanagement',
+        'username'   => 'root',
+        'password'   => '',
+        'charset'    => 'utf8mb4',
         'persistent' => false,
     ],
+    'hostinger' => [
+        // uis.etowndb.com
+        'host'       => 'srv557.hstgr.io',
+        'port'       => 3306,
+        'dbname'     => 'u413142534_uisdb',
+        'username'   => 'u413142534_uis',
+        'password'   => '',
+        'charset'    => 'utf8mb4',
+        'persistent' => true,
+    ],
+    'homelab' => [
+        // uis.pitlug.com
+        'host'       => '146.135.13.90',
+        'port'       => 3306,
+        'dbname'     => 'inventorymanagement',
+        'username'   => 'rein',
+        'password'   => '',
+        'charset'    => 'utf8mb4',
+        'persistent' => true,
+    ],
 ];
-?>
+
+$envLocal = uis_load_env_local(); // may be empty
+$envName  = uis_detect_env($envLocal);
+
+// Start with defaults
+$config = $defaults[$envName] ?? $defaults['local'];
+
+// Merge credentials from env.local.php if present
+if (!empty($envLocal['db'][$envName]) && is_array($envLocal['db'][$envName])) {
+    $fromLocal = $envLocal['db'][$envName];
+    // Accept optional overriding of user/host/name too
+    foreach (['host','port','dbname','username','password','charset','persistent'] as $k) {
+        if (array_key_exists($k, $fromLocal) && $fromLocal[$k] !== '' && $fromLocal[$k] !== null) {
+            $config[$k] = $fromLocal[$k];
+        }
+    }
+}
+
+// Finally, allow environment variable overrides (e.g., vhost SetEnv)
+$envOverrides = [
+    'host'       => getenv('UIS_DB_HOST') ?: null,
+    'port'       => getenv('UIS_DB_PORT') ?: null,
+    'dbname'     => getenv('UIS_DB_NAME') ?: null,
+    'username'   => getenv('UIS_DB_USER') ?: null,
+    'password'   => getenv('UIS_DB_PASS') ?: null,
+    'charset'    => getenv('UIS_DB_CHARSET') ?: null,
+    'persistent' => getenv('UIS_DB_PERSISTENT') ?: null, // '1'|'0'|'true'|'false'
+];
+
+foreach ($envOverrides as $k => $v) {
+    if ($v === null || $v === '') continue;
+    if ($k === 'port') {
+        $config[$k] = (int)$v;
+    } elseif ($k === 'persistent') {
+        $config[$k] = in_array(strtolower((string)$v), ['1','true','yes','on'], true);
+    } else {
+        $config[$k] = $v;
+    }
+}
+
+// Final sanity: required keys
+foreach (['host','port','dbname','username','password','charset','persistent'] as $req) {
+    if (!array_key_exists($req, $config)) {
+        throw new RuntimeException("DB config missing required key: {$req}");
+    }
+}
+
+return ['db' => $config];
