@@ -58,7 +58,7 @@ function Logout(){
     $_SESSION['isAdmin'] = null;
                 
     // Redirect to home page
-    header('Location: index.php');
+    header("Location: {$GLOBALS['webRoot']}/index.php");
     exit();
 }
 

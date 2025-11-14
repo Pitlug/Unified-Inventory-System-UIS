@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Mode toggle button not found');
     }else{
         modeToggle.addEventListener('click', function(e) {
+            console.log('Clicked Mode Toggle');
             e.preventDefault();
             toggleMode();
         });

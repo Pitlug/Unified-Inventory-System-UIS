@@ -1,5 +1,5 @@
 <?php
-include_once 'sitefunctions.php';
+include_once 'sitevars.php';
 
 Logout();
 

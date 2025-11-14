@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 $_SESSION['isAdmin'] = ($user['credentialLevel'] === 0);
                 
                 // Redirect to home page
+                $pdo=null;
                 header('Location: index.php');
                 exit();
             } else {
