@@ -62,9 +62,9 @@ $GLOBALS['jsUrl'] = $url . '/js/';
 $GLOBALS['imgUrl'] = $url . '/images/';
 $GLOBALS['classUrl'] = $url . '/classes/';
 $GLOBALS['includeUrl'] = $url . '/includes/';
+$GLOBALS['inventory'] = $url . '/inventory/';
 $GLOBALS['apiorders'] = $url . '/api/orders/api_orders.php';
 $GLOBALS['apiInventory'] = $fullInstallPath . '/src/api/inventory/api_inventory.php';
-$GLOBALS['inventory'] = $url . '/inventory/';
 $GLOBALS['database'] = '../../../src/api/includes/database.php';
 $GLOBALS['datacon'] = '../../../src/api/includes/db_config.php'; //Database configuration file
 ?>
