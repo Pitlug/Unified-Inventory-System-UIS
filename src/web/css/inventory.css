@@ -9,7 +9,6 @@ Start Main
     display:flex;
     flex-direction:row;
     justify-content: space-between;
-    background-color:bisque;
 }
 
 .main-content{
@@ -17,12 +16,10 @@ Start Main
     flex-direction: column;
     justify-content: space-between;
     flex-grow:3;
-    height:120vh;
     padding:20px;
     margin-left:10px;
     margin-right:10px;
     margin-bottom:20px;
-    background-color:#16A2D7;
 }
 /*
 +++++++++++++++++++++++
@@ -35,43 +32,106 @@ Start Sidebar
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-grow:1;
     padding: 10px;
     margin-top:50px;
 }
 
 .sizer{
     height:0px;
+    width:275px;
     visibility: hidden;
 }
 
 .category-list{
     position:fixed;
-    background-color:var(--primary);
+    background-color:var(--light);
     border-radius: 30px;
-    height:50vh;
-    width:16vw;
-    padding:10px;
+    height:75vh;
+    width:275px;
+    padding-left:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right:5px;
+    overflow-y: auto;
+    border-color:rgba(var(--modeColorOPP),0.1);
+    border:2px solid;
+}
+
+.category-list::-webkit-scrollbar {
+  width:5px;
+  height:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.category-list::-webkit-scrollbar-track {
+  background-color:none;
+  margin-top:25px;
+  margin-bottom:25px;
+}
+
+.category-list::-webkit-scrollbar-thumb {
+  background-color: #5b5b5b; /* Dark gray thumb */
+  border-radius: 5px; /* Rounded corners for the thumb */
+}
+.category-list::-webkit-scrollbar-thumb:hover {
+  background-color: #3d3d3d; /* Dark gray thumb */
+}
+
+.list-header{
+    border-bottom:2px solid var(--dark);
+    text-align:center;
+}
+
+.list-header h4{
+    font-size:30px;
+    color:var(--dark);
 }
 
 .category-item{
     text-align:center;
     padding-left:10px;
     padding-right:10px;
-    border-top: 1px solid var(--modeColor);
-    border-bottom: 1px solid var(--modeColor);
+    font-size: 20px;
+}
+
+.category-list .category-item:not(:first-child){
+    border-top: 1px solid var(--border);
 }
 
 .category-item a{
     cursor: pointer;
-    color: var(--modeColorOPP);
+    color: var(--dark);
+    text-decoration:none;
 }
-.category-item.selected {
-    background-color: #EEF3F5;
-    border-radius: 4px;
+
+.category-item p{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.category-item a:hover{
+    font-weight:bold;
+}
+
+.category-item.selected a{
+    font-weight:bolder;
 }
 /*
 +++++++++++++++++++++++
 End Sidebar
++=+=+=+=+=+=+=+=+=+=+=+
+Start Table
+=======================
+*/
+.inventory-table{
+    min-height:75vh;
+}
+
+
+
+/*
++++++++++++++++++++++++
+End Table
 +++++++++++++++++++++++
 */
