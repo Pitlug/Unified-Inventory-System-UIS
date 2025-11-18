@@ -17,7 +17,7 @@ function handlePost($pdo, $input) {
         // Begin transaction
         $pdo->beginTransaction();
         
-        // Insert order
+        // Insert item
         $stmt = $pdo->prepare("INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)");
         $stmt->execute([
             $input['name'],

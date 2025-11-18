@@ -9,7 +9,7 @@ $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? "https
 if ($domain === "uis.pitlug.com") {
 
     // Root install
-    $installDir = "";
+    $installDir = "src/web";
     $fullInstallPath = "/var/www/uis.pitlug.com/Unified-Inventory-System-UIS";
 
 } elseif ($domain === "uis.etowndb.com") {
@@ -53,15 +53,25 @@ if ($domain === "uis.pitlug.com") {
 
 include_once "sitefunctions.php";
 
+/* Source Paths */
 $url = url();
-$GLOBALS['src'] = dirname(dirname(__DIR__)) . '\\';
-$GLOBALS['apiUrl'] = $GLOBALS['src'] . 'api\\';
+$GLOBALS['src'] = dirname(dirname(__DIR__));
+
+/*Web Directories*/
 $GLOBALS['webRoot'] = $url;
 $GLOBALS['cssUrl'] = $url . '/css/';
 $GLOBALS['jsUrl'] = $url . '/js/';
 $GLOBALS['imgUrl'] = $url . '/images/';
 $GLOBALS['classUrl'] = $url . '/classes/';
 $GLOBALS['includeUrl'] = $url . '/includes/';
-$GLOBALS['api-orders'] = $url . '/api/orders/api_orders.php';
 $GLOBALS['inventory'] = $url . '/inventory/';
+
+/*API Directories*/
+$GLOBALS['apiUrl'] = $GLOBALS['src'] . '/api/';
+$GLOBALS['apiorders'] =  $GLOBALS['apiUrl'] . 'orders/api_orders.php';
+$GLOBALS['apiInventory'] =  $GLOBALS['apiUrl'] . 'inventory/api_inventory.php';
+
+/*DB Connect Files*/
+$GLOBALS['singleton'] = $GLOBALS['src'] . '/classes/UISDatabase.php';
+$GLOBALS['datacon'] = $GLOBALS['src'] . '/classes/db_config.php';
 ?>

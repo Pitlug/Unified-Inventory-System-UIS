@@ -25,12 +25,12 @@ function handleGet($pdo) {
             http_response_code(200);
             echo json_encode($item);
         } else {
-            // Get all orders
+            // Get all items
             $stmt = $pdo->query("SELECT * FROM inventory");
-            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             http_response_code(200);
-            echo json_encode($orders);
+            echo json_encode($items);
         }
     } catch (PDOException $e) {
         http_response_code(500);

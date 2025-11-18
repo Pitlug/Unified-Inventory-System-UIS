@@ -4,6 +4,7 @@
     --secondary: #3498db;
     --accent: #e74c3c;
     --light: #f8f9fa;
+    --dark: #101114;
     --border: #dee2e6;
     --modeColor: #ffffff;
     --modeColorOPP: #111827;
@@ -23,6 +24,7 @@
     --secondary: #5dade2; /* Lighter accent blue for links/buttons */
     --accent: #f1948a; /* Lighter accent red for errors/alerts */
     --light: #d1d5db; /* Main text/foreground color */
+    --dark: #101114;
     --border: #4b5563; /* Subtle dividing lines/borders */
     --modeColor: #111827; /* Deepest background color */ 
     --modeColorOPP: #f9fafb; /* Lightest background color */

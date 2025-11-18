@@ -26,7 +26,7 @@ function handlePut($pdo, $input) {
         // Begin transaction
         $pdo->beginTransaction();
         
-        // Update order
+        // Update item
         $stmt = $pdo->prepare("UPDATE inventory SET name = ?, description = ?, quantity = ?, categoryID = ? WHERE inventoryID = ?");
         $stmt->execute([
             $input['name'],
