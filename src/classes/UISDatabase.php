@@ -4,7 +4,11 @@ class UISDatabase {
     private static $conn = NULL;
 
     private static function connect() {
-        global $servername, $database, $dbUsername, $dbPassword;
+        $settings = include $GLOBALS['datacon'];
+        $servername = $settings['db']['host'];
+        $database = $settings['db']['dbname'];
+        $dbUsername = $settings['db']['username'];
+        $dbPassword = $settings['db']['password'];
 
         if (self::$conn === NULL) {
             try {
@@ -12,6 +16,7 @@ class UISDatabase {
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 echo "Connection failed: " . $e->getMessage();
+                echo var_dump($e);
                 http_response_code(500);
                 exit();
             }

@@ -53,9 +53,11 @@ if ($domain === "uis.pitlug.com") {
 
 include_once "sitefunctions.php";
 
+/* Source Paths */
 $url = url();
 $GLOBALS['src'] = dirname(dirname(__DIR__));
-$GLOBALS['apiUrl'] = $GLOBALS['src'] . 'api\\';
+
+/*Web Directories*/
 $GLOBALS['webRoot'] = $url;
 $GLOBALS['cssUrl'] = $url . '/css/';
 $GLOBALS['jsUrl'] = $url . '/js/';
@@ -63,8 +65,13 @@ $GLOBALS['imgUrl'] = $url . '/images/';
 $GLOBALS['classUrl'] = $url . '/classes/';
 $GLOBALS['includeUrl'] = $url . '/includes/';
 $GLOBALS['inventory'] = $url . '/inventory/';
-$GLOBALS['apiorders'] = $url . '/api/orders/api_orders.php';
-$GLOBALS['apiInventory'] = $fullInstallPath . '/src/api/inventory/api_inventory.php';
-$GLOBALS['database'] = '../../../src/api/includes/database.php';
-$GLOBALS['datacon'] = '../../../src/api/includes/db_config.php'; //Database configuration file
+
+/*API Directories*/
+$GLOBALS['apiUrl'] = $GLOBALS['src'] . '/api/';
+$GLOBALS['apiorders'] =  $GLOBALS['apiUrl'] . 'orders/api_orders.php';
+$GLOBALS['apiInventory'] =  $GLOBALS['apiUrl'] . 'inventory/api_inventory.php';
+
+/*DB Connect Files*/
+$GLOBALS['singleton'] = $GLOBALS['src'] . '/classes/UISDatabase.php';
+$GLOBALS['datacon'] = $GLOBALS['src'] . '/classes/db_config.php';
 ?>

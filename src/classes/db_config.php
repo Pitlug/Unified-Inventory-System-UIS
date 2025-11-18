@@ -27,7 +27,7 @@ declare(strict_types=1);
 function uis_load_env_local(): array
 {
     // Adjust path if your file lives elsewhere
-    $envFile = __DIR__ . '/../../config/env.local.php';
+    $envFile = 'env.secure.php';
     if (is_file($envFile)) {
         /** @noinspection PhpIncludeInspection */
         $env = require $envFile;
@@ -111,28 +111,6 @@ if (!empty($envLocal['db'][$envName]) && is_array($envLocal['db'][$envName])) {
         if (array_key_exists($k, $fromLocal) && $fromLocal[$k] !== '' && $fromLocal[$k] !== null) {
             $config[$k] = $fromLocal[$k];
         }
-    }
-}
-
-// Finally, allow environment variable overrides (e.g., vhost SetEnv)
-$envOverrides = [
-    'host'       => getenv('UIS_DB_HOST') ?: null,
-    'port'       => getenv('UIS_DB_PORT') ?: null,
-    'dbname'     => getenv('UIS_DB_NAME') ?: null,
-    'username'   => getenv('UIS_DB_USER') ?: null,
-    'password'   => getenv('UIS_DB_PASS') ?: null,
-    'charset'    => getenv('UIS_DB_CHARSET') ?: null,
-    'persistent' => getenv('UIS_DB_PERSISTENT') ?: null, // '1'|'0'|'true'|'false'
-];
-
-foreach ($envOverrides as $k => $v) {
-    if ($v === null || $v === '') continue;
-    if ($k === 'port') {
-        $config[$k] = (int)$v;
-    } elseif ($k === 'persistent') {
-        $config[$k] = in_array(strtolower((string)$v), ['1','true','yes','on'], true);
-    } else {
-        $config[$k] = $v;
     }
 }
 

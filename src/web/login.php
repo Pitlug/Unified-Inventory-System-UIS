@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE){
 include_once 'classes/PageClass.php';
 
 // Load UISDatabase class (which internally uses Database singleton)
-require_once __DIR__ . '/../classes/UISDatabase.php';
+require_once $GLOBALS['singleton'];
 
 // Handle login submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
