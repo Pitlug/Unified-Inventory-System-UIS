@@ -37,6 +37,7 @@
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Select</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,16 +45,19 @@
                         <th scope="row">1</th>
                         <td><a href="#">Product Name 1</a></td>
                         <td>20</td>
+                        <td><input class="tableCheckbox form-check-input mt-0" type="checkbox" value="" name="prod1" aria-label="Select Table Row"></td>
                         </tr>
                         <tr>
                         <th scope="row">2</th>
                         <td><a href="#">Product Name 2</a></td>
                         <td>30</td>
+                        <td><input class="tableCheckbox form-check-input mt-0" type="checkbox" value="" name="prod1" aria-label="Select Table Row"></td>
                         </tr>
                         <tr>
                         <th scope="row">3</th>
                         <td><a href="#">Product Name 3</a></td>
                         <td>40</td>
+                        <td><input class="tableCheckbox form-check-input mt-0" type="checkbox" value="" name="prod1" aria-label="Select Table Row"></td>
                         </tr>
                     </tbody>
                     </table>

@@ -127,7 +127,9 @@ Start Table
 .inventory-table{
     min-height:75vh;
 }
-
+.tableCheckbox:hover{
+    filter:brightness(0.9);
+}
 
 
 /*
