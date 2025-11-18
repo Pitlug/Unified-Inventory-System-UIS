@@ -4,46 +4,43 @@ if (session_status() === PHP_SESSION_NONE){
 };
 include_once 'classes/PageClass.php';
 
+// Load UISDatabase class (which internally uses Database singleton)
+require_once __DIR__ . '/../classes/UISDatabase.php';
+
 // Handle login submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
     if (!empty($username) && !empty($password)) {
-        // Include database config
-        require_once __DIR__ . '/../api/includes/db_config.php';
-        
         try {
-            // Create database connection
-            $pdo = new PDO(
-                "mysql:host=$host;dbname=$database;charset=utf8mb4",
-                $dbUsername,
-                $dbPassword,
-                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-            );
+            // Query user from database using UISDatabase
+            $sql = "SELECT userID, username, password, credentialLevel FROM users WHERE username = ?";
+            $users = UISDatabase::getDataFromSQL($sql, [$username]);
             
-            // Query user from database
-            $stmt = $pdo->prepare("SELECT userID, username, password, credentialLevel FROM users WHERE username = ?");
-            $stmt->execute([$username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            // Verify user exists and password matches
-            if ($user && $password === $user['password']) {
-                // Set session variables
-                $_SESSION['loggedin'] = true;
-                $_SESSION['userID'] = $user['userID'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['credentialLevel'] = $user['credentialLevel'];
-                $_SESSION['isAdmin'] = ($user['credentialLevel'] === 0);
+            // Check if user exists (getDataFromSQL returns array of results)
+            if (!empty($users)) {
+                $user = $users[0]; // Get first result
                 
-                // Redirect to home page
-                $pdo=null;
-                header('Location: index.php');
-                exit();
+                // Verify password matches
+                if ($password === $user['password']) {
+                    // Set session variables
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['userID'] = $user['userID'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['credentialLevel'] = $user['credentialLevel'];
+                    $_SESSION['isAdmin'] = ($user['credentialLevel'] === 0);
+                    
+                    // Redirect to home page
+                    header('Location: index.php');
+                    exit();
+                } else {
+                    $error = "Invalid username or password";
+                }
             } else {
                 $error = "Invalid username or password";
             }
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             $error = "Database connection failed: " . $e->getMessage();
         }
     } else {
