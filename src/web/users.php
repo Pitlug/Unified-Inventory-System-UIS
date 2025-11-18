@@ -1,26 +1,16 @@
 <?php
+session_start();
 include_once 'classes/PageClass.php';
 
-// Include database config
-require_once __DIR__ . '/../api/includes/db_config.php';
+require_once $GLOBALS['singleton'];
 
-try {
-    $pdo = new PDO(
-        "mysql:host=$host;dbname=$database;charset=utf8mb4",
-        $dbUsername,
-        $dbPassword,
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
 
 $message = '';
 $messageType = '';
 
 // Handle user creation (admin only)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
-    if ($_SESSION['isAdmin'] != 0) {
+    if ($_SESSION['credentialLevel'] != 0 && $_SESSION['credentialLevel'] != -1) {
         $message = "Only administrators can create new users.";
         $messageType = "danger";
     } else {
@@ -59,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
 
 // Handle user deletion (admin only)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
-    if ($_SESSION['isAdmin'] != 0) {
+    if ($_SESSION['credentialLevel'] != 0 && $_SESSION['credentialLevel'] != -1) {
         $message = "Only administrators can delete users.";
         $messageType = "danger";
     } else {
@@ -104,7 +94,7 @@ if (!empty($message)) {
 }
 
 $createUserForm = '';
-if ($_SESSION['isAdmin'] == 0) {
+if ($_SESSION['credentialLevel'] == 0) {
     $createUserForm = '<div class="card mb-4">
         <div class="card-body">
             <h3>Create New User</h3>
@@ -121,7 +111,7 @@ if ($_SESSION['isAdmin'] == 0) {
                     <div class="col-md-4 mb-3">
                         <label for="credential_level" class="form-label">Credential Level</label>
                         <select class="form-control" id="credential_level" name="credential_level" required>
-                            <option value= 3 >Veiwer</option>
+                            <option value= 3 >Viewer</option>
                             <option value= 2>Staff</option> 
                             <option value= 1 >Manager</option>
                             <option value= 0>Admin</option>
