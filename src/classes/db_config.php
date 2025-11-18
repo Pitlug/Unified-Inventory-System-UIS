@@ -24,44 +24,47 @@ declare(strict_types=1);
  *     'bases' => [] // optional
  *   ]
  */
-function uis_load_env_local(): array
-{
-    // Adjust path if your file lives elsewhere
-    $envFile = 'env.secure.php';
-    if (is_file($envFile)) {
-        /** @noinspection PhpIncludeInspection */
-        $env = require $envFile;
-        if (is_array($env)) {
-            return $env;
+if (!function_exists('uis_load_env_local')){ // prevent redeclaration
+    function uis_load_env_local(): array 
+    {  
+        // Adjust path if your file lives elsewhere
+        $envFile = 'env.secure.php';
+        if (is_file($envFile)) {
+            /** @noinspection PhpIncludeInspection */
+            $env = require $envFile;
+            if (is_array($env)) {
+                return $env;
+            }
         }
+        return [];
     }
-    return [];
 }
-
 /** Detect runtime environment */
-function uis_detect_env(array $envLocal): string
-{
-    // Highest priority: explicit override via env var
-    $forced = getenv('UIS_ENV');
-    if ($forced) {
-        return strtolower($forced); // 'local'|'hostinger'|'homelab'
+if (!function_exists('uis_detect_env')){ // prevent redeclaration
+    function uis_detect_env(array $envLocal): string
+    {
+        // Highest priority: explicit override via env var
+        $forced = getenv('UIS_ENV');
+        if ($forced) {
+            return strtolower($forced); // 'local'|'hostinger'|'homelab'
+        }
+
+        // Next: explicit in env.local.php
+        if (!empty($envLocal['env'])) {
+            return strtolower((string)$envLocal['env']);
+        }
+
+        // Web hostnames
+        $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''));
+        if ($host === 'uis.etowndb.com') return 'hostinger';
+        if ($host === 'uis.pitlug.com')  return 'homelab';
+        if ($host === '127.0.0.1' || $host === 'localhost' || $host === '') return 'local';
+
+        // CLI / unknown → local
+        if (PHP_SAPI === 'cli') return 'local';
+
+        return 'local';
     }
-
-    // Next: explicit in env.local.php
-    if (!empty($envLocal['env'])) {
-        return strtolower((string)$envLocal['env']);
-    }
-
-    // Web hostnames
-    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''));
-    if ($host === 'uis.etowndb.com') return 'hostinger';
-    if ($host === 'uis.pitlug.com')  return 'homelab';
-    if ($host === '127.0.0.1' || $host === 'localhost' || $host === '') return 'local';
-
-    // CLI / unknown → local
-    if (PHP_SAPI === 'cli') return 'local';
-
-    return 'local';
 }
 
 /** Baseline defaults by environment (non-secret) */
