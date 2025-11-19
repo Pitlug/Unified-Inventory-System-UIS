@@ -1,11 +1,13 @@
 <?php
-require_once '../includes/db_connect.php';
+// Include database connection
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * POST - Create a new item
  * Expected input: {inventoryID, name, description, quantity, categoryID}
  */
-function handlePost($pdo, $input) {
+function handlePost($input) {
     try {
         // Validate input
         if (!isset($input['name']) || !isset($input['quantity']) || !isset($input['categoryID'])) {
@@ -15,26 +17,26 @@ function handlePost($pdo, $input) {
         }
         
         // Begin transaction
-        $pdo->beginTransaction();
+        UISDatabase::startTransaction();
         
         // Insert item
-        $stmt = $pdo->prepare("INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)");
-        $stmt->execute([
+        $sql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
+        $fields = [
             $input['name'],
             $input['description'],
             $input['quantity'],
             $input['categoryID']
-        ]);
+        ];
         
-        $inventoryID = $pdo->lastInsertId();
+        $inventoryID = UISDatabase::getDataFromSQL($sql, $fields);
         
         // Commit transaction
-        $pdo->commit();
+        UISDatabase::commitTransaction();
         
         http_response_code(201);
         echo json_encode(['success' => true, 'inventoryID' => $inventoryID, 'message' => 'Item created successfully']);
     } catch (PDOException $e) {
-        $pdo->rollBack();
+        UISDatabase::rollbackTransaction();
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }

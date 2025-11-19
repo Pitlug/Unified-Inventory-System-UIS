@@ -9,18 +9,18 @@ $protocol_used =isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? "https
 if ($domain === "uis.pitlug.com") {
 
     // Root install
-    $installDir = "src/web";
+    $installDir = "src";
     $fullInstallPath = "/var/www/uis.pitlug.com/Unified-Inventory-System-UIS";
 
 } elseif ($domain === "uis.etowndb.com") {
 
     //Subdirectory install
-    $installDir = "src/web";
+    $installDir = "src";
     $fullInstallPath = "/var/www/uis.etowndb.com/Unified-Inventory-System-UIS";
 
 } elseif ($domain == "127.0.0.1" || $domain == "localhost") {
 
-        $installDir = "Unified-Inventory-System-UIS/src/web";
+        $installDir = "Unified-Inventory-System-UIS/src";
         if (PHP_OS == "Darwin") {
 
             $fullInstallPath = "/Applications/XAMPP/xamppfiles/htdocs/Unified-Inventory-System-UIS";
@@ -54,24 +54,24 @@ if ($domain === "uis.pitlug.com") {
 include_once "sitefunctions.php";
 
 /* Source Paths */
-$url = url();
-$GLOBALS['src'] = dirname(dirname(__DIR__));
+$GLOBALS['src'] = url();
 
 /*Web Directories*/
-$GLOBALS['webRoot'] = $url;
-$GLOBALS['cssUrl'] = $url . '/css/';
-$GLOBALS['jsUrl'] = $url . '/js/';
-$GLOBALS['imgUrl'] = $url . '/images/';
-$GLOBALS['classUrl'] = $url . '/classes/';
-$GLOBALS['includeUrl'] = $url . '/includes/';
-$GLOBALS['inventory'] = $url . '/inventory/';
+$GLOBALS['webRoot'] = $GLOBALS['src'].'/web';
+$GLOBALS['cssUrl'] = $GLOBALS['webRoot'] . '/css/';
+$GLOBALS['jsUrl'] = $GLOBALS['webRoot'] . '/js/';
+$GLOBALS['imgUrl'] = $GLOBALS['webRoot'] . '/images/';
+$GLOBALS['classUrl'] = $GLOBALS['webRoot'] . '/classes/';
+$GLOBALS['includeUrl'] = $GLOBALS['webRoot'] . '/includes/';
+$GLOBALS['inventory'] = $GLOBALS['webRoot'] . '/inventory/';
 
 /*API Directories*/
 $GLOBALS['apiUrl'] = $GLOBALS['src'] . '/api/';
-$GLOBALS['apiorders'] =  $GLOBALS['apiUrl'] . 'orders/api_orders.php';
+$GLOBALS['apiOrders'] =  $GLOBALS['apiUrl'] . 'orders/api_orders.php';
+$GLOBALS['apiUsers'] =  $GLOBALS['apiUrl'] . 'users/api_users.php';
 $GLOBALS['apiInventory'] =  $GLOBALS['apiUrl'] . 'inventory/api_inventory.php';
 
 /*DB Connect Files*/
-$GLOBALS['singleton'] = $GLOBALS['src'] . '/classes/UISDatabase.php';
-$GLOBALS['datacon'] = $GLOBALS['src'] . '/classes/db_config.php';
+$GLOBALS['singleton'] = __DIR__ . '/classes/UISDatabase.php';
+$GLOBALS['datacon'] = __DIR__ . '/classes/db_config.php';
 ?>

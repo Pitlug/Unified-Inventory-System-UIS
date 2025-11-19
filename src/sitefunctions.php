@@ -62,4 +62,28 @@ function Logout(){
     exit();
 }
 
+function requestAPI($api, $method='GET', $input=null){
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+    if($method=='GET'){
+        if(isset($input)){
+            $queryParams = $input;
+            $api.='?';
+            foreach($queryParams as $key=>$value){
+                $api.="{$key}={$value}";
+            }
+        }
+    }else{
+        if(isset($input)){
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($input));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        }
+    }
+    curl_setopt($ch, CURLOPT_URL, $api);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the transfer as a string
+    $returnValue = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($returnValue, true);
+}
+
 ?>

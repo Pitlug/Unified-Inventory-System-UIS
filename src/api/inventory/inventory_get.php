@@ -1,20 +1,21 @@
 <?php
-require_once '../includes/db_connect.php';
+// Include database connection
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * GET - Retrieve item(s) in inventory
  * Query params: ?orderID=123 for specific item, or no params for all items
  */
-function handleGet($pdo) {
+function handleGet() {
     try {
         if (isset($_GET['orderID'])) {
             // Get specific inventory item
             $inventoryID = $_GET['inventoryID'];
             
             // Get item details
-            $stmt = $pdo->prepare("SELECT * FROM inventory WHERE inventoryID = ?");
-            $stmt->execute([$inventoryID]);
-            $item = $stmt->fetch(PDO::FETCH_ASSOC);
+            $sql = "SELECT * FROM inventory WHERE inventoryID = ?";
+            $item = UISDatabase::getDataFromSQL($sql, [$inventoryID]);
             
             if (!$item) {
                 http_response_code(404);
@@ -26,8 +27,8 @@ function handleGet($pdo) {
             echo json_encode($item);
         } else {
             // Get all items
-            $stmt = $pdo->query("SELECT * FROM inventory");
-            $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $sql = "SELECT * FROM inventory";
+            $items = UISDatabase::getDataFromSQL($sql);
             
             http_response_code(200);
             echo json_encode($items);

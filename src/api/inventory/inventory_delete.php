@@ -1,12 +1,13 @@
 <?php
-require_once '../includes/db_connect.php';
-
+// Include database connection
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * DELETE - Delete an order
  * Expected input: {inventoryID}
  */
-function handleDelete($pdo, $input) {
+function handleDelete($input) {
     try {
         // Validate input
         if (!isset($input['inventoryID'])) {
@@ -16,9 +17,9 @@ function handleDelete($pdo, $input) {
         }
         
         // Check if item exists
-        $stmt = $pdo->prepare("SELECT inventoryID FROM inventory WHERE inventoryID = ?");
-        $stmt->execute([$input['inventoryID']]);
-        if (!$stmt->fetch()) {
+        $sql = "SELECT inventoryID FROM inventory WHERE inventoryID = ?";
+        $field = [$input['inventoryID']];
+        if (!UISDatabase::getDataFromSQL($sql,$field)) {
             http_response_code(404);
             echo json_encode(['error' => 'Order not found']);
             return;
