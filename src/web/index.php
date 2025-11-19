@@ -11,7 +11,7 @@
     <nav>
         <a href="#about">About</a> |
         <a href="#Features">Features</a> |
-        <a href="#speakers">Speakers</a> |
+        <a href="#authors">Authors</a> |
         <a href="#contact">Contact</a>
     </nav>
     <section id="about">
@@ -27,52 +27,50 @@
         <table>
             <thead>
                 <tr>
-                    <th>Inventory</th>
-                    <th>Orders</th>
-                    <th>Users</th>
+                    <th>Feature</th>
+                    <th>Explanation</th>
+                    <th>Sub Features</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>9:00 AM</td>
-                    <td>Opening Keynote</td>
-                    <td>GeeksforGeeks Coding Plateform</td>
+                    <td>Inventory</td>
+                    <td>The inventory feature allows you to create, edit, and delete items. 
+                    On the dashboard you can  sort the items by category, and add new categries.
+                    </td>
+                    <td>Create, edit, delete, category sort</td>
                 </tr>
                 <tr>
-                    <td>10:30 AM</td>
-                    <td>Understanding AI and Machine Learning</td>
-                    <td>Mr. Arvind Kumar</td>
+                    <td>Orders</td>
+                    <td>On the orders page you can create new orders, update orders, and delete orders.</td>
+                    <td>Create, update, delete</td>
                 </tr>
                 <tr>
-                    <td>1:00 PM</td>
-                    <td>Lunch Break</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>2:00 PM</td>
-                    <td>Exploring the Future of Cloud Computing</td>
-                    <td>Ms. Neha Gupta</td>
+                    <td>Users/Account</td>
+                    <td>As an admin you can create new users, delete users, and edit users passwords.
+                     As any user on the site you can login, logout, update your password, and change your name.</td>
+                    <td>Add user, update password, login, logout</td>
                 </tr>
             </tbody>
         </table>
     </section>
-    <section id="speakers">
-        <h2>Meet the Speakers</h2>
+    <section id="authors">
+        <h2>Meet the Authors</h2>
         <ul>
-            <li><strong>Dr. Radhika Sharma:</strong> AI Expert and Researcher</li>
-            <li><strong>Mr. Arvind Kumar:</strong> Senior Data Scientist at TechWave</li>
-            <li><strong>Ms. Neha Gupta:</strong> Cloud Computing Specialist at CloudTech</li>
-            <li><strong>Mr. Sandeep Reddy:</strong> Full Stack Developer and Open-Source Contributor</li>
+            <li><strong>Mr. Alexander Pellet:</strong> Junior Computer Science major</li>
+            <li><strong>Mr.Rein Alderfer:</strong> Junior Information Systems Major</li>
+            <li><strong>Mr. Hector Franco:</strong> Junior Computer Science Major</li>
+            <li><strong>Mr. Drew Urenko:</strong> Junior Computer Science Major</li>
         </ul>
     </section>
     <section id="contact">
-        <h2>Contact Us</h2>
+        <h2>Contact Us to Sign Up Today!</h2>
         <form>
             <label for="name">Name:</label><br>
             <input type="text" id="name" name="name"><br><br>
             <label for="email">Email:</label><br>
             <input type="email" id="email" name="email"><br><br>
-            <label for="message">Message:</label><br>
+            <label for="message">Company Name:</label><br>
             <textarea id="message" name="message" rows="4"></textarea><br><br>
             <button type="submit">Send</button>
         </form>
