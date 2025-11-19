@@ -5,7 +5,7 @@ require_once '../includes/db_connect.php';
  * PATCH - Partially update an item in inventory (e.g., update quantity)
  * Expected input: {inventoryID, [name], [description], [quantity]}
  */
-function handlePatch($pdo, $input) {
+function handlePatch($input) {
     try {
         // Validate input
         if (!isset($input['inventoryID'])) {
@@ -15,9 +15,9 @@ function handlePatch($pdo, $input) {
         }
         
         // Check if item exists
-        $stmt = $pdo->prepare("SELECT inventoryID FROM inventory WHERE inventoryID = ?");
-        $stmt->execute([$input['inventoryID']]);
-        if (!$stmt->fetch()) {
+        $sql = "SELECT inventoryID FROM inventory WHERE inventoryID = ?";
+        $field = [$input['inventoryID']];
+        if (!UISDatabase::getDataFromSQL($sql,$field)) {
             http_response_code(404);
             echo json_encode(['error' => 'Order not found']);
             return;
@@ -51,8 +51,7 @@ function handlePatch($pdo, $input) {
         
         // Update item
         $sql = "UPDATE inventory SET " . implode(", ", $updates) . " WHERE inventoryID = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
+        UISDatabase::executeSQL($sql,$params);
         
         http_response_code(200);
         echo json_encode(['success' => true, 'message' => 'Item updated successfully']);

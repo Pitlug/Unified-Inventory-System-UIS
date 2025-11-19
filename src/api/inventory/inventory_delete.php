@@ -26,23 +26,27 @@ function handleDelete($input) {
         }
         
         // Begin transaction
-        $pdo->beginTransaction();
+        UISDatabase::startTransaction();
         
         // Delete order items first (foreign key constraint)
-        $stmt = $pdo->prepare("DELETE FROM orderItems WHERE orderID = ?");
-        $stmt->execute([$input['orderID']]);
+        /*
+        NEEDS REVIEWED. This should set the inventory id to null in the orderitems table. 
+        */
+        //$stmt = $pdo->prepare("DELETE FROM orderItems WHERE orderID = ?");
+        //$stmt->execute([$input['orderID']]);
         
         // Delete item
-        $stmt = $pdo->prepare("DELETE FROM inventory WHERE inventoryID = ?");
-        $stmt->execute([$input['inventoryID']]);
+        $sql = "DELETE FROM inventory WHERE inventoryID = ?";
+        $field = [$input['inventoryID']];
+        UISDatabase::executeSQL($field);
         
         // Commit transaction
-        $pdo->commit();
+        UISDatabase::commitTransaction();
         
         http_response_code(200);
         echo json_encode(['success' => true, 'message' => 'Item deleted successfully']);
     } catch (PDOException $e) {
-        $pdo->rollBack();
+        UISDatabase::rollbackTransaction();
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }
