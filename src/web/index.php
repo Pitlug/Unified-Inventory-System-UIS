@@ -51,11 +51,6 @@
                      As any user on the site you can login, logout, update your password, and change your name.</td>
                     <td>Add user, update password, login, logout</td>
                 </tr>
-                <tr>
-                    <td>2:00 PM</td>
-                    <td>Exploring the Future of Cloud Computing</td>
-                    <td>Ms. Neha Gupta</td>
-                </tr>
             </tbody>
         </table>
     </section>
