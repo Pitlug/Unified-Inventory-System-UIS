@@ -1,0 +1,19 @@
+When Making new code follow these requirements!
+
+Do not change or update the code in sitevars.php, sitefunctions.php, or PageClass, db_config.php, env.secure.php, UISDatabase.php!
+
+Anytime a file is called pass it through the php file sitefunctions.php!
+
+When making calls to the database use this php code: require_once $GLOBALS['singleton']; to call the database connection file.
+
+Only edit one file at a time. And when a file is edited make sure that it works with all other files in the project.
+
+Only work on what is specified. Make as few changes as possible to the code and comment it.
+
+If you do not know how something works or if it seems broken, let the user know.
+
+Make the code drage and drop. Easy to copy and paste into the current project.
+
+Give test cases for the code, ways of testing to make sure everything works and trouble shooting tips.
+
+Give clear documentation in the form of comments!
