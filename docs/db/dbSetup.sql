@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS orderItems;
 CREATE TABLE IF NOT EXISTS orderItems (
     ID int AUTO_INCREMENT,
     orderID int NOT NULL,
-    inventoryID int NOT NULL,
+    inventoryID int,
     name varchar(45) NOT NULL,
     quantity int NOT NULL,
     price double NOT NULL,

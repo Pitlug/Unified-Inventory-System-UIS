@@ -1,16 +1,8 @@
 <?php
-echo "You found me";
-// header('Content-Type: application/json');
-// header('Access-Control-Allow-Origin: *');
-// header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH');
-// header('Access-Control-Allow-Headers: Content-Type');
-
-// Include database connection
-include_once 'inventory_delete.php';
-include_once 'inventory_get.php';
-include_once 'inventory_patch.php';
-include_once 'inventory_post.php';
-include_once 'inventory_put.php';
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH');
+header('Access-Control-Allow-Headers: Content-Type');
 
 // Get the HTTP method
 $method = $_SERVER['REQUEST_METHOD'];
@@ -27,19 +19,24 @@ $input = json_decode(file_get_contents('php://input'), true);
 // Route based on HTTP method
 switch ($method) {
     case 'GET':
-        handleGet($pdo);
+        include_once 'inventory_get.php';
+        handleGet();
         break;
     case 'POST':
-        handlePost($pdo, $input);
+        include_once 'inventory_post.php';
+        handlePost($input);
         break;
     case 'PUT':
-        handlePut($pdo, $input);
+        include_once 'inventory_put.php';
+        handlePut($input);
         break;
     case 'DELETE':
-        handleDelete($pdo, $input);
+        include_once 'inventory_delete.php';
+        handleDelete($input);
         break;
     case 'PATCH':
-        handlePatch($pdo, $input);
+        include_once 'inventory_patch.php';
+        handlePatch($input);
         break;
     default:
         http_response_code(405);

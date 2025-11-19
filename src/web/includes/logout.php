@@ -1,5 +1,5 @@
 <?php
-include_once 'sitevars.php';
+include_once __DIR__.'../../../sitevars.php';
 
 Logout();
 

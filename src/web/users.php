@@ -1,26 +1,16 @@
 <?php
+session_start();
 include_once 'classes/PageClass.php';
 
-// Include database config
-require_once __DIR__ . '/../api/includes/db_config.php';
+require_once $GLOBALS['singleton'];
 
-try {
-    $pdo = new PDO(
-        "mysql:host=$host;dbname=$database;charset=utf8mb4",
-        $dbUsername,
-        $dbPassword,
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
 
 $message = '';
 $messageType = '';
 
 // Handle user creation (admin only)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
-    if ($_SESSION['isAdmin'] != 0) {
+    if ($_SESSION['credentialLevel'] != 0 && $_SESSION['credentialLevel'] != -1) {
         $message = "Only administrators can create new users.";
         $messageType = "danger";
     } else {
@@ -31,16 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
         if (!empty($newUsername) && !empty($newPassword)) {
             try {
                 // Check if username exists
-                $stmt = $pdo->prepare("SELECT userID FROM users WHERE username = ?");
-                $stmt->execute([$newUsername]);
+                $sql = "SELECT userID from users where username = ?";
+                $existingUsers = UISDatabase::getDataFromSQL($sql, [$newUsername]);
+
                 
-                if ($stmt->fetch()) {
+                if (!empty($existingUsers)) {
                     $message = "Username already exists.";
                     $messageType = "danger";
                 } else {
                     // Insert new user
-                    $stmt = $pdo->prepare("INSERT INTO users (username, password, credentialLevel) VALUES (?, ?, ?)");
-                    $stmt->execute([$newUsername, $newPassword, $credentialLevel]);
+                    $sql = "INSERT INTO users (username, password, credentialLevel) VALUES (?,?,?)";
+                    UISDatabase::getDataFromSQL($sql, [$newUsername, $newPassword, $credentialLevel]);
                     
                     $message = "User created successfully!";
                     $messageType = "success";
@@ -58,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
 
 // Handle user deletion (admin only)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
-    if ($_SESSION['isAdmin'] != 0) {
+    if ($_SESSION['credentialLevel'] != 0 && $_SESSION['credentialLevel'] != -1) {
         $message = "Only administrators can delete users.";
         $messageType = "danger";
     } else {
@@ -70,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
             $messageType = "danger";
         } else {
             try {
-                $stmt = $pdo->prepare("DELETE FROM users WHERE userID = ?");
-                $stmt->execute([$userIdToDelete]);
+                $sql = "DELETE FROM users WHERE userID = ?";
+                UISDatabase::getDataFromSQL($sql, [$userIdToDelete]);
                 
                 $message = "User deleted successfully!";
                 $messageType = "success";
@@ -85,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
 
 // Fetch all users
 try {
-    $stmt = $pdo->query("SELECT userID, username, credentialLevel FROM users ORDER BY username ASC");
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $sql = "SELECT userID, username, credentialLevel FROM users";
+    $users = UISDatabase::getDataFromSQL($sql);
 } catch (PDOException $e) {
     $users = [];
     $message = "Error fetching users: " . $e->getMessage();
@@ -103,7 +94,7 @@ if (!empty($message)) {
 }
 
 $createUserForm = '';
-if ($_SESSION['isAdmin'] == 0) {
+if ($_SESSION['credentialLevel'] == 0) {
     $createUserForm = '<div class="card mb-4">
         <div class="card-body">
             <h3>Create New User</h3>
@@ -120,7 +111,7 @@ if ($_SESSION['isAdmin'] == 0) {
                     <div class="col-md-4 mb-3">
                         <label for="credential_level" class="form-label">Credential Level</label>
                         <select class="form-control" id="credential_level" name="credential_level" required>
-                            <option value= 3 >Veiwer</option>
+                            <option value= 3 >Viewer</option>
                             <option value= 2>Staff</option> 
                             <option value= 1 >Manager</option>
                             <option value= 0>Admin</option>
@@ -142,26 +133,35 @@ $userTable = '<div class="card">
                     <th>User ID</th>
                     <th>Username</th>
                     <th>Credential Level</th>
-                    ' . ($_SESSION['isAdmin'] ? '<th>Actions</th>' : '') . '
+                    ' . (($_SESSION['credentialLevel'] == 0 || $_SESSION['credentialLevel'] == -1) ? '<th>Actions</th>' : '') . '
                 </tr>
             </thead>
             <tbody>';
 
 foreach ($users as $user) {
+    $credentialLabels = [
+        -1 => 'Super Admin',
+        0 => 'Admin',
+        1 => 'Manager',
+        2 => 'Staff',
+        3 => 'Viewer'
+    ];
+    $credentialDisplay = $credentialLabels[$user['credentialLevel']] ?? $user['credentialLevel'];
+
     $userTable .= '<tr>
         <td>' . htmlspecialchars($user['userID']) . '</td>
         <td>' . htmlspecialchars($user['username']) . '</td>
-        <td><span class="badge bg-' . ($user['credentialLevel'] === 'admin' ? 'danger' : 'secondary') . '">' 
-            . htmlspecialchars($user['credentialLevel'] ?? 'user') . '</span></td>';
+        <td><span class="badge bg-' . (($user['credentialLevel'] == 0 || $user['credentialLevel'] == -1) ? 'danger' : 'secondary') . '">' 
+            . htmlspecialchars($credentialDisplay) . '</span></td>';
     
-    if ($_SESSION['isAdmin'] && $user['userID'] != $_SESSION['userID']) {
+    if (($_SESSION['credentialLevel'] == 0 || $_SESSION['credentialLevel'] == -1) && $user['userID'] != $_SESSION['userID']) {
         $userTable .= '<td>
             <form method="POST" action="users.php" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to delete this user?\');">
                 <input type="hidden" name="user_id" value="' . $user['userID'] . '">
                 <button type="submit" name="delete_user" class="btn btn-danger btn-sm">Delete</button>
             </form>
         </td>';
-    } elseif ($_SESSION['isAdmin']) {
+    } elseif ($_SESSION['credentialLevel'] == 0 || $_SESSION['credentialLevel'] == -1) {
         $userTable .= '<td><span class="text-muted">Current User</span></td>';
     }
     
@@ -176,7 +176,7 @@ $userTable .= '</tbody>
 $pageContent = '<div class="container mt-4">
     <h1>User Management</h1>
     <p>Logged in as: <strong>' . htmlspecialchars($_SESSION['username']) . '</strong> 
-    (' . ($_SESSION['isAdmin'] ? 'Admin' : 'User') . ')</p>
+    (' . htmlspecialchars($credentialDisplay) . ')</p>
     ' . $alertMessage . '
     ' . $createUserForm . '
     ' . $userTable . '

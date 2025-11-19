@@ -38,6 +38,10 @@ Team UIS from Etown college, 2025 Software Engineering - CS 341
 
 # Credential Levels
  - has ability to do what ever is listed as well as below them
+
+
+**-1. SUPER ADMIN**
+ - able to create and delete admins
 **0. Admin** 
  - All seeing, able to create/delete/modify users
  - Able to view all audit logs and system reports

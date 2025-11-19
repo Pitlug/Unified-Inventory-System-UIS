@@ -1,12 +1,13 @@
 <?php
-require_once '../includes/db_connect.php';
-
+// Include database connection
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * DELETE - Delete an order
  * Expected input: {inventoryID}
  */
-function handleDelete($pdo, $input) {
+function handleDelete($input) {
     try {
         // Validate input
         if (!isset($input['inventoryID'])) {
@@ -16,32 +17,36 @@ function handleDelete($pdo, $input) {
         }
         
         // Check if item exists
-        $stmt = $pdo->prepare("SELECT inventoryID FROM inventory WHERE inventoryID = ?");
-        $stmt->execute([$input['inventoryID']]);
-        if (!$stmt->fetch()) {
+        $sql = "SELECT inventoryID FROM inventory WHERE inventoryID = ?";
+        $field = [$input['inventoryID']];
+        if (!UISDatabase::getDataFromSQL($sql,$field)) {
             http_response_code(404);
             echo json_encode(['error' => 'Order not found']);
             return;
         }
         
         // Begin transaction
-        $pdo->beginTransaction();
+        UISDatabase::startTransaction();
         
         // Delete order items first (foreign key constraint)
-        $stmt = $pdo->prepare("DELETE FROM orderItems WHERE orderID = ?");
-        $stmt->execute([$input['orderID']]);
+        /*
+        NEEDS REVIEWED. This should set the inventory id to null in the orderitems table. 
+        */
+        //$stmt = $pdo->prepare("DELETE FROM orderItems WHERE orderID = ?");
+        //$stmt->execute([$input['orderID']]);
         
         // Delete item
-        $stmt = $pdo->prepare("DELETE FROM inventory WHERE inventoryID = ?");
-        $stmt->execute([$input['inventoryID']]);
+        $sql = "DELETE FROM inventory WHERE inventoryID = ?";
+        $field = [$input['inventoryID']];
+        UISDatabase::executeSQL($field);
         
         // Commit transaction
-        $pdo->commit();
+        UISDatabase::commitTransaction();
         
         http_response_code(200);
         echo json_encode(['success' => true, 'message' => 'Item deleted successfully']);
     } catch (PDOException $e) {
-        $pdo->rollBack();
+        UISDatabase::rollbackTransaction();
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }

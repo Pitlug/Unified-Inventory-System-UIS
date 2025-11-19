@@ -15,13 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     if (!empty($username) && !empty($password)) {
         try {
             // Query user from database using UISDatabase
-            $sql = "SELECT userID, username, password, credentialLevel FROM users WHERE username = ?";
-            $users = UISDatabase::getDataFromSQL($sql, [$username]);
-            
+            $user = (array) requestAPI($GLOBALS['apiUsers'],'GET',['username'=>$username]);
             // Check if user exists (getDataFromSQL returns array of results)
-            if (!empty($users)) {
-                $user = $users[0]; // Get first result
-                
+            if (!isset($user['error'])) {
                 // Verify password matches
                 if ($password === $user['password']) {
                     // Set session variables

@@ -5,7 +5,8 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH');
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Include database connection
-require_once $GLOBALS['db_connect'];
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 //shaw3 is used to hash passwords
 /**
  * POST - Create a new user
