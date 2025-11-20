@@ -16,6 +16,12 @@
     --btnSecondaryHover: #7f8c8d;
     --btnSecondaryBG: #95a5a6;
 
+    /* Custom styling for homepage */
+    --background-second: #8FABD4;
+    --background-main: #EFECE3;
+    --spacing: #4A70A9;
+    --text-on-home: #000000;
+
 }
 
 /* Override variables for dark mode */

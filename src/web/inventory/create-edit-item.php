@@ -47,6 +47,8 @@ $pageContent = '
         <br>
         <br>
     </div>
+  </form>
+</section>
     ';
     $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js']);
     $page->standardize();

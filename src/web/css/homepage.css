@@ -1,0 +1,29 @@
+/* This is the styling for the homepage */
+
+@import url("config_vars.css");
+
+header {
+            background-color: --background-second;
+            color: --text-on-home;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+nav {
+            background-color: --spacing;
+            /* Dark Gray */
+            text-align: center;
+            padding: 12px 0;
+}
+nav a {
+            color: --text-on-home;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }

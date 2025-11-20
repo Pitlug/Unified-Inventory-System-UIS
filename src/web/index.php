@@ -1,12 +1,13 @@
 <?php
     include_once 'classes/PageClass.php';
+
     $pageContent = '
     <html>
 <head></head>
 <body>
-    <header>
-        <h1>Welcome to UIS</h1>
-        <p>Your unified inventory management system.</p>
+    <header class="header">
+        <h1 class="header">Welcome to UIS</h1>
+        <p class="header">Your unified inventory management system.</p>
     </header>
     <nav>
         <a href="#about">About</a> |
@@ -78,7 +79,7 @@
 </body>
 </html>
     ';
-    $page = new PageClass('Home',$pageContent);
+    $page = new PageClass('Home',$pageContent, ['homepage.css'], []);
     $page->standardize();
     echo $page->render();
 ?>
