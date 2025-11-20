@@ -64,6 +64,28 @@ function Logout(){
 
 function requestAPI($api, $method, $input=null){
     $ch = curl_init();
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+    if($method=='GET'){
+        if(isset($input)){
+            $queryParams = $input;
+            $api.='?';
+            foreach($queryParams as $key=>$value){
+                $api.="{$key}={$value}";
+            }
+        }
+    }else{
+        if(isset($input)){
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($input));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        }
+    }
+    curl_setopt($ch, CURLOPT_URL, $api);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the transfer as a string
+    $returnValue = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($returnValue, true);
+    /* Hectors code
+    $ch = curl_init();
     
     // Set the HTTP method
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, strtoupper($method));
@@ -95,7 +117,7 @@ function requestAPI($api, $method, $input=null){
         'data' => json_decode($response, true),
         'httpCode' => $httpCode,
         'success' => $httpCode >= 200 && $httpCode < 300
-    ];
+    ];*/
 }
 
 ?>

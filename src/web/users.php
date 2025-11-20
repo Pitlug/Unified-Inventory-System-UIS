@@ -95,6 +95,7 @@ try {
     //echo("Fetching users from API...");
     $apiUrl = $GLOBALS['apiUsers'];
     $result = requestAPI($apiUrl, 'GET');
+    echo $result;
     //echo($result);
     // DEBUG
     /*
