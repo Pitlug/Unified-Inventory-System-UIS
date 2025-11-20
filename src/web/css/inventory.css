@@ -116,6 +116,7 @@ Start Sidebar
 
 .category-item.selected a{
     font-weight:bolder;
+    pointer-events: none;
 }
 /*
 +++++++++++++++++++++++

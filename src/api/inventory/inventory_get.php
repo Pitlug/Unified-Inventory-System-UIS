@@ -5,11 +5,11 @@ include_once $GLOBALS['singleton'];
 
 /**
  * GET - Retrieve item(s) in inventory
- * Query params: ?orderID=123 for specific item, or no params for all items
+ * Query params: ?inventoryID=123 for specific item, or no params for all items
  */
 function handleGet() {
     try {
-        if (isset($_GET['orderID'])) {
+        if (isset($_GET['inventoryID'])) {
             // Get specific inventory item
             $inventoryID = $_GET['inventoryID'];
             
@@ -25,6 +25,57 @@ function handleGet() {
             
             http_response_code(200);
             echo json_encode($item);
+        }else if(isset($_GET['count'])){
+            //get inventory count
+            $sql = "SELECT COUNT(*) FROM inventory";
+            $count = UISDatabase::getDataFromSQL($sql);
+            
+            if (!$count || !isset($count[0]["COUNT(*)"])) {
+                http_response_code(404);
+                echo json_encode(['error' => 'Count failed']);
+                return;
+            }
+            
+            http_response_code(200);
+            echo json_encode($count[0]["COUNT(*)"]);
+        }else if(isset($_GET['page'])){
+            //get inventory items by page
+            // Validate perPage
+            if (!isset($_GET['perPage']) || !is_numeric($_GET['perPage'])) {
+                http_response_code(400);
+                echo json_encode(['error' => 'You must provide perPage as a number']);
+                return;
+            }
+
+            $page     = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $perPage  = (int)$_GET['perPage'];
+            $offset   = ($page - 1) * $perPage;
+
+            // Category filter
+            $catWhere = "";
+
+            if (!empty($_GET['category'])) {
+                $catWhere = "WHERE categoryId";
+                if($_GET['category']==-1){
+                    $catWhere.=' IS NOT NULL';
+                }else{
+                    $catWhere.= "= {$_GET['category']}";
+                }
+            }
+
+            // Build paginated query
+            $sql = "
+                SELECT *
+                FROM inventory
+                $catWhere
+                ORDER BY inventoryID
+                LIMIT $perPage OFFSET $offset
+            ";
+
+            $items = UISDatabase::getDataFromSQL($sql);
+
+            http_response_code(200);
+            echo json_encode($items);
         } else {
             // Get all items
             $sql = "SELECT * FROM inventory";

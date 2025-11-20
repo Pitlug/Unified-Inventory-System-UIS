@@ -70,8 +70,9 @@ function requestAPI($api, $method='GET', $input=null){
             $queryParams = $input;
             $api.='?';
             foreach($queryParams as $key=>$value){
-                $api.="{$key}={$value}";
+                $api.="{$key}={$value}&";
             }
+            $api = substr($api,0,-1);
         }
     }else{
         if(isset($input)){
