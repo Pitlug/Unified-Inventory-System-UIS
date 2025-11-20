@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     if (!empty($username) && !empty($password)) {
         try {
             // Query user from database using UISDatabase
-            echo var_dump($_SESSION);
             $user = (array) requestAPI($GLOBALS['apiUsers'],'GET',['username'=>$username]);
             echo var_dump($user);
             // Check if user exists (getDataFromSQL returns array of results)
