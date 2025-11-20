@@ -14,7 +14,9 @@
 
         public function __construct($pageName,$content,$styles=[],$jsfiles=[]) {
             $this->pageName = $pageName;
-            GetCredlevel($this->pageName);
+            if($this->pageName!='Home'){
+                GetCredlevel($this->pageName);
+            }
             $this->passedContent = $content;
             $this->header = new Header($pageName,$styles,$jsfiles);
             $this->navBar = new Navbar();
