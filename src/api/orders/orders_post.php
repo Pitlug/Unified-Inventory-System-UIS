@@ -1,5 +1,6 @@
 <?php
-require_once '../includes/db_connect.php';
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * POST - Create a new order
@@ -8,18 +9,21 @@ require_once '../includes/db_connect.php';
 function handlePost($pdo, $input) {
     try {
         // Validate input
-        if (!isset($input['orderStatus']) || !isset($input['date'])) {
+        if (!isset($_GET['orderStatus']) || !isset($_GET['date'])) {
             http_response_code(400);
             echo json_encode(['error' => 'Missing required fields: orderStatus, date']);
             return;
         }
         
+        $orderStatus = $_GET['orderStatus'];
+        $date = $_GET['date'];
+
         // Begin transaction
-        $pdo->beginTransaction();
+        UISDatabase::startTransaction();
         
         // Insert order
-        $stmt = $pdo->prepare("INSERT INTO orders (orderStatus, notes, date) VALUES (?, ?, ?)");
-        $stmt->execute([
+        $sql = "INSERT INTO orders (orderStatus, notes, date) VALUES (?, ?, ?)";
+        $newOrder = UISDatabase::executeSQL($sql, [
             $input['orderStatus'],
             $input['notes'] ?? null,
             $input['date']
@@ -28,11 +32,11 @@ function handlePost($pdo, $input) {
         $orderID = $pdo->lastInsertId();
         
         // Insert order items if provided
-        if (isset($input['items']) && is_array($input['items'])) {
-            $stmt = $pdo->prepare("INSERT INTO orderItems (orderID, inventoryID, name, quantity, price) VALUES (?, ?, ?, ?, ?)");
-            
-            foreach ($input['items'] as $item) {
-                $stmt->execute([
+        if (isset($_GET['items']) && is_array($_GET['items'])) {
+            $sql = "INSERT INTO orderItems (orderID, inventoryID, name, quantity, price) VALUES (?, ?, ?, ?, ?)";
+            //$stmt = $pdo->prepare("INSERT INTO orderItems (orderID, inventoryID, name, quantity, price) VALUES (?, ?, ?, ?, ?)");
+            foreach ($_GET['items'] as $item) {
+                $addOrderItems = UISDatabase::executeSQL($sql, [
                     $orderID,
                     $item['inventoryID'],
                     $item['name'],
@@ -43,12 +47,11 @@ function handlePost($pdo, $input) {
         }
         
         // Commit transaction
-        $pdo->commit();
-        
+        UISDatabase::commitTransaction();
         http_response_code(201);
         echo json_encode(['success' => true, 'orderID' => $orderID, 'message' => 'Order created successfully']);
     } catch (PDOException $e) {
-        $pdo->rollBack();
+        UISDatabase::rollbackTransaction();
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }

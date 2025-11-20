@@ -1,5 +1,6 @@
 <?php
-require_once '../includes/db_connect.php';
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * PATCH - Partially update an order (e.g., just change status or notes)
@@ -8,16 +9,18 @@ require_once '../includes/db_connect.php';
 function handlePatch($pdo, $input) {
     try {
         // Validate input
-        if (!isset($input['orderID'])) {
+        if (!isset($_GET['orderID'])) {
             http_response_code(400);
             echo json_encode(['error' => 'Missing required field: orderID']);
             return;
         }
         
         // Check if order exists
-        $stmt = $pdo->prepare("SELECT orderID FROM orders WHERE orderID = ?");
-        $stmt->execute([$input['orderID']]);
-        if (!$stmt->fetch()) {
+        $orderID = $_GET['orderID'];
+        $sql = "SELECT orderID FROM orders WHERE orderID = ?";  
+        $order = UISDatabase::getDataFromSQL($sql, [$orderID]);
+
+        if (!$order) {
             http_response_code(404);
             echo json_encode(['error' => 'Order not found']);
             return;
@@ -26,16 +29,22 @@ function handlePatch($pdo, $input) {
         // Build dynamic update query
         $updates = [];
         $params = [];
+
+        $orderStatus = $_GET['orderStatus'];
         
-        if (isset($input['orderStatus'])) {
+        if (isset($orderStatus)) {
             $updates[] = "orderStatus = ?";
             $params[] = $input['orderStatus'];
         }
-        if (isset($input['notes'])) {
+
+        $notes = $_GET['notes'];
+        if (isset($notes)) {
             $updates[] = "notes = ?";
             $params[] = $input['notes'];
         }
-        if (isset($input['date'])) {
+
+        $date = $_GET['date'];
+        if (isset($date)) {
             $updates[] = "date = ?";
             $params[] = $input['date'];
         }
@@ -47,12 +56,11 @@ function handlePatch($pdo, $input) {
         }
         
         // Add orderID to params
-        $params[] = $input['orderID'];
+        $params[] = $_GET['orderID'];
         
         // Update order
         $sql = "UPDATE orders SET " . implode(", ", $updates) . " WHERE orderID = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
+        $stmt = UISDatabase::executeSQL($sql, $params);
         
         http_response_code(200);
         echo json_encode(['success' => true, 'message' => 'Order updated successfully']);

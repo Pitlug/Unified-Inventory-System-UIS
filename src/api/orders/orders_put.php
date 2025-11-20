@@ -1,5 +1,6 @@
 <?php
-require_once '../includes/db_connect.php';
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * PUT - Update entire order (replace)
@@ -8,44 +9,56 @@ require_once '../includes/db_connect.php';
 function handlePut($pdo, $input) {
     try {
         // Validate input
-        if (!isset($input['orderID']) || !isset($input['orderStatus']) || !isset($input['date'])) {
+        if (!isset($_GET['orderID']) || !isset($_GET['orderStatus']) || !isset($_GET['date'])) {
             http_response_code(400);
             echo json_encode(['error' => 'Missing required fields: orderID, orderStatus, date']);
             return;
         }
         
         // Check if order exists
-        $stmt = $pdo->prepare("SELECT orderID FROM orders WHERE orderID = ?");
-        $stmt->execute([$input['orderID']]);
-        if (!$stmt->fetch()) {
+        $sql = "SELECT orderID FROM orders WHERE orderID = ?";
+        $order = UISDatabase::getDataFromSQL($sql, [$_GET['orderID']]);
+        if (!$order) {
             http_response_code(404);
             echo json_encode(['error' => 'Order not found']);
             return;
         }
         
         // Begin transaction
-        $pdo->beginTransaction();
+        UISDatabase::startTransaction();
         
         // Update order
-        $stmt = $pdo->prepare("UPDATE orders SET orderStatus = ?, notes = ?, date = ? WHERE orderID = ?");
-        $stmt->execute([
+        $sql = "UPDATE orders SET orderStatus = ?, notes = ?, date = ? WHERE orderID = ?";
+        //$stmt = $pdo->prepare("UPDATE orders SET orderStatus = ?, notes = ?, date = ? WHERE orderID = ?");
+        $updateOrder = UISDatabase::executeSQL($sql);
+        /*$stmt->execute([
             $input['orderStatus'],
             $input['notes'] ?? null,
             $input['date'],
             $input['orderID']
-        ]);
+        ]);*/
         
         // Delete existing order items
-        $stmt = $pdo->prepare("DELETE FROM orderItems WHERE orderID = ?");
-        $stmt->execute([$input['orderID']]);
+        $sql = "DELETE FROM orderItems WHERE orderID = ?";
+        /*$stmt = $pdo->prepare("DELETE FROM orderItems WHERE orderID = ?");
+        $stmt->execute([$input['orderID']]);*/
+        $deleteItems = UISDatabase::executeSQL($sql, [$input['orderID']]);
         
         // Insert new order items if provided
-        if (isset($input['items']) && is_array($input['items'])) {
-            $stmt = $pdo->prepare("INSERT INTO orderItems (orderID, inventoryID, name, quantity, price) VALUES (?, ?, ?, ?, ?)");
+        if (isset($_GET['items']) && is_array($_GET['items'])) {
+            $sql = "INSERT INTO orderItems (orderID, inventoryID, name, quantity, price) VALUES (?, ?, ?, ?, ?)";
+            //$stmt = $pdo->prepare("INSERT INTO orderItems (orderID, inventoryID, name, quantity, price) VALUES (?, ?, ?, ?, ?)");
             
-            foreach ($input['items'] as $item) {
-                $stmt->execute([
+            foreach ($_GET['items'] as $item) {
+                /*$stmt->execute([
                     $input['orderID'],
+                    $item['inventoryID'],
+                    $item['name'],
+                    $item['quantity'],
+                    $item['price']
+                ]);*/
+                $addOrderItems = UISDatabase::executeSQL($sql, [
+                    $_GET['orderID'],
                     $item['inventoryID'],
                     $item['name'],
                     $item['quantity'],
@@ -55,12 +68,12 @@ function handlePut($pdo, $input) {
         }
         
         // Commit transaction
-        $pdo->commit();
+        UISDatabase::commitTransaction();
         
         http_response_code(200);
         echo json_encode(['success' => true, 'message' => 'Order updated successfully']);
     } catch (PDOException $e) {
-        $pdo->rollBack();
+        UISDatabase::rollbackTransaction();
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }
