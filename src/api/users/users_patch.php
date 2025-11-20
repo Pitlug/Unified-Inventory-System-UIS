@@ -5,13 +5,14 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH');
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Include database connection
-require_once $GLOBALS['db_connect'];
+require_once '../../sitevars.php';
+include_once $GLOBALS['singleton'];
 
 /**
  * PATCH - Partially update a user
  * Expected input: {userID, [username], [password], [credentialLevel]}
  */
-function handlePatch($pdo, $input) {
+function handlePatch($input) {
     try {
         // Validate input
         if (!isset($input['userID'])) {
@@ -28,9 +29,9 @@ function handlePatch($pdo, $input) {
         }
         
         // Check if user exists
-        $stmt = $pdo->prepare("SELECT userID FROM users WHERE userID = ?");
-        $stmt->execute([$input['userID']]);
-        if (!$stmt->fetch()) {
+        $sql = "SELECT userID FROM users WHERE userID = ?";
+        $user = UISDatabase::getDataFromSQL($sql, [$input['userID']]);
+        if (!$user) {
             http_response_code(404);
             echo json_encode(['error' => 'User not found']);
             return;
@@ -38,9 +39,9 @@ function handlePatch($pdo, $input) {
         
         // Check if new username already exists (if username is being updated)
         if (isset($input['username'])) {
-            $stmt = $pdo->prepare("SELECT userID FROM users WHERE username = ? AND userID != ?");
-            $stmt->execute([$input['username'], $input['userID']]);
-            if ($stmt->fetch()) {
+            $sql = "SELECT userID FROM users WHERE username = ? AND userID != ?";
+            $existingUser = UISDatabase::getDataFromSQL($sql, [$input['username'], $input['userID']]);
+            if ($existingUser) {
                 http_response_code(409);
                 echo json_encode(['error' => 'Username already exists']);
                 return;
@@ -75,8 +76,7 @@ function handlePatch($pdo, $input) {
         
         // Update user
         $sql = "UPDATE users SET " . implode(", ", $updates) . " WHERE userID = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
+        UISDatabase::executeSQL($sql, $params);
         
         http_response_code(200);
         echo json_encode(['success' => true, 'message' => 'User updated successfully']);

@@ -24,19 +24,19 @@ switch ($method) {
         break;
     case 'POST':
         include 'users_post.php';
-        handlePost($pdo, $input);
+        handlePost($input);
         break;
     case 'PUT':
         include 'users_put.php';
-        handlePut($pdo, $input);
+        handlePut($input);
         break;
     case 'DELETE':
         include 'users_delete.php';
-        handleDelete($pdo, $input);
+        handleDelete($input);
         break;
     case 'PATCH':
         include 'users_patch.php';
-        handlePatch($pdo, $input);
+        handlePatch($input);
         break;
     default:
         http_response_code(405);

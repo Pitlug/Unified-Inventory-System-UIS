@@ -10,12 +10,15 @@ require_once $GLOBALS['singleton'];
 // Handle login submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'] ?? '';
+    //var_dump($username);
     $password = $_POST['password'] ?? '';
+    //var_dump($password);
     
     if (!empty($username) && !empty($password)) {
         try {
             // Query user from database using UISDatabase
-            $user = (array) requestAPI($GLOBALS['apiUsers'],'GET',['username'=>$username]);
+            $user = /*(array)*/ requestAPI($GLOBALS['apiUsers'],'GET',['username'=>$username]);
+            var_dump($user);
             // Check if user exists (getDataFromSQL returns array of results)
             if (!isset($user['error'])) {
                 // Verify password matches

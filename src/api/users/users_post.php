@@ -13,7 +13,7 @@ include_once $GLOBALS['singleton'];
  * Expected input: {username, password, credentialLevel}
  * Note: Password is stored as-is (consider implementing hashing and updating DB schema)
  */
-function handlePost($pdo, $input) {
+function handlePost($input) {
     try {
         // Validate input
         if (!isset($input['username']) || !isset($input['password'])) {
@@ -30,24 +30,24 @@ function handlePost($pdo, $input) {
         }
         
         // Check if username already exists
-        $stmt = $pdo->prepare("SELECT userID FROM users WHERE username = ?");
-        $stmt->execute([$input['username']]);
-        if ($stmt->fetch()) {
+        $sql = "SELECT userID FROM users WHERE username = ?";
+        $existingUser = UISDatabase::getDataFromSQL($sql, [$input['username']]);
+        if ($existingUser) { 
             http_response_code(409);
             echo json_encode(['error' => 'Username already exists']);
             return;
         }
         
         // Insert user
-        $stmt = $pdo->prepare("INSERT INTO users (username, password, credentialLevel) VALUES (?, ?, ?)");
-        $stmt->execute([
+        $sql = "INSERT INTO users (username, password, credentialLevel) VALUES (?, ?, ?)";
+        UISDatabase::executeSQL($sql, [
             $input['username'],
             $input['password'],
             $input['credentialLevel'] ?? null
         ]);
-        
-        $userID = $pdo->lastInsertId();
-        
+
+        $userID = UISDatabase::getLastInsertId();
+                
         http_response_code(201);
         echo json_encode([
             'success' => true, 
