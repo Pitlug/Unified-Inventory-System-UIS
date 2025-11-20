@@ -40,7 +40,7 @@ function GetCredlevel($location){
     // Check if user is logged in
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         $_SESSION['credentialLevel'] = null;
-        if($location!='Login'){
+        if($location!='Login' || $location!='Home'){
             header("Location: {$GLOBALS['webRoot']}/login.php");
         }
         return false;
