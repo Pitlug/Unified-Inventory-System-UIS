@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         try {
             // Query user from database using UISDatabase
             $user = (array) requestAPI($GLOBALS['apiUsers'],'GET',['username'=>$username]);
-            echo var_dump($user);
             // Check if user exists (getDataFromSQL returns array of results)
             if (!isset($user['error'])) {
                 // Verify password matches
@@ -29,8 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                     $_SESSION['isAdmin'] = ($user['credentialLevel'] === 0);
                     
                     // Redirect to home page
-                    //header('Location: index.php');
-                    echo var_dump($_SESSION);
+                    header('Location: index.php');
                     exit();
                 } else {
                     $error = "Invalid username or password";

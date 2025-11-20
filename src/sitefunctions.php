@@ -64,7 +64,6 @@ function Logout(){
 
 function requestAPI($api, $method='GET', $input=null){
     $ch = curl_init();
-    return var_dump($ch);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
     if($method=='GET'){
         if(isset($input)){
