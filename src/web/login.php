@@ -29,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                     $_SESSION['isAdmin'] = ($user['credentialLevel'] === 0);
                     
                     // Redirect to home page
-                    header('Location: index.php');
+                    //header('Location: index.php');
+                    echo var_dump($_SESSION);
                     exit();
                 } else {
                     $error = "Invalid username or password";
