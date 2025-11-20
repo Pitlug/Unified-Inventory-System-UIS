@@ -53,34 +53,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
         $message = "Only administrators can delete users.";
         $messageType = "danger";
     } else {
+        $apiUrl = $GLOBALS['apiUsers'];
         $userIdToDelete = $_POST['user_id'] ?? 0;
+        $userID = requestAPI($apiUrl, 'GET',[
+            'userID' => $userIdToDelete
+        ]);
+
+        //var_dump($userID);
+
+        $userCredtoDel = $userID[0]['credentialLevel'];
+        //echo($userCredtoDel); 
+
+
+        //echo("\n");
+        //echo($user['credentialLevel']);
+        //echo("\n");
         
         // Prevent self-deletion
         if ($userIdToDelete == $_SESSION['userID']) {
             $message = "You cannot delete your own account.";
             $messageType = "danger";
         } else {
-            try {
-                $sql = "DELETE FROM users WHERE userID = ?";
-                UISDatabase::getDataFromSQL($sql, [$userIdToDelete]);
-                
-                $message = "User deleted successfully!";
-                $messageType = "success";
-            } catch (PDOException $e) {
-                $message = "Error deleting user: " . $e->getMessage();
-                $messageType = "danger";
-            }
+            // Call API to delete user
+            $result = requestAPI($apiUrl, 'DELETE', [
+                'userID' => $userIdToDelete
+            ]);
+            //echo("Result of api call in delete:");
+            //var_dump($result['data']);
         }
     }
 }
 
 // Fetch all users
+$users = [];
 try {
-    $sql = "SELECT userID, username, credentialLevel FROM users";
-    $users = UISDatabase::getDataFromSQL($sql);
-} catch (PDOException $e) {
+    //echo("Fetching users from API...");
+    $apiUrl = $GLOBALS['apiUsers'];
+    $result = requestAPI($apiUrl, 'GET');
+    //var_dump($result);
+    // DEBUG
+    /*
+    echo "DEBUG INFO:\n";
+    echo "Result type: " . gettype($result) . "\n";
+    echo "Result structure:\n";
+    print_r($result);
+    echo "\n\nResult keys: " . (is_array($result) ? implode(', ', array_keys($result)) : 'N/A') . "\n";
+    
+    if (isset($result['httpCode'])) {
+        echo "HTTP Code: " . $result['httpCode'] . " (type: " . gettype($result['httpCode']) . ")\n";
+        echo "HTTP Code === 200: " . ($result['httpCode'] === 200 ? 'TRUE' : 'FALSE') . "\n";
+        echo "HTTP Code == 200: " . ($result['httpCode'] == 200 ? 'TRUE' : 'FALSE') . "\n";
+    } else {
+        echo "HTTP Code: NOT SET\n";
+    }
+    if (isset($result['data'])) {
+        echo "\nData type: " . gettype($result['data']) . "\n";
+        echo "Data structure:\n";
+        print_r($result['data']);
+    }
+    echo "</pre>";
+    */
+
+    if (isset($result)) {
+        
+        
+        // Check if data is directly an array of users
+        if (is_array($result) && !empty($result)) {
+            // Check if first element looks like a user object
+            $firstElement = reset($result);
+            if (is_array($firstElement) && (isset($firstElement['userID']) || isset($firstElement['username']))) {
+                $users = $result;
+                //echo("users set");
+                //echo($users);
+            } else {
+                $users = [];
+                $message = "Unexpected data format from API.";
+                $messageType = "warning";
+            }
+        } else {
+            $users = [];
+        }
+    } else {
+        $message = "Error fetching users.";
+        //echo("more error");
+        $messageType = "danger";
+    }
+} catch (Exception $e) {
     $users = [];
     $message = "Error fetching users: " . $e->getMessage();
+    //echo('more error bad');
     $messageType = "danger";
 }
 
@@ -137,6 +198,7 @@ $userTable = '<div class="card">
                 </tr>
             </thead>
             <tbody>';
+
 
 foreach ($users as $user) {
     $credentialLabels = [
