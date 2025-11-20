@@ -17,10 +17,10 @@
     --btnSecondaryBG: #95a5a6;
 
     /* Custom styling for homepage */
-    --background-second: #8FABD4;
-    --background-main: #EFECE3;
-    --spacing: #4A70A9;
-    --text-on-home: #000000;
+    --lightblue: #8FABD4;
+    --white: #EFECE3;
+    --darkblue: #4A70A9;
+    --veryblack: #000000;
 
 }
 
@@ -35,4 +35,10 @@
     --modeColor: #111827; /* Deepest background color */ 
     --modeColorOPP: #f9fafb; /* Lightest background color */
     --helper-text-color: #9ca3af; /* Muted text color for hints/placeholders */
+
+    /* Custom Styling for Homepage */
+    --background-second: #4A70A9;
+    --background-main: #000000;
+    --spacing: #8FABD4;
+    --text-on-home: #EFECE3;
 }
