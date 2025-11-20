@@ -3,7 +3,7 @@ include_once '../classes/PageClass.php';
 $pageContent = '
 <div class="page-content">
     <h1>Add New Order</h1>
-    <form id="addOrderForm" method="POST" action="../api/orders/orders_post.php">
+    <form id="addOrderForm" method="POST" action="../../api/orders/orders_post.php">
         <label for="orderName">Order Name:</label>
         <input type="text" id="orderName" name="orderName" placeholder="Order name goes here" required><br><br>
 
