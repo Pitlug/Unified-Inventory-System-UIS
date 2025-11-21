@@ -4,6 +4,7 @@
 
 body {
         background-image: url("../images/gif2.gif");
+        background-size: large;
     }
 
 header {
@@ -16,6 +17,7 @@ header {
 header h1 {
             margin: 0;
             font-size: 2.5rem;
+            font-weight: bold;
         }
 nav {
             background-color: var(--darkblue);
@@ -32,7 +34,7 @@ nav a {
             letter-spacing: 0.5px;
         }
 nav a:hover {
-            color: var(--darkblue);
+            color: var(--tanPrimary);
             /* Tomato */
             text-decoration: underline;
         }
@@ -47,6 +49,7 @@ section {
         }
 section:hover {
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            color: --tanPrimary;
         }
 section h2 {
             color: var(--blueText);
@@ -59,20 +62,36 @@ table {
             border-collapse: collapse;
             margin-top: 15px;
         }
-table th,
+table th {
+    color: var(--blueText);
+}
 table td {
             border: 1px solid var(--tanPrimary);
             padding: 12px;
             text-align: left;
         }
 table th {
-            background-color: var(--tanPrimary);
+            background-color: var(--lightblue);
             font-weight: 600;
-            color: #333;
+            color: var(--darkblue);
         }
+table th:hover {
+            background-color: var(--lightblue);
+            color: var(--tanPrimary);
+}
+table tr:hover {
+            background-color: var(--lightblue);
+            color: var(--darkblue);
+}
 table tr:nth-child(even) {
             background-color: var(--tanPrimary);
         }
+.tableText {
+    color: var(--veryblack);
+}
+.thread {
+    background-color: var(--lightblue);
+}
 ul {
             list-style: none;
             padding: 0;

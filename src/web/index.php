@@ -7,7 +7,7 @@
 <body>
     <header class="header">
         <h1 class="header">Welcome to UIS</h1>
-        <p class="header">Your unified inventory management system.</p>
+        <p class="header">Your Unified Inventory Management System.</p>
     </header>
     <div class="header">
         <nav>
@@ -31,11 +31,11 @@
         <section id="Features">
             <h2>Features</h2>
             <table>
-                <thead>
+                <thead class="thread">
                     <tr>
-                        <th>Feature</th>
-                        <th>Explanation</th>
-                        <th>Sub Features</th>
+                        <th class="tableText">Feature</th>
+                        <th class="tableText">Explanation</th>
+                        <th class="tableText">Sub Features</th>
                     </tr>
                 </thead>
                 <tbody>
