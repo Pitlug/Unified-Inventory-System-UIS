@@ -5,21 +5,19 @@
 <html>
 <head></head>
 <body>
-    <div class="main-content">
-    <span class="border-top">
-    <span class="border-bottom">
-    <span class="border border-4">
-    <span class="border border-primary-subtle">
-        <header class="header">
-            <h1 class="header">Welcome to UIS</h1>
-            <p class="header">Your unified inventory management system.</p>
-        </header>
+    <header class="header">
+        <h1 class="header">Welcome to UIS</h1>
+        <p class="header">Your unified inventory management system.</p>
+    </header>
+    <div class="header">
         <nav>
             <a href="#about">About</a> |
             <a href="#Features">Features</a> |
             <a href="#authors">Authors</a> |
             <a href="#contact">Contact</a>
         </nav>
+    </div>
+    <div class="about">
         <section id="about">
             <h2>About UIS</h2>
             <p>UIS is a inventory management site built by Alexander Pellet, Rein Alderfer, Hector Franco, and Drew Urenko. 
@@ -28,6 +26,8 @@
                 And only employs can use the site.
             </p>
         </section>
+    </div>
+    <div class="Features">
         <section id="Features">
             <h2>Features</h2>
             <table>
@@ -60,6 +60,8 @@
                 </tbody>
             </table>
         </section>
+    </div>
+    <div class="authors">
         <section id="authors">
             <h2>Meet the Authors</h2>
             <ul>
@@ -69,6 +71,8 @@
                 <li><strong>Mr. Drew Urenko:</strong> Junior Computer Science Major</li>
             </ul>
         </section>
+    </div>
+    <div class="contact">
         <section id="contact">
             <h2>Contact Us to Sign Up Today!</h2>
             <form>
@@ -81,10 +85,6 @@
                 <button type="button" class="btn btn-primary btn-lg">Submit</button>
             </form>
         </section>
-    </span>
-    </span>
-    </span>
-    </span>
     </div>
 </body>
 </html>
