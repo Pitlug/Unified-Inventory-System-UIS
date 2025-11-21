@@ -18,9 +18,10 @@
 
     /* Custom styling for homepage */
     --lightblue: #8FABD4;
-    --white: #EFECE3;
-    --darkblue: #4A70A9;
+    --tanPrimary: #EFECE3;
+    --darkblue: #5185b9;
     --veryblack: #000000;
+    --blueText: #5185b9;
 
 }
 
@@ -37,8 +38,9 @@
     --helper-text-color: #9ca3af; /* Muted text color for hints/placeholders */
 
     /* Custom Styling for Homepage */
-    --background-second: #4A70A9;
-    --background-main: #000000;
-    --spacing: #8FABD4;
-    --text-on-home: #EFECE3;
+    --lightblue: #4A70A9;
+    --tanPrimary: #1f2937;
+    --darkblue: #1f2937;
+    --veryblack: #EFECE3;
+    --blueText: #EFECE3;
 }
