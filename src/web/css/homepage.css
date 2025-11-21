@@ -1,0 +1,129 @@
+/* This is the styling for the homepage */
+
+@import url("config_vars.css");
+
+body {
+        background-image: url("../images/gif2.gif");
+        background-size: large;
+    }
+
+header {
+            background-color: var(--lightblue);
+            color: --veryblack;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+nav {
+            background-color: var(--darkblue);
+            /* Dark Gray */
+            text-align: center;
+            padding: 12px 0;
+}
+nav a {
+            color: var(--veryblack);
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+nav a:hover {
+            color: var(--tanPrimary);
+            /* Tomato */
+            text-decoration: underline;
+        }
+section {
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 900px;
+            background-color: var(--tanPrimary);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+section:hover {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            color: --tanPrimary;
+        }
+section h2 {
+            color: var(--blueText);
+            /* Bright Blue */
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+table th {
+    color: var(--blueText);
+}
+table td {
+            border: 1px solid var(--tanPrimary);
+            padding: 12px;
+            text-align: left;
+        }
+table th {
+            background-color: var(--lightblue);
+            font-weight: 600;
+            color: var(--darkblue);
+        }
+table th:hover {
+            background-color: var(--lightblue);
+            color: var(--tanPrimary);
+}
+table tr:hover {
+            background-color: var(--lightblue);
+            color: var(--darkblue);
+}
+table tr:nth-child(even) {
+            background-color: var(--tanPrimary);
+        }
+.tableText {
+    color: var(--veryblack);
+}
+.thread {
+    background-color: var(--lightblue);
+}
+ul {
+            list-style: none;
+            padding: 0;
+        }
+ul li {
+            margin: 12px 0;
+            font-size: 1.2rem;
+        }
+ul li strong {
+            color: var(--blueText);
+        }
+form {
+            max-width: 650px;
+            margin: 25px auto;
+        }
+form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+form input,
+form textarea,
+form button {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid var(--white);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+form input:focus,
+form textarea:focus {
+            border-color: var(--blueText);
+            outline: none;
+        }

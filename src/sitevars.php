@@ -70,6 +70,7 @@ $GLOBALS['apiUrl'] = $GLOBALS['src'] . '/api/';
 $GLOBALS['apiOrders'] =  $GLOBALS['apiUrl'] . 'orders/api_orders.php';
 $GLOBALS['apiUsers'] =  $GLOBALS['apiUrl'] . 'users/api_users.php';
 $GLOBALS['apiInventory'] =  $GLOBALS['apiUrl'] . 'inventory/api_inventory.php';
+$GLOBALS['apiCategory'] =  $GLOBALS['apiUrl'] . 'category/api_category.php';
 
 /*DB Connect Files*/
 $GLOBALS['singleton'] = __DIR__ . '/classes/UISDatabase.php';

@@ -9,7 +9,7 @@ include_once 'orders_delete.php';
 include_once 'orders_get.php';
 include_once 'orders_patch.php';
 include_once 'orders_post.php';
-include_once 'orders_put';
+include_once 'orders_put.php';
 
 // Get the HTTP method
 $method = $_SERVER['REQUEST_METHOD'];
@@ -26,7 +26,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 // Route based on HTTP method
 switch ($method) {
     case 'GET':
-        handleGet($pdo);
+        handleGet();
         break;
     case 'POST':
         handlePost($pdo, $input);

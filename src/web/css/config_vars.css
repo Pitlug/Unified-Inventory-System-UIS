@@ -16,6 +16,13 @@
     --btnSecondaryHover: #7f8c8d;
     --btnSecondaryBG: #95a5a6;
 
+    /* Custom styling for homepage */
+    --lightblue: #8FABD4;
+    --tanPrimary: #EFECE3;
+    --darkblue: #5185b9;
+    --veryblack: #000000;
+    --blueText: #5185b9;
+
 }
 
 /* Override variables for dark mode */
@@ -29,4 +36,11 @@
     --modeColor: #111827; /* Deepest background color */ 
     --modeColorOPP: #f9fafb; /* Lightest background color */
     --helper-text-color: #9ca3af; /* Muted text color for hints/placeholders */
+
+    /* Custom Styling for Homepage */
+    --lightblue: #4A70A9;
+    --tanPrimary: #1f2937;
+    --darkblue: #1f2937;
+    --veryblack: #EFECE3;
+    --blueText: #EFECE3;
 }

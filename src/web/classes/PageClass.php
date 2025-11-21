@@ -30,6 +30,12 @@
             
         }
 
+        public function checkCredentials($userCredLevel, $credLevelRequired){
+            if(!$userCredLevel<=$credLevelRequired){
+                header('Location:'.$GLOBALS['webRoot'].'/unauthorizedAccess.php');
+            }
+        }
+
         public function standardize(){
             $this->header->addStyle('standardize.css');
         }

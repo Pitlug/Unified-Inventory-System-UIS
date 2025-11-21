@@ -4,7 +4,7 @@ require_once __DIR__ . '/../classes/PageClass.php';
 $inventoryId = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 $pageContent = '
-<main>
+<div class="container">
   <header class="page-header">
     <h1>'.($inventoryId ? 'Edit Item' : 'Create Item').'</h1>
     <p class="form-text">'.($inventoryId
@@ -47,6 +47,9 @@ $pageContent = '
         <br>
         <br>
     </div>
+  </form>
+</section>
+</div>
     ';
     $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js']);
     $page->standardize();

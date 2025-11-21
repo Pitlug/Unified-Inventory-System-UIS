@@ -1,5 +1,82 @@
 <?php
     include_once '../classes/PageClass.php';
+    
+    //Categories set and formatting. Uses ?category=x query parameter to mark which category is selected.
+    $catItems='';
+    $activeClass = '';
+    $activeTags = '';
+    $activeCat;
+    $categories = requestAPI($GLOBALS['apiCategory'],'GET',['category'=>true]);
+    if(!isset($_GET['category']) || $_GET['category']=='all'){
+        $activeClass = 'selected';
+        $activeTags = 'aria-disabled="true"';
+        $activeCat = ["categoryID"=>-1,"categoryName"=>"All","categoryDesc"=>"Displaying all content in the inventory, please select a category to narrow your search."];
+    }
+    $catItems.= "<div class='category-item {$activeClass}'><a $activeTags class='{$activeClass}' href='?category=all'><p>All</p></a></div>"; 
+    for($i=0;$i<count($categories);$i++){
+        $cat = $categories[$i];
+        if(isset($_GET['category']) && $_GET['category']=="cat{$cat['categoryID']}"){
+            $activeClass = 'selected';
+            $activeTags = 'aria-disabled="true"';
+            $activeCat = $cat;
+        }else{
+            $activeClass = '';
+            $activeTages = '';
+        }
+        $catItems.="<div class='category-item {$activeClass}'><a {$activeTags} class='{$activeClass}' href='?category=cat{$cat['categoryID']}'><p>{$cat['categoryName']}</p></a></div>";
+    }
+
+    //Inventory items for current page
+    //pagination not working.
+    $itemsPerPage = 40;
+    $page = 1;
+    if(isset($_GET['page'])){
+        $page = $_GET['page'];
+    }
+    $invCount = requestAPI($GLOBALS['apiInventory'],'GET',['count'=>true]);
+    $inventory = requestAPI($GLOBALS['apiInventory'],'GET',['page'=>$page,'perPage'=>$itemsPerPage,'category'=>$activeCat['categoryID']]);
+    $inventoryItems = '';
+    for($i=0;$i<count($inventory);$i++){
+        $item = $inventory[$i];
+        $inventoryItems.="<tr>
+                        <th scope='row'>{$item['inventoryID']}</th>
+                        <td><a href='#'>{$item['name']}</a></td>
+                        <td>{$item['quantity']}</td>
+                        <td><input class='tableCheckbox form-check-input mt-0' type='checkbox' value='' name='item{$item['inventoryID']}' aria-label='Select Table Row'></td>
+                        </tr>";
+    }
+
+    //Page navigation items
+    $pageNav = "<nav aria-label='Page navigation'>
+                <ul class='pagination justify-content-center'>";
+    $pageCount = ceil($invCount/$itemsPerPage);
+    for($i=1;$i<=$pageCount;$i++){
+        $active='';
+        $disabled='';
+        if($i==$page){$active='active';}
+        else{$active='';}
+
+        if($i==1 && $page!=1){
+            $pPrev = $page-1;
+            $pageNav.="<li class='page-item {$disabled}'>
+                        <a class='page-link' href='?page={$pPrev}' aria-label='Previous'>
+                            <span aria-hidden='true'>&laquo;</span>
+                        </a>
+                    </li>";
+        }
+
+        $pageNav.="<li class='page-item $active'><a class='page-link' href='?page={$i}'>{$i}</a></li>";
+
+        if($i==$pageCount && $page!=$pageCount){
+            $pNext = $page+1;
+            $pageNav.="<li class='page-item {$disabled}'>
+                        <a class='page-link' href='?page={$pNext}' aria-label='Next'>
+                            <span aria-hidden='true'>&raquo;</span>
+                        </a>
+                    </li>";
+        }
+    }
+
     $pageContent = '
     <div class="page-content">
         <div class="inventory-sidebar">
@@ -8,63 +85,41 @@
             </div>
             <div class="category-list">
                 <div class="list-header"><h4>Categories</h4></div>
-                <div class="category-item selected"><p><a href="#cat1">Hardware and Other Category Name</a></p></div>
-                <div class="category-item"><p><a href="#cat2">Category 2</a></p></div>
-                <div class="category-item"><p><a href="#cat3">Category 3</a></p></div>
-                <div class="category-item"><p><a href="#cat4">Category 4</a></p></div>
-                <div class="category-item"><p><a href="#cat5">Category 5</a></p></div>
-                <div class="category-item"><p><a href="#cat6">Category 6</a></p></div>
-                <div class="category-item"><p><a href="#cat7">Category 7</a></p></div>
-                <div class="category-item"><p><a href="#cat8">Category 8</a></p></div>
-                <div class="category-item"><p><a href="#cat9">Category 9</a></p></div>
-                <div class="category-item"><p><a href="#cat10">Category 10</a></p></div>
-                <div class="category-item"><p><a href="#cat11">Category 11</a></p></div>
-                <div class="category-item"><p><a href="#cat12">Category 12</a></p></div>
-                <div class="category-item"><p><a href="#cat13">Category 13</a></p></div>
-                <div class="category-item"><p><a href="#cat14">+ Add New Category</a></p></div>
+                '.
+                $catItems
+                ."
+                <div class='category-item'><p><a href='#cat14'>+ Add New Category</a></p></div>
             </div>
         </div>
-        <div class="main-content">
-            <div class="inventory-info">
+        <div class='main-content'>
+            <div class='inventory-info'>
                 <h1>Inventory</h1>
-                <h2>Category X</h2>
-                <h4>Category Description, possibly quite long, might need a new line to fit everything.</h4>
+                <h2>Category {$activeCat['categoryName']}</h2>
+                <h4>{$activeCat['categoryDesc']}</h4>
             </div>
-            <div class="inventory-table">
-                <table class="table">
+            <div class='inventory-table'>
+                <table class='table'>
                     <thead>
                         <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Select</th>
+                        <th scope='col'>Id</th>
+                        <th scope='col'>Name</th>
+                        <th scope='col'>Quantity</th>
+                        <th scope='col'>Select</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                        <td><a href="#">Product Name 1</a></td>
-                        <td>20</td>
-                        <td><input class="tableCheckbox form-check-input mt-0" type="checkbox" value="" name="prod1" aria-label="Select Table Row"></td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td><a href="#">Product Name 2</a></td>
-                        <td>30</td>
-                        <td><input class="tableCheckbox form-check-input mt-0" type="checkbox" value="" name="prod1" aria-label="Select Table Row"></td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td><a href="#">Product Name 3</a></td>
-                        <td>40</td>
-                        <td><input class="tableCheckbox form-check-input mt-0" type="checkbox" value="" name="prod1" aria-label="Select Table Row"></td>
-                        </tr>
+                    ".
+                    $inventoryItems
+                    ."
                     </tbody>
-                    </table>
+                    </table>"
+                    .
+                $pageNav
+            ."
             </div>
         </div>
     </div>
-    ';
+    ";
     $page = new PageClass('Inventory',$pageContent,['inventory.css'],[]);
     $page->standardize();
     echo $page->render();
