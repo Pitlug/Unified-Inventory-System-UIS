@@ -29,16 +29,16 @@ switch ($method) {
         handleGet();
         break;
     case 'POST':
-        handlePost($pdo, $input);
+        handlePost($input);
         break;
     case 'PUT':
-        handlePut($pdo, $input);
+        handlePut($input);
         break;
     case 'DELETE':
-        handleDelete($pdo, $input);
+        handleDelete($input);
         break;
     case 'PATCH':
-        handlePatch($pdo, $input);
+        handlePatch($input);
         break;
     default:
         http_response_code(405);
