@@ -1,5 +1,12 @@
 <?php
+session_start();
 require_once __DIR__ . '/../classes/PageClass.php';
+
+if (!isset($_SESSION['userID'])) {
+    die("Error: No user logged in.");
+}
+
+$userID = $_SESSION['userID']; 
 
 $orderID = isset($_GET['id']) ? intval($_GET['id']) : null;
 
@@ -47,13 +54,57 @@ $pageContent = '
 
             <div>
                 <br>
-                <button type="button" class="btn btn-outline-danger">Submit</button>
+                <button id="submitBtn" type="button" class="btn btn-outline-danger">Submit</button>
                 <br>
                 <br>
             </div>
         </form>
     </section>
 </main>
+    
+    <script>
+    (function(){
+        const btn = document.getElementById("submitBtn");
+        if (!btn) return;
+        btn.addEventListener("click", async function(){
+            const orderName = document.getElementById("orderName").value || null;
+            const orderDate = document.getElementById("orderDate").value || null;
+            const itemsRaw = document.getElementById("items").value || "";
+            const notes = document.getElementById("notes").value || null;
+            const status = document.getElementById("status").value || null;
+
+            // Parse items: comma separated IDs -> array of item objects
+            const items = itemsRaw.split(",").map(s => s.trim()).filter(s => s !== "").map(id => ({ inventoryID: parseInt(id,10) || null, name: null, quantity: 1, price: null }));
+
+            const payload = {
+                orderName: orderName,
+                orderStatus: status,
+                date: orderDate,
+                notes: notes,
+                items: items
+            };
+
+            try {
+                const resp = await fetch("../../api/orders/orders_post.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await resp.json();
+                if (resp.ok) {
+                    alert("Order created successfully (ID: " + (data.orderID || "") + ")");
+                    // redirect to orders listing
+                    window.location.href = "../../web/orders/landingpage.php";
+                } else {
+                    alert("Error: " + (data.error || JSON.stringify(data)));
+                }
+            } catch (err) {
+                alert("Request failed: " + err.message);
+            }
+        });
+    })();
+    </script>
+
     ';
 
     $page = new PageClass('Add-Order',$pageContent,['standardize.css'],['inventory-creation.js']);

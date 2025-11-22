@@ -6,65 +6,70 @@ include_once $GLOBALS['singleton'];
  * PATCH - Partially update an order (e.g., just change status or notes)
  * Expected input: {orderID, [orderStatus], [notes], [date]}
  */
-function handlePatch($pdo, $input) {
+function handlePatch($input)
+{
     try {
         // Validate input
-        if (!isset($_GET['orderID'])) {
+        if (!isset($input['orderID'])) {
             http_response_code(400);
             echo json_encode(['error' => 'Missing required field: orderID']);
             return;
         }
-        
-        // Check if order exists
-        $orderID = $_GET['orderID'];
-        $sql = "SELECT orderID FROM orders WHERE orderID = ?";  
-        $order = UISDatabase::getDataFromSQL($sql, [$orderID]);
 
-        if (!$order) {
+        $orderID = intval($input['orderID']);
+        if ($orderID <= 0) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid orderID']);
+            return;
+        }
+
+        // Check if order exists
+        $sql = "SELECT orderID FROM orders WHERE orderID = ?";
+        $order = UISDatabase::getDataFromSQL($sql, [$orderID]);
+        if (empty($order)) {
             http_response_code(404);
             echo json_encode(['error' => 'Order not found']);
             return;
         }
-        
-        // Build dynamic update query
+
+        // Allowed fields to update
+        $allowed = ['orderStatus', 'notes', 'date'];
         $updates = [];
         $params = [];
 
-        $orderStatus = $_GET['orderStatus'];
-        
-        if (isset($orderStatus)) {
-            $updates[] = "orderStatus = ?";
-            $params[] = $input['orderStatus'];
+        foreach ($allowed as $field) {
+            if (array_key_exists($field, $input)) {
+                $updates[] = "$field = ?";
+                $params[] = $input[$field];
+            }
         }
 
-        $notes = $_GET['notes'];
-        if (isset($notes)) {
-            $updates[] = "notes = ?";
-            $params[] = $input['notes'];
-        }
-
-        $date = $_GET['date'];
-        if (isset($date)) {
-            $updates[] = "date = ?";
-            $params[] = $input['date'];
-        }
-        
         if (empty($updates)) {
             http_response_code(400);
             echo json_encode(['error' => 'No fields to update']);
             return;
         }
-        
-        // Add orderID to params
-        $params[] = $_GET['orderID'];
-        
-        // Update order
+
+        // Add orderID as last param
+        $params[] = $orderID;
+
+        // Execute update inside a transaction
+        UISDatabase::startTransaction();
+
         $sql = "UPDATE orders SET " . implode(", ", $updates) . " WHERE orderID = ?";
-        $stmt = UISDatabase::executeSQL($sql, $params);
-        
+        UISDatabase::executeSQL($sql, $params);
+
+        UISDatabase::commitTransaction();
+
         http_response_code(200);
         echo json_encode(['success' => true, 'message' => 'Order updated successfully']);
     } catch (PDOException $e) {
+        // Attempt rollback if transaction started
+        try {
+            UISDatabase::rollbackTransaction();
+        } catch (Exception $ex) {
+            // ignore
+        }
         http_response_code(500);
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }
