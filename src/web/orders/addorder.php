@@ -6,8 +6,6 @@ if (!isset($_SESSION['userID'])) {
     die("Error: No user logged in.");
 }
 
-$userID = $_SESSION['userID']; 
-
 $orderID = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 $pageContent = '

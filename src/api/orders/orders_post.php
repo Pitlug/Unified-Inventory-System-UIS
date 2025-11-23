@@ -1,12 +1,18 @@
 <?php
 require_once '../../sitevars.php';
 include_once $GLOBALS['singleton'];
+// Start session so we can read authenticated user id if available
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 /**
  * POST - Create a new order
  * Expected input: {orderStatus, notes, date, items: [{inventoryID, name, quantity, price}]}
+ * Expected input: {orderName, orderStatus, notes, date, items: [{inventoryID, name, quantity, price}]}
  */
-function handlePost($input) {
+function handlePost($input)
+{
     try {
         // Validate required fields
         if (!isset($input['orderStatus']) || !isset($input['date'])) {
@@ -18,16 +24,36 @@ function handlePost($input) {
         $orderStatus = $input['orderStatus'];
         $date = $input['date'];
         $notes = $input['notes'] ?? null;
+        $orderName = $input['orderName'] ?? '';
+
+        // Determine userID: prefer explicitly provided value, then session value
+        $userID = $input['userID'] ?? ($_SESSION['userID'] ?? null);
+        if ($userID === null) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing required field: userID (provide userID in payload or be authenticated)']);
+            return;
+        }
+
+        // Verify user exists to avoid FK constraint failure
+        $checkUserSql = "SELECT userID FROM users WHERE userID = ?";
+        $userExists = UISDatabase::getDataFromSQL($checkUserSql, [$userID]);
+        if (empty($userExists)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid userID: user does not exist']);
+            return;
+        }
 
         // Begin transaction
         UISDatabase::startTransaction();
 
-        // Insert order and get inserted ID
-        $sql = "INSERT INTO orders (orderStatus, notes, date) VALUES (?, ?, ?)";
+        // Insert order and get inserted ID (include userID and orderName)
+        $sql = "INSERT INTO orders (orderStatus, orderName, notes, date, userID) VALUES (?, ?, ?, ?, ?)";
         $orderID = UISDatabase::executeSQL($sql, [
             $orderStatus,
+            $orderName,
             $notes,
-            $date
+            $date,
+            $userID
         ], true);
 
         // Insert order items if provided
@@ -39,6 +65,20 @@ function handlePost($input) {
                 $name = $item['name'] ?? null;
                 $quantity = isset($item['quantity']) ? intval($item['quantity']) : 0;
                 $price = isset($item['price']) ? $item['price'] : null;
+
+                // If name is missing but we have an inventoryID, try to look it up
+                if ($name === null && $inventoryID !== null) {
+                    $inv = UISDatabase::getDataFromSQL("SELECT name FROM inventory WHERE inventoryID = ?", [$inventoryID]);
+                    if (!empty($inv) && isset($inv[0]['name'])) {
+                        $name = $inv[0]['name'];
+                    }
+                }
+
+                // Ensure name is not null to satisfy NOT NULL constraint on orderItems.name
+                if ($name === null) {
+                    // Fallback: use empty string (or consider returning 400 to require a name)
+                    $name = '';
+                }
 
                 UISDatabase::executeSQL($sql, [
                     $orderID,
