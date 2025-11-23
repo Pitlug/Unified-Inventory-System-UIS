@@ -31,7 +31,8 @@
         }
 
         public function checkCredentials($userCredLevel, $credLevelRequired){
-            if(!$userCredLevel<=$credLevelRequired){
+            echo "User Cred Level: ".$userCredLevel." Required Cred Level: ".$credLevelRequired;
+            if(!($userCredLevel <= $credLevelRequired)){//alex did an oppsie check !$userCredLevel<=$credLevelRequired
                 header('Location:'.$GLOBALS['webRoot'].'/unauthorizedAccess.php');
             }
         }
