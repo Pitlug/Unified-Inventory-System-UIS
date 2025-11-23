@@ -62,6 +62,7 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE IF NOT EXISTS orders (
     orderID int AUTO_INCREMENT,
     orderStatus varchar(45) NOT NULL,
+    orderName varchar(100) NOT NULL,
     notes varchar(255),
     date date NOT NULL,
     userID int NOT NULL,
