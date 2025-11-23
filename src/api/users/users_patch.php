@@ -1,12 +1,4 @@
 <?php
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH');
-header('Access-Control-Allow-Headers: Content-Type');
-
-// Include database connection
-require_once $GLOBALS['db_connect'];
-
 /**
  * PATCH - Partially update a user
  * Expected input: {userID, [username], [password], [credentialLevel]}
