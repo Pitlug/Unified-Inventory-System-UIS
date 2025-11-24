@@ -26,14 +26,18 @@
         $catItems.="<div class='category-item {$activeClass}'><a {$activeTags} class='{$activeClass}' href='?category=cat{$cat['categoryID']}'><p>{$cat['categoryName']}</p></a></div>";
     }
 
+    //Because -1 breaks the category selection, so I need to use all.
+    $catHref = "category=";
+    $catHref.= $activeCat['categoryID']==-1 ? "all" : "cat{$activeCat['categoryID']}";
+
     //Inventory items for current page
     //pagination not working.
-    $itemsPerPage = 40;
+    $itemsPerPage = 20;
     $page = 1;
     if(isset($_GET['page'])){
         $page = $_GET['page'];
     }
-    $invCount = requestAPI($GLOBALS['apiInventory'],'GET',['count'=>true]);
+    $invCount = requestAPI($GLOBALS['apiInventory'],'GET',['count'=>true, 'category'=>$activeCat['categoryID']]);
     $inventory = requestAPI($GLOBALS['apiInventory'],'GET',['page'=>$page,'perPage'=>$itemsPerPage,'category'=>$activeCat['categoryID']]);
     $inventoryItems = '';
     for($i=0;$i<count($inventory);$i++){
@@ -59,18 +63,18 @@
         if($i==1 && $page!=1){
             $pPrev = $page-1;
             $pageNav.="<li class='page-item {$disabled}'>
-                        <a class='page-link' href='?page={$pPrev}' aria-label='Previous'>
+                        <a class='page-link' href='?page={$pPrev}&{$catHref}' aria-label='Previous'>
                             <span aria-hidden='true'>&laquo;</span>
                         </a>
                     </li>";
         }
 
-        $pageNav.="<li class='page-item $active'><a class='page-link' href='?page={$i}'>{$i}</a></li>";
+        $pageNav.="<li class='page-item $active'><a class='page-link' href='?page={$i}&{$catHref}'>{$i}</a></li>";
 
         if($i==$pageCount && $page!=$pageCount){
             $pNext = $page+1;
             $pageNav.="<li class='page-item {$disabled}'>
-                        <a class='page-link' href='?page={$pNext}' aria-label='Next'>
+                        <a class='page-link' href='?page={$pNext}&{$catHref}' aria-label='Next'>
                             <span aria-hidden='true'>&raquo;</span>
                         </a>
                     </li>";
@@ -88,7 +92,7 @@
                 '.
                 $catItems
                 ."
-                <div class='category-item'><p><a href='#cat14'>+ Add New Category</a></p></div>
+                <div class='category-item'><p><a href='create-edit-category.php'> <i class='bi bi-pencil-square'></i> Manage Categories</a></p></div>
             </div>
         </div>
         <div class='main-content'>
@@ -122,5 +126,6 @@
     ";
     $page = new PageClass('Inventory',$pageContent,['inventory.css'],[]);
     $page->standardize();
+    $page->checkCredentials($_SESSION['credentialLevel'],3);
     echo $page->render();
 ?>

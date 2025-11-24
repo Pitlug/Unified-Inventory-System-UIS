@@ -14,7 +14,8 @@ if ($method === 'OPTIONS') {
 }
 
 // Get input data
-$input = json_decode(file_get_contents('php://input'), true);
+include_once '../formHandler.php';
+$input = getRequestData();
 
 // Route based on HTTP method
 switch ($method) {
@@ -22,13 +23,9 @@ switch ($method) {
         include_once 'category_get.php';
         handleGet();
         break;
-    case 'POST':
-        include_once '';
-        handlePost($input);
-        break;
-    case 'PUT':
-        include_once '';
-        handlePut($input);
+    case 'POST' || 'PUT':
+        include_once 'category_post_put.php';
+        handlePostPut($input);
         break;
     case 'DELETE':
         include_once '';

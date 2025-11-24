@@ -21,7 +21,8 @@ if ($method === 'OPTIONS') {
 }
 
 // Get input data
-$input = json_decode(file_get_contents('php://input'), true);
+include_once '../formHandler.php';
+$input = getRequestData();
 
 // Route based on HTTP method
 switch ($method) {

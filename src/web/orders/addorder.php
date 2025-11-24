@@ -107,5 +107,6 @@ $pageContent = '
 
     $page = new PageClass('Add-Order',$pageContent,['standardize.css'],['inventory-creation.js']);
     $page->standardize();
+    $page->checkCredentials($_SESSION['credentialLevel'],1);
     echo $page->render();
 ?>

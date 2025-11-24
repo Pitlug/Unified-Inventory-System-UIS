@@ -21,5 +21,6 @@
 
     $page = new PageClass('Orders',$pageContent);
     $page->standardize();
+    $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();
 ?>

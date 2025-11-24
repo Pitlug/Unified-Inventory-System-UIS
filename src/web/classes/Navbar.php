@@ -52,7 +52,6 @@
         
             $html .= "<li class='nav-item'><button type='button' id='mode-toggle' class='btn'>{$this->themeTxt}</button></li>";
             foreach ($this->links as $text => $info) {
-                
                 $url = $GLOBALS['webRoot'].$info['url'];
                 $icon = isset($info['icon']) ? "<i class='{$info['icon']}'></i> " : "";
                 $html .= "<li class='nav-item'><a class='navbar-link' href='{$url}'>{$icon}{$text}</a></li>";
