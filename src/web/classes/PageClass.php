@@ -14,6 +14,7 @@
 
         public function __construct($pageName,$content,$styles=[],$jsfiles=[]) {
             $this->pageName = $pageName;
+
             GetCredlevel($this->pageName);
             $this->passedContent = $content;
             $this->header = new Header($pageName,$styles,$jsfiles);
@@ -31,8 +32,7 @@
         }
 
         public function checkCredentials($userCredLevel, $credLevelRequired){
-            echo "User Cred Level: ".$userCredLevel." Required Cred Level: ".$credLevelRequired;
-            if(!($userCredLevel <= $credLevelRequired)){//alex did an oppsie check !$userCredLevel<=$credLevelRequired
+            if(!($userCredLevel <= $credLevelRequired)){
                 header('Location:'.$GLOBALS['webRoot'].'/unauthorizedAccess.php');
             }
         }

@@ -53,5 +53,6 @@ $pageContent = '
     ';
     $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js']);
     $page->standardize();
+    $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();
 ?>

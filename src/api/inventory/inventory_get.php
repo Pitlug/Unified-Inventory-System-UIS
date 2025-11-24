@@ -27,7 +27,16 @@ function handleGet() {
             echo json_encode($item);
         }else if(isset($_GET['count'])){
             //get inventory count
-            $sql = "SELECT COUNT(*) FROM inventory";
+            if (!empty($_GET['category'])) {
+                $catWhere = "WHERE categoryId";
+                if($_GET['category']==-1){
+                    $catWhere.=' IS NOT NULL';
+                }else{
+                    $catWhere.= "= {$_GET['category']}";
+                }
+            }
+
+            $sql = "SELECT COUNT(*) FROM inventory $catWhere";
             $count = UISDatabase::getDataFromSQL($sql);
             
             if (!$count || !isset($count[0]["COUNT(*)"])) {

@@ -481,5 +481,6 @@ $pageContent = '<div class="container mt-4">
 $page = new PageClass('Users', $pageContent, [], []);
 $page->checkCredentials($_SESSION['credentialLevel'], 0); // Require at least admin level (0)
 $page->standardize();
+$page->checkCredentials($_SESSION['credentialLevel'],1);
 echo $page->render();
 ?>
