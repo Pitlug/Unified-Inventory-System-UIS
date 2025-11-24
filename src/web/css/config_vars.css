@@ -22,7 +22,7 @@
     --darkblue: #5185b9;
     --veryblack: #000000;
     --blueText: #5185b9;
-
+    --white: #ffffff;
 }
 
 /* Override variables for dark mode */
@@ -43,4 +43,5 @@
     --darkblue: #1f2937;
     --veryblack: #EFECE3;
     --blueText: #EFECE3;
+    --white: #000000;
 }
