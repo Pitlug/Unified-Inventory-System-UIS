@@ -53,11 +53,40 @@ function handlePatch($input)
         // Add orderID as last param
         $params[] = $orderID;
 
+        // Check if status is being updated to "Completed"
+        $statusBeingSetToCompleted = false;
+        if (array_key_exists('orderStatus', $input) && strtolower($input['orderStatus']) === 'completed') {
+            $statusBeingSetToCompleted = true;
+        }
+
         // Execute update inside a transaction
         UISDatabase::startTransaction();
 
         $sql = "UPDATE orders SET " . implode(", ", $updates) . " WHERE orderID = ?";
         UISDatabase::executeSQL($sql, $params);
+
+        // If status is being updated to "Completed", add order items to inventory
+        if ($statusBeingSetToCompleted) {
+            // Fetch order items
+            $itemsSql = "SELECT name, quantity FROM orderItems WHERE orderID = ?";
+            $items = UISDatabase::getDataFromSQL($itemsSql, [$orderID]);
+
+            if (!empty($items)) {
+                foreach ($items as $item) {
+                    $name = $item['name'] ?? '';
+                    $quantity = intval($item['quantity']) ?? 0;
+                    $defaultCategoryId = 1;
+
+                    $inventorySql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
+                    UISDatabase::executeSQL($inventorySql, [
+                        $name,
+                        'Added from completed order #' . $orderID,
+                        $quantity,
+                        $defaultCategoryId
+                    ]);
+                }
+            }
+        }
 
         UISDatabase::commitTransaction();
 

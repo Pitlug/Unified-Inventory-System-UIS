@@ -67,6 +67,24 @@ function handlePut($input)
             }
         }
 
+        // If orderStatus is being set to "Completed", automatically add items to inventory
+        if (strtolower($input['orderStatus']) === 'completed') {
+            // Fetch orderItems for this order
+            $items = UISDatabase::getDataFromSQL("SELECT name, quantity FROM orderItems WHERE orderID = ?", [$orderID]);
+            if (!empty($items)) {
+                $defaultCategoryId = 1;
+                $inventorySql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
+                foreach ($items as $item) {
+                    UISDatabase::executeSQL($inventorySql, [
+                        $item['name'],
+                        'Added from completed order #' . $orderID,
+                        $item['quantity'],
+                        $defaultCategoryId
+                    ]);
+                }
+            }
+        }
+
         // Commit transaction
         UISDatabase::commitTransaction();
 

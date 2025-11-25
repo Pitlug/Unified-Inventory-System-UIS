@@ -82,8 +82,7 @@ CREATE TABLE IF NOT EXISTS orderItems (
     price double NOT NULL,
     
     PRIMARY KEY (ID),
-    CONSTRAINT fk_orderID1 FOREIGN KEY (orderID) REFERENCES orders(orderID),
-    CONSTRAINT fk_inventoryID2 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
+    CONSTRAINT fk_orderID1 FOREIGN KEY (orderID) REFERENCES orders(orderID)
 );
 
 DROP TABLE IF EXISTS logActions;

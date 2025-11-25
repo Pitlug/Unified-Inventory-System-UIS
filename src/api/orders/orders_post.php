@@ -64,22 +64,14 @@ function handlePost($input)
                 $inventoryID = $item['inventoryID'] ?? null;
                 $name = $item['name'] ?? null;
                 $quantity = isset($item['quantity']) ? intval($item['quantity']) : 0;
-                $price = isset($item['price']) ? $item['price'] : null;
-
-                // If name is missing but we have an inventoryID, try to look it up
-                if ($name === null && $inventoryID !== null) {
-                    $inv = UISDatabase::getDataFromSQL("SELECT name FROM inventory WHERE inventoryID = ?", [$inventoryID]);
-                    if (!empty($inv) && isset($inv[0]['name'])) {
-                        $name = $inv[0]['name'];
-                    }
-                }
+                $price = isset($item['price']) ? $item['price'] : 0.0;
 
                 // Ensure name is not null to satisfy NOT NULL constraint on orderItems.name
                 if ($name === null) {
-                    // Fallback: use empty string (or consider returning 400 to require a name)
                     $name = '';
                 }
 
+                // Insert into orderItems (inventoryID can be NULL)
                 UISDatabase::executeSQL($sql, [
                     $orderID,
                     $inventoryID,
@@ -87,6 +79,18 @@ function handlePost($input)
                     $quantity,
                     $price
                 ]);
+
+                // If order status is "Completed", add item to inventory table
+                if (strtolower($orderStatus) === 'completed') {
+                    $defaultCategoryId = 1;
+                    $inventorySql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
+                    UISDatabase::executeSQL($inventorySql, [
+                        $name,
+                        'Added from completed order #' . $orderID,
+                        $quantity,
+                        $defaultCategoryId
+                    ]);
+                }
             }
         }
 
