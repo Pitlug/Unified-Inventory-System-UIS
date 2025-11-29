@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS inventorymanagement;
-CREATE DATABASE IF NOT EXISTS inventorymanagement;
-USE inventorymanagement;
-
--- Tables for items
 DROP TABLE IF EXISTS bundleItems;
 DROP TABLE IF EXISTS orderItems;
 DROP TABLE IF EXISTS logs;
