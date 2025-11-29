@@ -1,2 +1,2 @@
-/src/api/includes/db_config.php
 /src/classes/env.secure.php
+/src/classes/db_config.php

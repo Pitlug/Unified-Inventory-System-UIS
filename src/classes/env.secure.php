@@ -12,15 +12,15 @@ return [
 
     'db' => [
         'local' => [
-            'pass' => '', // your local DB password if set
+            'password' => '', // your local DB password if set
         ],
         'hostinger' => [
-            'pass' => 'gm75fxL#v+6L', // Hostinger DB password
+            'password' => 'gm75fxL#v+6L', // Hostinger DB password
         ],
         'homelab' => [
             'host' => '146.135.13.90',
-            'user' => 'drew',
-            'pass' => 'Yellow5889Bobby',
+            'username' => 'drew',
+            'password' => 'Yellow5889Bobby',
         ],
     ],
 ];
