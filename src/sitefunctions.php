@@ -83,6 +83,11 @@ function requestAPI($api, $method='GET', $input=null){
     curl_setopt($ch, CURLOPT_URL, $api);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the transfer as a string
     $returnValue = curl_exec($ch);
+    if ($returnValue === false) {
+        $err = curl_error($ch);
+        curl_close($ch);
+        return ["error" => $err];
+    }
     curl_close($ch);
     return json_decode($returnValue, true);
 }

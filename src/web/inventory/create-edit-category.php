@@ -1,7 +1,31 @@
 <?php
 require_once __DIR__ . '/../classes/PageClass.php';
-
+$alert = "";
 $catID = isset($_GET['id']) ? intval($_GET['id']) : null;
+if(isset($_GET['delete'])){
+    $catDeleted = requestAPI($GLOBALS['apiCategory'],'GET',['categoryID'=>$_GET['delete']]);
+    if(isset($catDeleted)){
+        $catDeleted = $catDeleted[0]['categoryName'];
+        requestAPI($GLOBALS['apiCategory'],'DELETE',['categoryID'=>$_GET['delete']]);
+        $alert = "<div class='alert alert-success' role='alert'>
+            Successfully deleted category: ".$catDeleted."
+        </div>";
+    }else{
+        $alert = "<div class='alert alert-danger' role='alert'>
+            Error attempting to delete a category.
+        </div>";
+    }
+    
+}
+
+if(isset($_GET['alert'])){
+    if($_GET['alert']=='edit'){
+        $alert = "<div class='alert alert-success' role='alert'>
+            Successfully edited category.
+        </div>";
+    }
+}
+
 $catSelected = null;
 if(isset($catID)){
     $catSelected = requestAPI($GLOBALS['apiCategory'],'GET',['categoryID'=>$catID])[0];
@@ -19,19 +43,24 @@ for($i=0;$i<count($categories);$i++){
 $pageContent = '
 <div class="container my-5">
     <header class="page-header">
+    '.$alert.'
     <div class="row">
         <div class="col">
             <h1>'.($catID ? 'Edit Category' : 'Create Category').'</h1>
             <p class="form-text">'.($catID
                 ? 'Update details and save to apply changes.'
                 : 'Fill in the fields and submit to create a new category.').'</p>
-            <form id="categoryAdd" action="create-edit-category.php">
             '.($catID ?
-            '<div class="row form-group">
-                <div class="col"><button type="submit" class="btn btn-primary">Create</button></div>
+            '<div class="row"><form id="categoryAdd" class="col flex-grow-0" action="create-edit-category.php">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+            <form id="caregoryDelete" class="col flex-grow-0" action="create-edit-category.php">
+                <input type="hidden" id="delete" name="delete" value="'.$catID.'">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+            </form>
             </div>'
             : '').'
-            </form>
+            
         </div>
         <div class="col">
             <h1>Select Category to Edit?</h1>
@@ -49,7 +78,8 @@ $pageContent = '
     </header>
 
     <section class="card">
-    <form id="categoryForm" action="'.$GLOBALS['apiCategory'].'" method="post">
+    <form id="categoryForm" method="post">
+    <input type="hidden" name="categoryAPI" value="'.$GLOBALS['apiCategory'].'" />
       '.($catID ? '<input type="hidden" name="categoryID" value="'.$catID.'" />' : '').'
       <div class="form-group row">
         '.($catID ?
@@ -77,7 +107,7 @@ $pageContent = '
     </section>
 </div>
     ';
-    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js']);
+    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js', 'category-rename.js']);
     $page->standardize();
     $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();
