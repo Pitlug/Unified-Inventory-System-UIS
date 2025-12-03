@@ -53,9 +53,6 @@ CREATE TABLE IF NOT EXISTS bundleItems (
     CONSTRAINT fk_inventoryID1 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
 );
 
-
-    
-
 -- Tables for users
 
 CREATE TABLE IF NOT EXISTS users (
@@ -85,13 +82,14 @@ CREATE TABLE IF NOT EXISTS orders (
 CREATE TABLE IF NOT EXISTS orderItems (
     ID int AUTO_INCREMENT,
     orderID int NOT NULL,
-    inventoryID int,
+    inventoryID int NULL,
     name varchar(45) NOT NULL,
     quantity int NOT NULL,
     price double NOT NULL,
     
     PRIMARY KEY (ID),
-    CONSTRAINT fk_orderID1 FOREIGN KEY (orderID) REFERENCES orders(orderID)
+    CONSTRAINT fk_orderID1 FOREIGN KEY (orderID) REFERENCES orders(orderID),
+    CONSTRAINT fk_inventoryID2 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID) ON DELETE SET NULL
 );
 
 

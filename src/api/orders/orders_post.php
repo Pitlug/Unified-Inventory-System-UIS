@@ -82,14 +82,31 @@ function handlePost($input)
 
                 // If order status is "Completed", add item to inventory table
                 if (strtolower($orderStatus) === 'completed') {
-                    $defaultCategoryId = 1;
+                    // Find an existing category (prefer first available)
+                    $catResult = UISDatabase::getDataFromSQL("SELECT categoryID FROM categories LIMIT 1", []);
+                    $categoryId = (!empty($catResult) && isset($catResult[0]['categoryID'])) ? $catResult[0]['categoryID'] : 1;
+                    
+                    // Insert into inventory and get the new inventoryID
                     $inventorySql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
-                    UISDatabase::executeSQL($inventorySql, [
+                    $newInventoryID = UISDatabase::executeSQL($inventorySql, [
                         $name,
                         'Added from completed order #' . $orderID,
                         $quantity,
-                        $defaultCategoryId
-                    ]);
+                        $categoryId
+                    ], true);
+
+                    // Update the orderItem with the new inventoryID
+                    if ($newInventoryID !== null) {
+                        // Get the last inserted orderItem ID
+                        $lastItemId = UISDatabase::getDataFromSQL(
+                            "SELECT ID FROM orderItems WHERE orderID = ? ORDER BY ID DESC LIMIT 1",
+                            [$orderID]
+                        );
+                        if (!empty($lastItemId)) {
+                            $updateItemSql = "UPDATE orderItems SET inventoryID = ? WHERE ID = ?";
+                            UISDatabase::executeSQL($updateItemSql, [$newInventoryID, $lastItemId[0]['ID']]);
+                        }
+                    }
                 }
             }
         }
