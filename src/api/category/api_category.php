@@ -23,12 +23,13 @@ switch ($method) {
         include_once 'category_get.php';
         handleGet();
         break;
-    case 'POST' || 'PUT':
+    case 'POST':
+    case 'PUT':
         include_once 'category_post_put.php';
         handlePostPut($input);
         break;
     case 'DELETE':
-        include_once '';
+        include_once 'category_delete.php';
         handleDelete($input);
         break;
     case 'PATCH':

@@ -67,23 +67,34 @@ function handlePatch($input)
 
         // If status is being updated to "Completed", add order items to inventory
         if ($statusBeingSetToCompleted) {
-            // Fetch order items
-            $itemsSql = "SELECT name, quantity FROM orderItems WHERE orderID = ?";
+            // Fetch order items that haven't been added to inventory yet (inventoryID is NULL)
+            $itemsSql = "SELECT ID as itemID, name, quantity FROM orderItems WHERE orderID = ? AND inventoryID IS NULL";
             $items = UISDatabase::getDataFromSQL($itemsSql, [$orderID]);
 
             if (!empty($items)) {
+                // Get a valid categoryID
+                $catResult = UISDatabase::getDataFromSQL("SELECT categoryID FROM categories LIMIT 1", []);
+                $categoryId = (!empty($catResult) && isset($catResult[0]['categoryID'])) ? $catResult[0]['categoryID'] : 1;
+
                 foreach ($items as $item) {
+                    $itemID = $item['itemID'] ?? null;
                     $name = $item['name'] ?? '';
                     $quantity = intval($item['quantity']) ?? 0;
-                    $defaultCategoryId = 1;
 
+                    // Insert into inventory and get the new inventoryID
                     $inventorySql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
-                    UISDatabase::executeSQL($inventorySql, [
+                    $newInventoryID = UISDatabase::executeSQL($inventorySql, [
                         $name,
                         'Added from completed order #' . $orderID,
                         $quantity,
-                        $defaultCategoryId
-                    ]);
+                        $categoryId
+                    ], true);
+
+                    // Update the orderItem with the new inventoryID
+                    if ($itemID !== null && $newInventoryID !== null) {
+                        $updateItemSql = "UPDATE orderItems SET inventoryID = ? WHERE ID = ?";
+                        UISDatabase::executeSQL($updateItemSql, [$newInventoryID, $itemID]);
+                    }
                 }
             }
         }

@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS inventorymanagement;
-CREATE DATABASE IF NOT EXISTS inventorymanagement;
-USE inventorymanagement;
-
--- Tables for items
 DROP TABLE IF EXISTS bundleItems;
 DROP TABLE IF EXISTS orderItems;
 DROP TABLE IF EXISTS logs;
@@ -52,6 +47,9 @@ CREATE TABLE IF NOT EXISTS bundleItems (
     CONSTRAINT fk_bundleID2 FOREIGN KEY (bundleID) REFERENCES bundle(bundleID),
     CONSTRAINT fk_inventoryID1 FOREIGN KEY (inventoryID) REFERENCES inventory(inventoryID)
 );
+
+
+    
 
 -- Tables for users
 

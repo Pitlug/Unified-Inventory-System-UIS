@@ -59,7 +59,6 @@ $pageContent = '
                 <label>Items</label>
                 <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
                     <tr style="background-color: #f2f2f2;">
-                        <th>Inventory ID</th>
                         <th>Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -67,13 +66,11 @@ $pageContent = '
                     </tr>
                     <tbody id="itemsTable">
                         '.($orderItemsArray ? implode('', array_map(function($item, $idx) {
-                            $invId = isset($item['inventoryID']) && $item['inventoryID'] !== null ? htmlspecialchars($item['inventoryID']) : '';
                             $name = htmlspecialchars($item['name'] ?? '');
                             $qty = htmlspecialchars($item['quantity'] ?? '1');
                             $price = htmlspecialchars($item['price'] ?? '0.0');
                             return "
                                 <tr class=\"item-row\" data-item-idx=\"$idx\">
-                                    <td><input type=\"number\" class=\"item-id\" value=\"$invId\" min=\"0\" style=\"width:100%;\" /></td>
                                     <td><input type=\"text\" class=\"item-name\" value=\"$name\" style=\"width:100%;\" /></td>
                                     <td><input type=\"number\" class=\"item-qty\" value=\"$qty\" min=\"1\" style=\"width:100%;\" /></td>
                                     <td><input type=\"number\" class=\"item-price\" value=\"$price\" min=\"0\" step=\"0.01\" style=\"width:100%;\" /></td>
@@ -134,7 +131,6 @@ $pageContent = '
                 newRow.className = "item-row";
                 newRow.dataset.itemIdx = rowIdx;
                 newRow.innerHTML = `
-                    <td><input type="number" class="item-id" value="" min="0" style="width:100%;" /></td>
                     <td><input type="text" class="item-name" value="" style="width:100%;" /></td>
                     <td><input type="number" class="item-qty" value="1" min="1" style="width:100%;" /></td>
                     <td><input type="number" class="item-price" value="0.0" min="0" step="0.01" style="width:100%;" /></td>
@@ -159,21 +155,18 @@ $pageContent = '
             const itemRows = document.querySelectorAll("#itemsTable .item-row");
             const items = [];
             itemRows.forEach(row => {
-                const idInput = row.querySelector(".item-id");
                 const nameInput = row.querySelector(".item-name");
                 const qtyInput = row.querySelector(".item-qty");
                 const priceInput = row.querySelector(".item-price");
 
-                const idVal = idInput && idInput.value ? parseInt(idInput.value, 10) || null : null;
                 const nameVal = nameInput && nameInput.value ? nameInput.value : null;
                 const qtyVal = qtyInput && qtyInput.value ? parseInt(qtyInput.value, 10) || 1 : 1;
                 const priceVal = priceInput && priceInput.value ? parseFloat(priceInput.value) || 0.0 : 0.0;
 
-                // Skip rows where both id and name are empty
-                if (idVal === null && nameVal === null) return;
+                // Skip rows where name is empty
+                if (nameVal === null) return;
 
                 items.push({
-                    inventoryID: idVal,
                     name: nameVal,
                     quantity: qtyVal,
                     price: priceVal

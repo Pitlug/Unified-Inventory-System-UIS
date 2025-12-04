@@ -69,18 +69,32 @@ function handlePut($input)
 
         // If orderStatus is being set to "Completed", automatically add items to inventory
         if (strtolower($input['orderStatus']) === 'completed') {
-            // Fetch orderItems for this order
-            $items = UISDatabase::getDataFromSQL("SELECT name, quantity FROM orderItems WHERE orderID = ?", [$orderID]);
+            // Fetch orderItems for this order that haven't been added to inventory yet (inventoryID is NULL)
+            $items = UISDatabase::getDataFromSQL("SELECT ID as itemID, name, quantity FROM orderItems WHERE orderID = ? AND inventoryID IS NULL", [$orderID]);
             if (!empty($items)) {
-                $defaultCategoryId = 1;
-                $inventorySql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
+                // Get a valid categoryID
+                $catResult = UISDatabase::getDataFromSQL("SELECT categoryID FROM categories LIMIT 1", []);
+                $categoryId = (!empty($catResult) && isset($catResult[0]['categoryID'])) ? $catResult[0]['categoryID'] : 1;
+
                 foreach ($items as $item) {
-                    UISDatabase::executeSQL($inventorySql, [
-                        $item['name'],
+                    $itemID = $item['itemID'] ?? null;
+                    $name = $item['name'] ?? '';
+                    $quantity = intval($item['quantity']) ?? 0;
+
+                    // Insert into inventory and get the new inventoryID
+                    $inventorySql = "INSERT INTO inventory (name, description, quantity, categoryID) VALUES (?, ?, ?, ?)";
+                    $newInventoryID = UISDatabase::executeSQL($inventorySql, [
+                        $name,
                         'Added from completed order #' . $orderID,
-                        $item['quantity'],
-                        $defaultCategoryId
-                    ]);
+                        $quantity,
+                        $categoryId
+                    ], true);
+
+                    // Update the orderItem with the new inventoryID
+                    if ($itemID !== null && $newInventoryID !== null) {
+                        $updateItemSql = "UPDATE orderItems SET inventoryID = ? WHERE ID = ?";
+                        UISDatabase::executeSQL($updateItemSql, [$newInventoryID, $itemID]);
+                    }
                 }
             }
         }
