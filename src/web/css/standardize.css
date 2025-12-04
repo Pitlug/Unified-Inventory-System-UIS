@@ -98,7 +98,7 @@ footer a:hover { color: var(--footerHoverColor); text-decoration: underline; }
     border-bottom: 3px solid var(--secondary);
 }
 
-.page-header h1 { color: var(--primary); font-size: 2.5rem; font-weight: 600; }
+.page-header h1 { color: var(--bluetext); font-size: 2.5rem; font-weight: 600; }
 
 /* Cards */
 .card {

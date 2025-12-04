@@ -5,6 +5,7 @@
 <html>
 <head></head>
 <body>
+<div class="bgPattern"></div>
     <header class="header">
         <h1 class="header">Welcome to UIS</h1>
         <p class="header">Your Unified Inventory Management System.</p>

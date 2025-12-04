@@ -9,7 +9,7 @@
 
             $this->headContent = '<html><head>
             <title>'.$pageName.'</title>
-            <link rel="icon" type="image/png" href="../web/images/logo.png">';
+            <link rel="icon" type="image/png" href="'.$GLOBALS['imgUrl'].'/logo.png">';
 
             if(isset($extraStyles) && is_array($extraStyles) && count($extraStyles)>0){
                 foreach($extraStyles as $cssfile){
