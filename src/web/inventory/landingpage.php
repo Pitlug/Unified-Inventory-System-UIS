@@ -13,17 +13,19 @@
         $activeCat = ["categoryID"=>-1,"categoryName"=>"All","categoryDesc"=>"Displaying all content in the inventory, please select a category to narrow your search."];
     }
     $catItems.= "<div class='category-item {$activeClass}'><a $activeTags class='{$activeClass}' href='?category=all'><p>All</p></a></div>"; 
-    for($i=0;$i<count($categories);$i++){
-        $cat = $categories[$i];
-        if(isset($_GET['category']) && $_GET['category']=="cat{$cat['categoryID']}"){
-            $activeClass = 'selected';
-            $activeTags = 'aria-disabled="true"';
-            $activeCat = $cat;
-        }else{
-            $activeClass = '';
-            $activeTages = '';
+    if(isset($categories)){
+        for($i=0;$i<count($categories);$i++){
+            $cat = $categories[$i];
+            if(isset($_GET['category']) && $_GET['category']=="cat{$cat['categoryID']}"){
+                $activeClass = 'selected';
+                $activeTags = 'aria-disabled="true"';
+                $activeCat = $cat;
+            }else{
+                $activeClass = '';
+                $activeTages = '';
+            }
+            $catItems.="<div class='category-item {$activeClass}'><a {$activeTags} class='{$activeClass}' href='?category=cat{$cat['categoryID']}'><p>{$cat['categoryName']}</p></a></div>";
         }
-        $catItems.="<div class='category-item {$activeClass}'><a {$activeTags} class='{$activeClass}' href='?category=cat{$cat['categoryID']}'><p>{$cat['categoryName']}</p></a></div>";
     }
 
     //Because -1 breaks the category selection, so I need to use all.
