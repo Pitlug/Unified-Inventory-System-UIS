@@ -29,6 +29,9 @@
         }
 
         public function themeChange($theme){
+            unset($_COOKIE['theme']);
+            setcookie("theme", "", time() - 3600, "/inventory/"); //fixes issue with theme.
+            setcookie("theme", "", time() - 3600, "/orders/");
             if($theme=='dark'){
                 $this->lHidden = '';
                 $this->dHidden = 'hidden';//hide dark logo on dark bg
