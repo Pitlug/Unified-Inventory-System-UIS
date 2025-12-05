@@ -3,6 +3,15 @@ require_once __DIR__ . '/../classes/PageClass.php';
 
 $inventoryId = isset($_GET['id']) ? intval($_GET['id']) : null;
 
+$categories = requestAPI($GLOBALS['apiCategory'],'GET',['category'=>true]);
+$catFormatted ='';
+for($i=0;$i<count($categories);$i++){
+    $cat = $categories[$i];
+    $catFormatted .= '<option value="'.$cat['categoryID'].'">'.$cat['categoryName'].'</option>';
+}
+
+$inventory = 
+
 $pageContent = '
 <div class="container">
   <header class="page-header">
@@ -14,6 +23,7 @@ $pageContent = '
 
   <section class="card">
     <form id="itemForm">
+    <input type="hidden" name="inventoryAPI" value="'.$GLOBALS['apiInventory'].'" />
       '.($inventoryId ? '<input type="hidden" id="inventoryID" value="'.$inventoryId.'" />' : '').'
       <div class="form-group">
         <label for="itemName">Item Name</label>
@@ -34,12 +44,15 @@ $pageContent = '
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="categorySelect">Category</label>
-        <select id="categorySelect" required>
-          <option value="" disabled selected>Loading categories…</option>
-        </select>
-      </div>
+      <div class="col">
+            <h1>Select a Category</h1>
+            <p class="form-text">Select a category for your item to got into.</p>
+            <form id="categoryEditSelect">
+            <div class="row form-group">
+                <div class="col"><select id="categorySelect" name="id">
+                '.$catFormatted.'
+                </select></div>
+            </div>
 
     <div>
         <br>
@@ -51,7 +64,7 @@ $pageContent = '
 </section>
 </div>
     ';
-    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js']);
+    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js','category-rename.js']);
     $page->standardize();
     $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();
