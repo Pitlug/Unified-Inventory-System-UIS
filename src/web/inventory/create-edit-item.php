@@ -111,7 +111,7 @@ $pageContent = '
 </section>
 </div>
     ';
-    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js']);
+    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js','category-rename.js']);
     $page->standardize();
     $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();

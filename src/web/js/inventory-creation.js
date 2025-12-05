@@ -20,12 +20,9 @@ document.getElementById('itemForm').addEventListener('submit', function(event) {
 
         const formData = new FormData(this); 
         const data = {};
-        console.log("Submitted");
 
         formData.forEach((value, key) => {
             data[key] = value;
-            console.log("key: ", key);
-            console.log("value: ", value);
         });
         const invAPI = data['inventoryAPI']
         delete data['inventoryAPI']
@@ -44,7 +41,7 @@ document.getElementById('itemForm').addEventListener('submit', function(event) {
         })
         .then(result => {
             console.log('Success:', result);
-            window.location.href = window.location.pathname + '?alert=created';
+            window.location.href = window.location.pathname + '?alert=edit';
         })
         .catch(error => {
             console.error('Error:', error);
