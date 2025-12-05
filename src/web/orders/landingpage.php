@@ -59,6 +59,7 @@
             .select-order-radio { transform: translateY(1px); }
         </style>
         <h1>Orders</h1>
+        <p>Here is where all of the orders are listed. Press "Add Order" to create a new order, or select an existing order and press "Edit Order" to modify it.</p>
         <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
             <tr style="background-color: #f2f2f2;">
                 <th>Name</th>
