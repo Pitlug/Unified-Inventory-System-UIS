@@ -15,3 +15,35 @@ document.addEventListener("DOMContentLoaded",function() {
     stepperInputIncrement.addEventListener("click",function(){incrementStepperInput(1)});
 });
 
+document.getElementById('itemForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this); 
+        const data = {};
+
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+        const invAPI = data['inventoryAPI']
+        delete data['inventoryAPI']
+        fetch(invAPI, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(data) 
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response; 
+        })
+        .then(result => {
+            console.log('Success:', result);
+            window.location.href = window.location.pathname + '?alert=edit';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});

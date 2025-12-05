@@ -24,6 +24,8 @@ switch ($method) {
         handleGet();
         break;
     case 'POST':
+        echo var_dump($input);
+        return;
         include_once 'inventory_post.php';
         handlePost($input);
         break;
