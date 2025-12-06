@@ -106,6 +106,11 @@ $pageContent = '
 
     <div class="my-3">
         <button type="submit" class="btn btn-outline-danger">Submit</button>
+    <div>
+        <br>
+        <button type="submit" class="btn btn-outline-danger">Submit</button>
+        <br>
+        <br>
     </div>
   </form>
 </section>

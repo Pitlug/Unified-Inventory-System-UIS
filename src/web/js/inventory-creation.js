@@ -20,9 +20,12 @@ document.getElementById('itemForm').addEventListener('submit', function(event) {
 
         const formData = new FormData(this); 
         const data = {};
+        console.log("Submitted");
 
         formData.forEach((value, key) => {
             data[key] = value;
+            console.log("key: ", key);
+            console.log("value: ", value);
         });
         const invAPI = data['inventoryAPI']
         delete data['inventoryAPI']
