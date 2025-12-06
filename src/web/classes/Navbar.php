@@ -28,21 +28,6 @@
             $this->links = array_merge($this->defaultNavLinks,$this->links);
         }
 
-        public function themeChange($theme){
-            unset($_COOKIE['theme']);
-            setcookie("theme", "", time() - 3600, "/inventory/"); //fixes issue with theme.
-            setcookie("theme", "", time() - 3600, "/orders/");
-            if($theme=='dark'){
-                $this->lHidden = '';
-                $this->dHidden = 'hidden';//hide dark logo on dark bg
-                $this->themeTxt = '☀️ Light Mode';
-            }else{
-                $this->dHidden = '';
-                $this->lHidden = 'hidden';//hide light logo on light bg
-                $this->themeTxt = '🌙 Dark Mode';
-            }
-        }
-
         public function render() {
             $this->__construct();
             $html = "<nav class='navbar navbar-expand-lg navbar'>";

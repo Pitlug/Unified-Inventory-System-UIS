@@ -1,15 +1,14 @@
 // script to change between light and dark mode to save to local storage
 document.addEventListener('DOMContentLoaded', function() {
     const modeToggle = document.getElementById('mode-toggle');
-
+    const logoD = document.getElementById('logo');
+    const logoL = document.getElementById('logo-light');
     // Toggle between light and dark mode
     function toggleMode() {
-        document.body.classList.toggle('dark-mode');
-        const logoD = document.getElementById('logo');
-        const logoL = document.getElementById('logo-light');
+        document.documentElement.classList.toggle('dark-mode');
         
         // Save to localStorage
-        if (document.body.classList.contains('dark-mode')) {
+        if (document.documentElement.classList.contains('dark-mode')) {
             localStorage.setItem('theme-mode', 'dark');
             modeToggle.textContent = '☀️ Light Mode';
             logoD.classList.add('hidden');
@@ -20,23 +19,25 @@ document.addEventListener('DOMContentLoaded', function() {
             logoL.classList.add('hidden');
             logoD.classList.remove('hidden');
         }
-        updatePHP();
     }
     
     // Load saved mode from localStorage
     function loadMode() {
+        console.log(localStorage.getItem('theme-mode'));
         const savedMode = localStorage.getItem('theme-mode');
         if(modeToggle){
             if (savedMode === 'dark') {
                 modeToggle.textContent = '☀️ Light Mode';
+                logoD.classList.add('hidden');
+                logoL.classList.remove('hidden');
+                document.documentElement.classList.add('dark-mode');
             } else {
                 modeToggle.textContent = '🌙 Dark Mode';
+                logoL.classList.add('hidden');
+                logoD.classList.remove('hidden');
+                document.documentElement.classList.remove('dark-mode');
             }
         }
-    }
-
-    function updatePHP(){
-        document.cookie = "theme="+localStorage.getItem('theme-mode')+";Domain=";
     }
     
     // Add click event listener
@@ -49,9 +50,5 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleMode();
         });
     }
-    
-    // Load the saved mode on page load
-    console.log(document.cookie);
-    updatePHP();
     loadMode();
 });
