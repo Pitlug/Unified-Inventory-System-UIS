@@ -126,4 +126,4 @@ INSERT INTO categories (categoryName, categoryDesc) VALUES ('Uncategorized', 'De
 INSERT INTO users (userID, 
 username, password,
 credentialLevel) VALUES
-(1, "admin", "password", 0);
+(1, "superadmin", "superpass123", -1);

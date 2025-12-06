@@ -63,7 +63,7 @@
             <h2>Meet the Authors</h2>
             <ul>
                 <li><strong>Mr. Alexander Pellet:</strong> Junior Computer Science major</li>
-                <li><strong>Mr.Rein Alderfer:</strong> Junior Information Systems Major</li>
+                <li><strong>Mr. Rein Alderfer:</strong> Junior Information Systems Major</li>
                 <li><strong>Mr. Hector Franco:</strong> Junior Computer Science Major</li>
                 <li><strong>Mr. Drew Urenko:</strong> Junior Computer Science Major</li>
             </ul>
