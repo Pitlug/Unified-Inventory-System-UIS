@@ -4,7 +4,7 @@
     require_once '../../classes/db_config.php';
     require_once '../../classes/UISDatabase.php';
 
-    // Fetch all orders with their items
+    // Fetch all orders via database (direct access for list view)
     $orders = UISDatabase::getDataFromSQL("SELECT * FROM orders ORDER BY orderID DESC", []);
     
     $tableRows = '';

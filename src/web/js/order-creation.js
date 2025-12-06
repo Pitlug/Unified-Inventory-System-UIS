@@ -72,9 +72,10 @@ function runWithOrder(){
         try {
             // If editing, call the API router with method PUT; otherwise use POST
             const orderIdEl = document.getElementById("orderID");
+            const orderIdValue = orderIdEl && orderIdEl.value ? parseInt(orderIdEl.value, 10) : null;
             const apiEndpoint = "../../api/orders/api_orders.php";
-            const method = (orderIdEl && orderIdEl.value) ? "PUT" : "POST";
-            if (orderIdEl && orderIdEl.value) payload.orderID = parseInt(orderIdEl.value, 10);
+            const method = orderIdValue ? "PUT" : "POST";
+            if (orderIdValue) payload.orderID = orderIdValue;
             
             const resp = await fetch(apiEndpoint, {
                 method: method,
@@ -83,7 +84,7 @@ function runWithOrder(){
             });
             const data = await resp.json();
             if (resp.ok) {
-                const msg = (orderIdEl && orderIdEl.value) ? "Order updated successfully" : "Order created successfully (ID: " + (data.orderID || "") + ")";
+                const msg = orderIdValue ? "Order updated successfully" : "Order created successfully (ID: " + (data.orderID || "") + ")";
                 alert(msg);
                 // redirect to orders listing
                 window.location.href = "../../web/orders/landingpage.php";
