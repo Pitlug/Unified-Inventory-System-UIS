@@ -20,13 +20,6 @@
             $this->header = new Header($pageName,$styles,$jsfiles);
             $this->navBar = new Navbar();
             $this->footer = new Footer();
-            if(isset($_COOKIE['theme']) && $_COOKIE['theme']=='dark'){
-                $this->bodyTag = '<body class="dark-mode">';
-                $this->navBar->themeChange('dark');
-            }else{
-                $this->bodyTag = '<body>';
-                $this->navBar->themeChange('light');
-            }
             $this->header->addJS('mode-toggle.js');
             
         }

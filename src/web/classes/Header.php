@@ -26,6 +26,11 @@
                 }
             }
             $this->jsContent.='<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>';
+            $this->jsContent.="<script>
+            document.documentElement.classList.add(
+    localStorage.getItem('theme') === 'dark' ? 'dark-mode' : 'light'
+  );
+</script>";
         }
 
         public function addStyle($styleSheet){
@@ -39,8 +44,8 @@
         }
 
         public function render(){
-            $this->headContent.=$this->cssContent;
             $this->headContent.=$this->jsContent;
+            $this->headContent.=$this->cssContent;
             $this->headContent.='</head>';
             return $this->headContent;
         }
