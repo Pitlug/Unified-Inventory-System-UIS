@@ -27,19 +27,19 @@ $pageContent = '
       '.($inventoryId ? '<input type="hidden" id="inventoryID" value="'.$inventoryId.'" />' : '').'
       <div class="form-group">
         <label for="itemName">Item Name</label>
-        <input id="itemName" type="text" placeholder="Enter Item Name" required />
+        <input id="itemName" name="name" type="text" placeholder="Enter Item Name" required />
       </div>
 
       <div class="form-group">
         <label for="itemDesc">Item Description</label>
-        <textarea id="itemDesc" rows="3" placeholder="Item Description"></textarea>
+        <textarea id="itemDesc" name="description" rows="3" placeholder="Item Description"></textarea>
       </div>
 
       <div class="form-group">
         <label for="itemQuantity">Number of Items</label>
         <div class="stepperInput" id="itemQuantity">
           <button type="button" class="button button--addOnLeft" aria-label="decrement">−</button>
-          <input class="input stepperInput__input" type="number" id="quantity" value="0" min="0" step="1" required />
+          <input class="input stepperInput__input" type="number" id="quantity" name="quantity" value="0" min="0" step="1" required />
           <button type="button" class="button button--addOnRight" aria-label="increment">+</button>
         </div>
       </div>
@@ -49,7 +49,7 @@ $pageContent = '
             <p class="form-text">Select a category for your item to got into.</p>
             <form id="categoryEditSelect">
             <div class="row form-group">
-                <div class="col"><select id="categorySelect" name="id">
+                <div class="col"><select id="categorySelect" name="categoryID">
                 '.$catFormatted.'
                 </select></div>
             </div>
