@@ -132,8 +132,8 @@ $pageContent = '
 
     ';
 
-$page = new PageClass('Add-Order', $pageContent, ['standardize.css'], ['inventory-creation.js', 'order-creation.js']);
-$page->standardize();
-$page->checkCredentials($_SESSION['credentialLevel'], 1);
-echo $page->render();
+    $page = new PageClass('Add-Order',$pageContent,['standardize.css'],['inventory-creation.js','order-creation.js']);
+    $page->standardize();
+    $page->checkCredentials($_SESSION['credentialLevel'],1);
+    echo $page->render();
 ?>
