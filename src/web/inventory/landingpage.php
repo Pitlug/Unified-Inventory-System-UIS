@@ -49,6 +49,9 @@
                         <td><a href='#'>{$item['name']}</a></td>
                         <td>{$item['quantity']}</td>
                         <td><input class='tableCheckbox form-check-input mt-0' type='checkbox' value='' name='item{$item['inventoryID']}' aria-label='Select Table Row'></td>
+                        <td><span><a><i class='bi bi-pencil-square'></i></a></span>
+                        <span><a><i class='bi bi-info-square'></i></a></span>
+                        </td>
                         </tr>";
     }
 
@@ -98,10 +101,16 @@
             </div>
         </div>
         <div class='main-content'>
-            <div class='inventory-info'>
-                <h1>Inventory</h1>
-                <h2>Category {$activeCat['categoryName']}</h2>
-                <h4>{$activeCat['categoryDesc']}</h4>
+            <div class='inventory-info row'>
+                <div class='col'>
+                    <h1>Inventory</h1>
+                    <h2>Category {$activeCat['categoryName']}</h2>
+                    <h4>{$activeCat['categoryDesc']}</h4>
+                </div>
+                <div id='inventory-buttons' class='col-sm-auto d-flex flex-row flex-wrap align-content-end'>
+                    <button id='createButton' class='btn btn-primary'>Create</button>
+                    <button id='deleteButton' class='btn btn-danger disabled'>Delete</button>
+                </div>
             </div>
             <div class='inventory-table'>
                 <table class='table'>
@@ -111,6 +120,7 @@
                         <th scope='col'>Name</th>
                         <th scope='col'>Quantity</th>
                         <th scope='col'>Select</th>
+                        <th scope='col'>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,7 +136,7 @@
         </div>
     </div>
     ";
-    $page = new PageClass('Inventory',$pageContent,['inventory.css'],[]);
+    $page = new PageClass('Inventory',$pageContent,['inventory.css'],['inventory-table.js']);
     $page->standardize();
     $page->checkCredentials($_SESSION['credentialLevel'],3);
     echo $page->render();

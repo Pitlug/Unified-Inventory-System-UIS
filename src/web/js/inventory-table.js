@@ -1,0 +1,67 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteButton = document.getElementById("deleteButton");
+    if (!deleteButton) return;
+
+    const tableInputs = document.querySelectorAll(".inventory-table .tableCheckbox");
+    
+    function updateDeleteButton() {
+        console.log('update');
+        let selectedRowIds = [];
+
+        tableInputs.forEach(input => {
+            if (input.checked) {
+                const row = input.closest("tr");
+                if (row) {
+                    const th = row.querySelector("th");
+                    if (th) {
+                        const rowId = th.textContent.trim();
+                        if (rowId !== "") {
+                            selectedRowIds.push(rowId);
+                        }
+                    }
+                }
+            }
+        });
+
+        if (selectedRowIds.length > 0) {
+            deleteButton.classList.remove("disabled");
+            deleteButton.removeAttribute("disabled");
+        } else {
+            deleteButton.classList.add("disabled");
+            deleteButton.setAttribute("disabled", "true");
+        }
+
+        deleteButton.dataset.selectedRows = JSON.stringify(selectedRowIds);
+    }
+
+    tableInputs.forEach(input => {
+        input.addEventListener("change", updateDeleteButton);
+    });
+
+    /*function deleteItems(){
+        fetch(invAPI, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(data) 
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response; 
+        })
+        .then(result => {
+            console.log('Success:', result);
+            window.location.href = window.location.pathname + '?alert=edit';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }*/
+
+    deleteButton.addEventListener("click",deleteItems);
+
+    updateDeleteButton();
+});
