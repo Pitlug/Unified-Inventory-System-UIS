@@ -3,11 +3,11 @@
     class Footer {
 
         private $text;
-        private $links = '<a href="sitemap" class="">Sitemap</a>';
+        private $links = '<a href="https://github.com/Pitlug/Unified-Inventory-System-UIS.git" class="">Github</a>';
 
         public function __construct($text="") {
             $this->text = $text;
-            $this->text .= "<br>Copyright UIS 2025<br>";
+            $this->text .= "<br>© 2025 UIS. All rights reserved.<br>";
         }
 
         public function render() {

@@ -11,12 +11,12 @@
         <p class="header">Your Unified Inventory Management System.</p>
     </header>
     <div class="header">
-        <nav>
+        <div class="sm-nav">
             <a href="#about">About</a> |
             <a href="#Features">Features</a> |
             <a href="#authors">Authors</a> |
             <a href="#contact">Contact</a>
-        </nav>
+        </div>
     </div>
     <div class="about">
         <section id="about">
