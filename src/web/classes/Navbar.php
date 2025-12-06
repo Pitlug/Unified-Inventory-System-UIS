@@ -20,10 +20,10 @@
                 $this->links = ["Login" => ["url" => "/login.php", "icon" => "bi bi-unlock2-fill"]];
             }elseif (isset($_SESSION['credentialLevel']) && $_SESSION['credentialLevel'] <= 0){
                 $this->links = ["Users" => ["url" => "/users.php", "icon" => "bi bi-person-badge-fill"],"Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
-                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],"Account" => ["url" => "/account.php", "icon" => "bi bi-person-circle"]];
+                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"], $_SESSION['username'] => ["url" => "/account.php", "icon" => "bi bi-person-circle"]];
             }else{
                 $this->links = ["Inventory" => ["url" => "/inventory.php", "icon" => "bi bi-box-seam-fill"],
-                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],"Account" => ["url" => "/account.php", "icon" => "bi bi-person-circle"]];
+                "Orders" => ["url" => "/orders.php", "icon" => "bi bi-clipboard2-check-fill"],$_SESSION['username'] => ["url" => "/account.php", "icon" => "bi bi-person-circle"]];
             }
             $this->links = array_merge($this->defaultNavLinks,$this->links);
         }

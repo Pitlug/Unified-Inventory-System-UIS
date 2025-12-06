@@ -2,9 +2,6 @@
     include_once 'classes/PageClass.php';
 
     $pageContent = '
-<html>
-<head></head>
-<body>
 <div class="bgPattern"></div>
     <header class="header">
         <h1 class="header">Welcome to UIS</h1>
@@ -14,8 +11,7 @@
         <div class="sm-nav">
             <a href="#about">About</a> |
             <a href="#Features">Features</a> |
-            <a href="#authors">Authors</a> |
-            <a href="#contact">Contact</a>
+            <a href="#authors">Authors</a> 
         </div>
     </div>
     <div class="about">
@@ -73,22 +69,6 @@
             </ul>
         </section>
     </div>
-    <div class="contact">
-        <section id="contact">
-            <h2>Contact Us to Sign Up Today!</h2>
-            <form>
-                <label for="name">Name:</label><br>
-                <input type="text" id="name" name="name"><br><br>
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email"><br><br>
-                <label for="message">Company Name:</label><br>
-                <textarea id="message" name="message" rows="4"></textarea><br><br>
-                <button type="button" class="btn btn-primary btn-lg">Submit</button>
-            </form>
-        </section>
-    </div>
-</body>
-</html>
     ';
     $page = new PageClass('Home',$pageContent, ['homepage.css'], []);
     $page->standardize();
