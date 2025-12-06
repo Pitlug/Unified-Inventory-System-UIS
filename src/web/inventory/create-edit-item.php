@@ -56,7 +56,7 @@ $pageContent = '
 
     <div>
         <br>
-        <button type="button" class="btn btn-outline-danger">Submit</button>
+        <button type="submit" class="btn btn-outline-danger">Submit</button>
         <br>
         <br>
     </div>
