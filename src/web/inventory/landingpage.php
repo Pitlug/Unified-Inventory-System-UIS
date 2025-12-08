@@ -49,8 +49,9 @@
                         <td><a href='#'>{$item['name']}</a></td>
                         <td>{$item['quantity']}</td>
                         <td><input class='tableCheckbox form-check-input mt-0' type='checkbox' value='' name='item{$item['inventoryID']}' aria-label='Select Table Row'></td>
-                        <td><span><a><i class='bi bi-pencil-square'></i></a></span>
-                        <span><a><i class='bi bi-info-square'></i></a></span>
+                        <td>
+                            <span><a href='create-edit-item.php?id=<?= $inventory[$i]['inventoryIDtn-primary' title='Edit'><i class='bi bi-pencil-square'></i></a></span>
+                            <span><a href='item-info.php?id='<?= $inventory[$i]['class='btn btn-sm btn-secondary' title='Info'><i class='bi bi-info-square'></i></a></span>
                         </td>
                         </tr>";
     }
@@ -108,7 +109,7 @@
                     <h4>{$activeCat['categoryDesc']}</h4>
                 </div>
                 <div id='inventory-buttons' class='col-sm-auto d-flex flex-row flex-wrap align-content-end'>
-                    <button id='createButton' class='btn btn-primary'>Create</button>
+                    <button type='button' class='btn btn-primary' id='createButton'>Create</button>
                     <button id='deleteButton' class='btn btn-danger disabled'>Delete</button>
                 </div>
             </div>
