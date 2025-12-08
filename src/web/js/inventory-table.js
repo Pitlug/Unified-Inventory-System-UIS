@@ -65,3 +65,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateDeleteButton();
 });
+// Redirect a user to create item page
+document.getElementById('createButton').onclick = () => { window.location.href = 'create-edit-item.php'; };
