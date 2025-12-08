@@ -18,9 +18,9 @@
         <section id="about">
             <h2>About UIS</h2>
             <p>UIS is a inventory management site built by Alexander Pellet, Rein Alderfer, Hector Franco, and Drew Urenko. 
-                This project is setup to provide a solution to your companies internal inventry needs! 
-                From traking incoming orders of the company. To managing internal inventory under specific categories. 
-                And only employs can use the site.
+                This project is setup to provide a solution to your companies internal inventory needs! 
+                From tracking incoming orders of the company. To managing internal inventory under specific categories. 
+                And only employees can use the site.
             </p>
         </section>
     </div>
@@ -62,15 +62,27 @@
         <section id="authors">
             <h2>Meet the Authors</h2>
             <ul>
-                <li><strong>Mr. Alexander Pellet:</strong> Junior Computer Science major</li>
-                <li><strong>Mr. Rein Alderfer:</strong> Junior Information Systems Major</li>
-                <li><strong>Mr. Hector Franco:</strong> Junior Computer Science Major</li>
-                <li><strong>Mr. Drew Urenko:</strong> Junior Computer Science Major</li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/IconMissing.png" alt="Alexander Pellet" class="author-photo" />
+                    <div class="author-text"><strong>Alexander Pellet:</strong> Junior Computer Science Major</div>
+                </li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/IconMissing.png" alt="Rein Alderfer" class="author-photo" />
+                    <div class="author-text"><strong>Mr. Rein Alderfer:</strong> Junior Information Systems Major</div>
+                </li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/hector.jpeg" alt="Hector Franco" class="author-photo" />
+                    <div class="author-text"><strong>Hector Franco:</strong> Junior Computer Science Major</div>
+                </li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/IconMissing.png" alt="Drew Urenko" class="author-photo" />
+                    <div class="author-text"><strong>Drew Urenko:</strong> Junior Computer Science Major</div>
+                </li>
             </ul>
         </section>
     </div>
     ';
-    $page = new PageClass('Home',$pageContent, ['homepage.css'], []);
+    $page = new PageClass('Home',$pageContent, ['homepage.css'], ['index-animations.js']);
     $page->standardize();
     echo $page->render();
 ?>

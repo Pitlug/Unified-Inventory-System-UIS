@@ -1,162 +1,453 @@
-/* This is the styling for the homepage */
+/*This file contains styles ONLY used on index.php
+   All reusable animations are in standardize.css */
+
 @import url("config_vars.css");
 
+/* offset scroll position to account for navbar */
+.about section,
+.Features section,
+.authors section,
+.contact section {
+    scroll-margin-top: 100px;
+}
+
+/*  GRADIENT SHIFT ANIMATION (Homepage header only) */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* HOMEPAGE HEADER */
 header {
-  background-color: var(--lightblue);
-  color: var(--veryblack);
-  padding: 25px 0;
-  text-align: center;
-  box-shadow: 0 4px 6px var(--veryblack);
+    background: linear-gradient(135deg, var(--lightblue) 0%, var(--darkblue) 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+    color: var(--veryblack);
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
 }
-.navbar {
-    background-color: var(--primary);
-    padding: 0.5rem 2rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
+
+/* Decorative background pattern */
+header::before {
+    content: '';
+    position: absolute;
     top: 0;
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
 }
 
-.navbar-brand { display: flex; align-items: center; text-decoration: none; }
-
-.logo { color:var(--modeColorOPP);height: 60px; width: auto; transition: transform 0.3s ease; }
-.logo:hover { transform: scale(1.05); }
-
-.navbar-nav {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    list-style: none;
-    margin-left: auto;
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    animation: fadeInUp 0.8s ease-out forwards;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.nav-item { list-style: none; }
+header p {
+    font-size: 1.3rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    position: relative;
+}
 
-.navbar-link {
-    color: var(--modeColorOPP);
+/*  HOMEPAGE SUB-NAVIGATION*/
+.sm-nav {
+    background: linear-gradient(90deg, var(--darkblue) 0%, var(--lightblue) 50%, var(--darkblue) 100%);
+    background-size: 200% 100%;
+    text-align: center;
+    padding: 16px 0;
+    position: relative;
+}
+
+.sm-nav a {
+    color: var(--veryblack);
     text-decoration: none;
-    padding: 0.75rem 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 5px;
+    margin: 0 25px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding: 8px 0;
     transition: all 0.3s ease;
-    font-weight: 500;
 }
 
-.navbar-link:hover {
-    background-color: var(--secondary);
+/* Animated underline effect */
+.sm-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--tanPrimary);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.sm-nav a:hover::after {
+    width: 100%;
+}
+
+.sm-nav a:hover {
+    color: var(--tanPrimary);
+    text-decoration: none;
     transform: translateY(-2px);
 }
 
-.sm-nav {
-            background-color: var(--darkblue);
-            
-            text-align: center;
-            padding: 12px 0;
+/* HOMEPAGE SECTIONS*/
+.about section,
+.Features section,
+.authors section,
+.contact section {
+    padding: 40px;
+    margin: 30px auto;
+    max-width: 900px;
+    background-color: var(--modeColor);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    
+    /* Initial state for scroll animation */
+    opacity: 0;
+    transform: translateY(30px);
 }
-.sm-nav a{
-            color: var(--veryblack);
-            text-decoration: none;
-            margin: 0 20px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-        }
-        
-.sm-nav a:hover {
-            color: var(--tanPrimary);
-            
-            text-decoration: underline;
-        }
 
+/* Visible state - controlled by JS */
+.about section.visible,
+.Features section.visible,
+.authors section.visible,
+.contact section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-section {
-            padding: 25px;
-            margin: 20px auto;
-            max-width: 900px;
-            background-color: var(--);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px var(--veryblack);
-            transition: box-shadow 0.3s ease;
-        }
-section:hover {
-            box-shadow: 0 6px 18px var(--veryblack);
-            color: --tanPrimary;
-        }
-section h2 {
-            color: var(--blueText);
-            /* Bright Blue */
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-table th {
+/* Decorative accent line */
+.about section::before,
+.Features section::before,
+.authors section::before,
+.contact section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--lightblue) 0%, var(--darkblue) 100%);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.6s ease 0.2s;
+}
+
+.about section.visible::before,
+.Features section.visible::before,
+.authors section.visible::before,
+.contact section.visible::before {
+    transform: scaleY(1);
+}
+
+.about section:hover,
+.Features section:hover,
+.authors section:hover,
+.contact section:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+}
+
+/* Section headings */
+.about section h2,
+.Features section h2,
+.authors section h2,
+.contact section h2 {
     color: var(--blueText);
+    font-size: 2rem;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
 }
-table td {
-            border: 1px solid var(--tanPrimary);
-            padding: 12px;
-            text-align: left;
-        }
-table th {
-            background-color: var(--lightblue);
-            font-weight: 600;
-            color: var(--darkblue);
-        }
-table th:hover {
-            background-color: var(--lightblue);
-            color: var(--tanPrimary);
+
+/* Animated highlight under h2 */
+.about section h2::after,
+.Features section h2::after,
+.authors section h2::after,
+.contact section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--lightblue), var(--darkblue));
+    transition: width 0.5s ease 0.3s;
+    border-radius: 2px;
 }
-table tr:hover {
-            background-color: var(--lightblue);
-            color: var(--darkblue);
+
+.about section.visible h2::after,
+.Features section.visible h2::after,
+.authors section.visible h2::after,
+.contact section.visible h2::after {
+    width: 60%;
 }
-table tr:nth-child(even) {
-            background-color: var(--tanPrimary);
-        }
-.tableText {
-    color: var(--veryblack);
+
+/* Section paragraphs */
+.about section p,
+.Features section p,
+.authors section p,
+.contact section p {
+    line-height: 1.8;
+    color: var(--modeColorOPP);
 }
-.thread {
+
+/* ABOUT SECTION */
+.about section {
+    background: linear-gradient(135deg, var(--modeColor) 0%, rgba(143, 171, 212, 0.05) 100%);
+}
+
+.about p {
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+/*   FEATURES TABLE */
+.Features table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.Features table th {
+    color: var(--blueText);
+    background-color: var(--lightblue);
+    font-weight: 600;
+    padding: 16px;
+    text-align: left;
+}
+
+.Features table td {
+    border: none;
+    border-bottom: 1px solid var(--tanPrimary);
+    padding: 16px;
+    text-align: left;
+}
+
+.Features table tbody tr:hover {
     background-color: var(--lightblue);
 }
+
+.Features table tr:nth-child(even) {
+    background-color: var(--tanPrimary);
+}
+
+.Features .tableText {
+    color: var(--veryblack);
+}
+
+.Features .thread {
+    background-color: var(--lightblue);
+}
+
+/* AUTHORS LIST WITH STAGGERED ANIMATION */
 .authors ul {
-            list-style: none;
-            padding: 0;
-        }
+    list-style: none;
+    padding: 0;
+}
+
 .authors ul li {
-            margin: 12px 0;
-            font-size: 1.2rem;
-        }
+    margin: 16px 0;
+    font-size: 1.2rem;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, transparent 0%, rgba(143, 171, 212, 0.1) 100%);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateX(-20px);
+    border-left: 3px solid transparent;
+}
+
+/* Staggered animation delays */
+.authors section.visible ul li:nth-child(1) { animation: fadeInLeft 0.5s ease 0.1s forwards; }
+.authors section.visible ul li:nth-child(2) { animation: fadeInLeft 0.5s ease 0.2s forwards; }
+.authors section.visible ul li:nth-child(3) { animation: fadeInLeft 0.5s ease 0.3s forwards; }
+.authors section.visible ul li:nth-child(4) { animation: fadeInLeft 0.5s ease 0.4s forwards; }
+
+.authors ul li:hover {
+    background: linear-gradient(135deg, rgba(143, 171, 212, 0.2) 0%, rgba(81, 133, 185, 0.15) 100%);
+    transform: translateX(10px);
+    border-left-color: var(--blueText);
+}
+
 .authors ul li strong {
-            color: var(--blueText);
-        }
+    color: var(--blueText);
+    font-weight: 700;
+}
+
+/* Author avatar and text layout */
+.author-item {
+    display: flex;
+    align-items: center;
+}
+
+.author-photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 16px;
+    border: 2px solid rgba(0,0,0,0.06);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.author-text {
+    flex: 1 1 auto;
+}
+
+.authors-note {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: var(--modeColorOPP);
+}
+
+/*CONTACT FORM*/
 .contact form {
     max-width: 650px;
     margin: 25px auto;
 }
+
 .contact form label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
+    color: var(--blueText);
 }
+
 .contact form input,
-.contact form textarea,
-.contact form button {
+.contact form textarea {
     width: 100%;
-    padding: 14px;
-    margin-bottom: 18px;
-    border: 1px solid var(--white);
-    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
     font-size: 1rem;
+    background: var(--modeColor);
 }
-.contact form input:focus,
-.contact form textarea:focus {
-    border-color: var(--blueText);
-    outline: none;
+
+/* BACKGROUND PATTERN*/
+.bgPattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(81, 133, 185, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(143, 171, 212, 0.03) 0%, transparent 50%);
+}
+
+/* SCROLL INDICATOR*/
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: float 2s ease-in-out infinite;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+}
+
+.scroll-indicator::before {
+    content: '↓';
+    font-size: 2rem;
+    color: var(--veryblack);
+}
+
+/* DARK MODE ADJUSTMENTS*/
+.dark-mode .about section,
+.dark-mode .Features section,
+.dark-mode .authors section,
+.dark-mode .contact section {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .about section:hover,
+.dark-mode .Features section:hover,
+.dark-mode .authors section:hover,
+.dark-mode .contact section:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .Features table {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .authors ul li {
+    background: linear-gradient(135deg, transparent 0%, rgba(74, 112, 169, 0.15) 100%);
+}
+
+.dark-mode .authors ul li:hover {
+    background: linear-gradient(135deg, rgba(74, 112, 169, 0.25) 0%, rgba(81, 133, 185, 0.2) 100%);
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1.1rem;
+    }
+    
+    .about section,
+    .Features section,
+    .authors section,
+    .contact section {
+        padding: 25px;
+        margin: 20px 15px;
+    }
+    
+    .about section h2,
+    .Features section h2,
+    .authors section h2,
+    .contact section h2 {
+        font-size: 1.6rem;
+    }
+    
+    .sm-nav a {
+        margin: 0 10px;
+        font-size: 1rem;
+    }
+    
+    .authors ul li {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
 }
