@@ -44,7 +44,7 @@ document.getElementById('itemForm').addEventListener('submit', function(event) {
         })
         .then(result => {
             console.log('Success:', result);
-            window.location.href = window.location.pathname + '?alert=edit';
+            window.location.href = window.location.pathname + '?alert=created';
         })
         .catch(error => {
             console.error('Error:', error);
