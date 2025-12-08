@@ -10,11 +10,22 @@ for($i=0;$i<count($categories);$i++){
     $catFormatted .= '<option value="'.$cat['categoryID'].'">'.$cat['categoryName'].'</option>';
 }
 
-$inventory = 
+$alert='';
+
+if(isset($_GET['alert'])){
+    if($_GET['alert']=='edit'){
+        $alert = "<div class='alert alert-success' role='alert'>
+            Successfully Created Item
+        </div>";
+    }
+}
+
+$inventory = '';
 
 $pageContent = '
 <div class="container">
   <header class="page-header">
+    '.$alert.'
     <h1>'.($inventoryId ? 'Edit Item' : 'Create Item').'</h1>
     <p class="form-text">'.($inventoryId
         ? 'Update details and save to apply changes.'
