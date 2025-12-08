@@ -50,8 +50,8 @@
                         <td>{$item['quantity']}</td>
                         <td><input class='tableCheckbox form-check-input mt-0' type='checkbox' value='' name='item{$item['inventoryID']}' aria-label='Select Table Row'></td>
                         <td>
-                            <span><a href='create-edit-item.php?id=<?= $inventory[$i]['inventoryIDtn-primary' title='Edit'><i class='bi bi-pencil-square'></i></a></span>
-                            <span><a href='item-info.php?id='<?= $inventory[$i]['class='btn btn-sm btn-secondary' title='Info'><i class='bi bi-info-square'></i></a></span>
+                            <span><a href='create-edit-item.php?id={$inventory[$i]['inventoryID']}' title='Edit'><i class='bi bi-pencil-square'></i></a></span>
+                            <span><a href='item-info.php?id={$inventory[$i]['inventoryID']}' title='Info'><i class='bi bi-info-square'></i></a></span>
                         </td>
                         </tr>";
     }
