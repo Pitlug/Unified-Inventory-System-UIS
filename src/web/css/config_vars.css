@@ -35,7 +35,7 @@
     --border: #4b5563; /* Subtle dividing lines/borders */
     --modeColor: #111827; /* Deepest background color */ 
     --modeColorOPP: #f9fafb; /* Lightest background color */
-    --helper-text-color: #9ca3af; /* Muted text color for hints/placeholders */
+    --helper-text-color: #ffffff; /* Muted text color for hints/placeholders */
 
     /* Custom Styling for Homepage */
     --lightblue: #4A70A9;
