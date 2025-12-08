@@ -23,15 +23,15 @@ switch ($method) {
         include_once 'inventory_get.php';
         handleGet();
         break;
-    case 'POST':
-        //echo var_dump($input);
-        //return;
-        include_once 'inventory_post.php';
-        handlePost($input);
-        break;
     case 'PUT':
-        include_once 'inventory_put.php';
-        handlePut($input);
+    case 'POST':
+        if(isset($input['inventoryID'])){
+            include_once 'inventory_put.php';
+            handlePut($input);
+        }else{
+            include_once 'inventory_post.php';
+            handlePost($input);
+        }
         break;
     case 'DELETE':
         include_once 'inventory_delete.php';

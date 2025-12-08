@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (row) {
                     const th = row.querySelector("th");
                     if (th) {
-                        const rowId = th.textContent.trim();
+                        const rowId = parseInt(th.textContent.trim());
                         if (rowId !== "") {
                             selectedRowIds.push(rowId);
                         }
@@ -38,13 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
         input.addEventListener("change", updateDeleteButton);
     });
 
-    /*function deleteItems(){
+    function deleteItems(){
+        let ids = JSON.parse(deleteButton.dataset.selectedRows);
+        let invAPI = deleteButton.dataset.api;
+        console.log(ids);
+        console.log(JSON.stringify({'inventoryIDs':ids}));
         fetch(invAPI, {
-            method: 'POST', 
+            method: 'DELETE', 
             headers: {
                 'Content-Type': 'application/json', 
             },
-            body: JSON.stringify(data) 
+            body: JSON.stringify({'inventoryIDs':ids})
         })
         .then(response => {
             if (!response.ok) {
@@ -54,12 +58,12 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(result => {
             console.log('Success:', result);
-            window.location.href = window.location.pathname + '?alert=edit';
+            window.location.href = window.location.pathname + '?alert=deleted';
         })
         .catch(error => {
             console.error('Error:', error);
         });
-    }*/
+    }
 
     deleteButton.addEventListener("click",deleteItems);
 

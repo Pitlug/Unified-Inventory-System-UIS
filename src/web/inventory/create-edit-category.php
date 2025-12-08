@@ -14,8 +14,7 @@ if(isset($_GET['delete'])){
         $alert = "<div class='alert alert-danger' role='alert'>
             Error attempting to delete a category.
         </div>";
-    }
-    
+    } 
 }
 
 if(isset($_GET['alert'])){
@@ -86,7 +85,7 @@ $pageContent = '
         
             '<div class="col-2">
             <label for="categoryName">Category ID</label>
-            <input type="text" readonly class="form-control-plaintext" value='.$catID.'>
+            <input type="text" readonly disabled value='.$catID.'>
             </div>'
             : '').'</input>
         <div class="col-10">
@@ -107,7 +106,7 @@ $pageContent = '
     </section>
 </div>
     ';
-    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js', 'category-rename.js']);
+    $page = new PageClass('Inventory-Creation',$pageContent,['inventory-creation.css'],['inventory-creation.js', 'category-form.js']);
     $page->standardize();
     $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();

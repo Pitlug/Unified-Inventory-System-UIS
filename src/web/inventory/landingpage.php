@@ -46,7 +46,7 @@
         $item = $inventory[$i];
         $inventoryItems.="<tr>
                         <th scope='row'>{$item['inventoryID']}</th>
-                        <td><a href='#'>{$item['name']}</a></td>
+                        <td>{$item['name']}</td>
                         <td>{$item['quantity']}</td>
                         <td><input class='tableCheckbox form-check-input mt-0' type='checkbox' value='' name='item{$item['inventoryID']}' aria-label='Select Table Row'></td>
                         <td>
@@ -54,6 +54,16 @@
                             <span><a href='item-info.php?id={$inventory[$i]['inventoryID']}' title='Info'><i class='bi bi-info-square'></i></a></span>
                         </td>
                         </tr>";
+    }
+
+    $alert='';
+
+    if(isset($_GET['alert'])){
+        if($_GET['alert']=='deleted'){
+            $alert = "<div class='alert alert-success' role='alert'>
+                Successfully deleted items.
+            </div>";
+        }
     }
 
     //Page navigation items
@@ -87,7 +97,7 @@
         }
     }
 
-    $pageContent = '
+    $pageContent = $alert.'
     <div class="page-content">
         <div class="inventory-sidebar">
             <div class="sizer">
@@ -110,7 +120,7 @@
                 </div>
                 <div id='inventory-buttons' class='col-sm-auto d-flex flex-row flex-wrap align-content-end'>
                     <button type='button' class='btn btn-primary' id='createButton'>Create</button>
-                    <button id='deleteButton' class='btn btn-danger disabled'>Delete</button>
+                    <button id='deleteButton' class='btn btn-danger disabled' data-api={$GLOBALS['apiInventory']}>Delete</button>
                 </div>
             </div>
             <div class='inventory-table'>
