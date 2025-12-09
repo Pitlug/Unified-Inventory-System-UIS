@@ -67,7 +67,7 @@
                     <div class="author-text"><strong>Alexander Pellet:</strong> Junior Computer Science Major</div>
                 </li>
                 <li class="author-item">
-                    <img src="' . $GLOBALS['headshots'] . '/IconMissing.png" alt="Rein Alderfer" class="author-photo" />
+                    <img src="' . $GLOBALS['headshots'] . '/gif2.gif" alt="Rein Alderfer" class="author-photo" />
                     <div class="author-text"><strong>Mr. Rein Alderfer:</strong> Junior Information Systems Major</div>
                 </li>
                 <li class="author-item">
