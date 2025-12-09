@@ -103,9 +103,7 @@ $pageContent = '
                 '.$catFormatted.'
                 </select></div>
             </div>
-
-    <div class="my-3">
-        <button type="submit" class="btn btn-outline-danger">Submit</button>
+      </div>
     <div>
         <br>
         <button type="submit" class="btn btn-outline-danger">Submit</button>
