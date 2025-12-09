@@ -97,7 +97,7 @@ $pageContent = '
                                     <td><input type=\"text\" class=\"item-name form-control\" value=\"$name\" style=\"width:100%;\" /></td>
                                     <td><input type=\"number\" class=\"item-qty form-control\" value=\"$qty\" min=\"1\" style=\"width:100%;\" /></td>
                                     <td><input type=\"number\" class=\"item-price form-control\" value=\"$price\" min=\"0\" step=\"0.01\" style=\"width:100%;\" /></td>
-                                    <td><button type=\"button\" class=\"item-remove-btn\" style=\"cursor:pointer;color:red;\">Remove</button></td>
+                                    <td><button type=\"button\" class=\"btn btn-danger item-remove-btn\">Remove</button></td>
                                 </tr>
                             ";
     }, $orderItemsArray, range(0, count($orderItemsArray) - 1))) : '') . '

@@ -63,7 +63,7 @@
             <h2>Meet the Authors</h2>
             <ul>
                 <li class="author-item">
-                    <img src="' . $GLOBALS['headshots'] . '/IconMissing.png" alt="Alexander Pellet" class="author-photo" />
+                    <img src="' . $GLOBALS['headshots'] . '/alex.jpg" alt="Alexander Pellet" class="author-photo" />
                     <div class="author-text"><strong>Alexander Pellet:</strong> Junior Computer Science Major</div>
                 </li>
                 <li class="author-item">
