@@ -12,7 +12,7 @@
         $activeTags = 'aria-disabled="true"';
         $activeCat = ["categoryID"=>-1,"categoryName"=>"All","categoryDesc"=>"Displaying all content in the inventory, please select a category to narrow your search."];
     }
-    $catItems.= "<div class='category-item {$activeClass}'><a $activeTags class='{$activeClass}' href='?category=all'><p>All</p></a></div>"; 
+    $catItems.= "<div class='category-item {$activeClass}'><a $activeTags class='{$activeClass}' href='?category=all'>All</a></div>"; 
     if(isset($categories)){
         for($i=0;$i<count($categories);$i++){
             $cat = $categories[$i];
@@ -24,7 +24,7 @@
                 $activeClass = '';
                 $activeTages = '';
             }
-            $catItems.="<div class='category-item {$activeClass}'><a {$activeTags} class='{$activeClass}' href='?category=cat{$cat['categoryID']}'><p>{$cat['categoryName']}</p></a></div>";
+            $catItems.="<div class='category-item {$activeClass}'><a {$activeTags} class='{$activeClass}' href='?category=cat{$cat['categoryID']}'>{$cat['categoryName']}</a></div>";
         }
     }
 
