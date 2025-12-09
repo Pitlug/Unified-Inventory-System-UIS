@@ -33,3 +33,9 @@ INSERT INTO `inventory`(`name`, `description`, `quantity`, `categoryID`) VALUES 
 INSERT INTO `inventory`(`name`, `description`, `quantity`, `categoryID`) VALUES ('product 31','description 31','1','2');
 INSERT INTO `inventory`(`name`, `description`, `quantity`, `categoryID`) VALUES ('product 32','description 32','2','2');
 INSERT INTO `inventory`(`name`, `description`, `quantity`, `categoryID`) VALUES ('product 33','description 33','3','2');
+
+INSERT INTO users (username, password,credentialLevel) VALUES ("superadmin", "superpass123", -1);
+INSERT INTO users (username, password,credentialLevel) VALUES ("admin", "password", 0);
+INSERT INTO users (username, password,credentialLevel) VALUES ("manager", "password", -1);
+INSERT INTO users (username, password,credentialLevel) VALUES ("staffuser", "password", -1);
+INSERT INTO users (username, password,credentialLevel) VALUES ("viewer", "password", -1);

@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS categories (
 CREATE TABLE IF NOT EXISTS inventory (
     inventoryID int AUTO_INCREMENT,
     name varchar(45) NOT NULL,
-    description varchar(255) NOT NULL,
+    description LONGTEXT NOT NULL,
     quantity int NOT NULL,
     categoryID int NOT NULL,
     
@@ -121,9 +121,3 @@ CREATE TABLE IF NOT EXISTS logs (
     CONSTRAINT fk_logActionID1 FOREIGN KEY (logActionID) REFERENCES logActions(logActionID)
 );
 
-INSERT INTO categories (categoryName, categoryDesc) VALUES ('Uncategorized', 'Default category for items added from completed orders');
-
-INSERT INTO users (userID, 
-username, password,
-credentialLevel) VALUES
-(1, "superadmin", "superpass123", -1);

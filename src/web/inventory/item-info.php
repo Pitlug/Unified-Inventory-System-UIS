@@ -1,56 +1,82 @@
 <?php
     require_once __DIR__ . '/../classes/PageClass.php';
 
-    $catItems='';
-    $activeCat;
-    $categories = requestAPI($GLOBALS['apiCategory'],'GET',['category'=>true]);
-    $inventoryID = $_GET['id'];
-
-
-    $inventory = requestAPI($GLOBALS['apiInventory'],'GET',['inventoryID'=>$inventoryId]);
-    $inventoryItems = '';
     $inventoryID = isset($_GET['id']) ? intval($_GET['id']) : null;
-    $catID = isset($_GET['id']) ? intval($_GET['id']) : null;
+
+    $item = requestAPI($GLOBALS['apiInventory'],'GET',['inventoryID'=>$inventoryID])[0];
+
+    $category = requestAPI($GLOBALS['apiCategory'],'GET',['categoryID'=>$item['categoryID']])[0]['categoryName'];
 
     $pageContent = "
     <div class='container'>
     <header class='page-header my-5'>
         <h1>Inventory View</h1>
-        <p class='form-text'>You are viewing the information for #get inventory item.</p>
+        <p class='form-text'>You are viewing the information for {$item['name']}.</p>
     </header>
 
         <section class='card'>
-            <form>
-                <div class='form-group'>
-                    <h3 for='itemName'>{$item["name"]}</h3>
+                <div class='form-group row'>
+                    <div class='col-3'>
+                        <div class='row'>
+                            <div class='col-auto'>
+                                <h3>Item ID:</h3>
+                            </div>
+                            <div class='col'>
+                                <input class='form-control' Disabled readonly value='{$item["inventoryID"]}'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col'>
+                        <div class='row'>
+                            <div class='col-auto'>
+                                <h3>Item Name:</h3>
+                            </div>
+                            <div class='col'>
+                                <input class='form-control' Disabled readonly value='{$item["name"]}'>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class='form-group'>
-                    <p for='itemID'>ID: {$item["inventoryID"]}</p>
+                
+                <div class='form-group row'>
+                    <div class='col-auto'>
+                        <div class='row'>
+                            <div class='col-auto'>
+                                <h3>Quantity:</h3>
+                            </div>
+                            <div class='col'>
+                                <input class='form-control' Disabled readonly value='{$item["quantity"]}'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col'>
+                        <div class='row'>
+                            <div class='col-auto'>
+                                <h3>Description:</h3>
+                            </div>
+                            <div class='col'>
+                                <textarea class='form-control' Disabled readonly>{$item["description"]}</textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class='form-group'>
-                    <h3 for='itemDesc'>Item Description</h3>
-                    <p>{$item['description']}</p>
+                <div class='form-group row'>
+                    <div class='col'>
+                        <div class='row'>
+                            <div class='col-auto'>
+                                <h3>Category:</h3>
+                            </div>
+                            <div class='col'>
+                                <input class='form-control' Disabled readonly value='{$category}'>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class='form-group'>
-                    <h3 for='itemQuantity'>Number of items in stock:</h3>
-                    <p>{$item["quantity"]}</p>
+                <div class='my-4'>
+                    <a class='btn btn-primary' href='landingpage.php'>Return</a>
                 </div>
-
-                <div class='col'>
-                        <h3>Category</h3>
-                        <form id='categoryView'>
-                        <p>{$activeCat["categoryName"]}</p>
-                </div>
-
-                <div>
-                    <br>
-                    <a href='landingpage.php'>return</a>
-                    <br>
-                    <br>
-                </div>
-            </form>
         </section>
     </div>
         ";
