@@ -44,7 +44,7 @@ Start Sidebar
 
 .category-list{
     position:fixed;
-    background-color:var(--light);
+    background-color:var(--sidebar-color);
     border-radius: 30px;
     height:75vh;
     width:275px;
@@ -53,8 +53,8 @@ Start Sidebar
     padding-bottom:10px;
     padding-right:5px;
     overflow-y: auto;
-    border-color:rgba(var(--modeColorOPP),0.1);
-    border:2px solid;
+    /*border-color:rgba(var(--modeColorOPP),0.1);
+    border:2px solid;*/
 }
 
 .category-list::-webkit-scrollbar {
@@ -85,7 +85,7 @@ Start Sidebar
 
 .list-header h4{
     font-size:30px;
-    color:var(--dark);
+    color: var(--light);
 }
 
 .category-item{
@@ -101,7 +101,7 @@ Start Sidebar
 
 .category-item a{
     cursor: pointer;
-    color: var(--dark);
+    color: var(--light);
     text-decoration:none;
 }
 

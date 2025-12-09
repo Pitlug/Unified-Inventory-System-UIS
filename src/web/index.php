@@ -75,7 +75,7 @@
                     <div class="author-text"><strong>Hector Franco:</strong> Junior Computer Science Major</div>
                 </li>
                 <li class="author-item">
-                    <img src="' . $GLOBALS['headshots'] . '/IconMissing.png" alt="Drew Urenko" class="author-photo" />
+                    <img src="' . $GLOBALS['headshots'] . '/drew.jpg" alt="Drew Urenko" class="author-photo" />
                     <div class="author-text"><strong>Drew Urenko:</strong> Junior Computer Science Major</div>
                 </li>
             </ul>

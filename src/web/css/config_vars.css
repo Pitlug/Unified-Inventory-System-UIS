@@ -23,6 +23,9 @@
     --veryblack: #000000;
     --blueText: #5185b9;
     --white: #ffffff;
+
+    /*Styling for Inventory*/
+    --sidebar-color: #1f2937;
 }
 
 /* Override variables for dark mode */
@@ -44,4 +47,12 @@
     --veryblack: #EFECE3;
     --blueText: #EFECE3;
     --white: #000000;
+
+    /*Styling for Inventory*/
+    --sidebar-color: #1f2937;
+    
+    /*Bootstrap Override*/
+    --bs-body-bg: var(--modeColor) !important;
+    --bs-emphasis-color: var(--modeColorOPP) !important;
+    --bs-secondary-color: var(--light) !important;
 }

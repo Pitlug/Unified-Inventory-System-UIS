@@ -308,7 +308,7 @@ th {
 }
 
 /* Shimmer effect on table headers */
-th::after {
+thead th::after {
     content: '';
     position: absolute;
     top: 0;
