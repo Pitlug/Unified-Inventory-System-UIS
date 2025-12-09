@@ -75,7 +75,8 @@
             <button class="btn btn-primary" id="add-order-btn">Add Order</button>
         </a>
         
-        <button class="btn btn-primary" id="edit-order-btn" disabled style="opacity: 0.5; margin-left: 10px;">Edit Order</button>
+        <button id="edit-order-btn" disabled style="opacity: 0.5; margin-left: 10px;">Edit Order</button>
+        <button id="delete-order-btn" disabled style="opacity: 0.5; margin-left: 10px; color: #b00;">Delete Order</button>
     </div>
     ';
 
