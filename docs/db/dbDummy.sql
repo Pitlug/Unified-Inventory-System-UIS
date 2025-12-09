@@ -36,6 +36,6 @@ INSERT INTO `inventory`(`name`, `description`, `quantity`, `categoryID`) VALUES 
 
 INSERT INTO users (username, password,credentialLevel) VALUES ("superadmin", "superpass123", -1);
 INSERT INTO users (username, password,credentialLevel) VALUES ("admin", "password", 0);
-INSERT INTO users (username, password,credentialLevel) VALUES ("manager", "password", -1);
-INSERT INTO users (username, password,credentialLevel) VALUES ("staffuser", "password", -1);
-INSERT INTO users (username, password,credentialLevel) VALUES ("viewer", "password", -1);
+INSERT INTO users (username, password,credentialLevel) VALUES ("manager", "password", 1);
+INSERT INTO users (username, password,credentialLevel) VALUES ("staffuser", "password", 2);
+INSERT INTO users (username, password,credentialLevel) VALUES ("viewer", "password", 3);
