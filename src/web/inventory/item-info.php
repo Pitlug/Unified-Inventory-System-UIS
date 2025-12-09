@@ -14,7 +14,7 @@
 
     $pageContent = "
     <div class='container'>
-    <header class='page-header'>
+    <header class='page-header my-5'>
         <h1>Inventory View</h1>
         <p class='form-text'>You are viewing the information for #get inventory item.</p>
     </header>

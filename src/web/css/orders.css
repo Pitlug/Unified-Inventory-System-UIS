@@ -1,0 +1,6 @@
+.selected-row { 
+    background-color: rgba(0,0,0,0.2);
+}
+.select-order-radio { 
+    transform: translateY(1px); 
+}

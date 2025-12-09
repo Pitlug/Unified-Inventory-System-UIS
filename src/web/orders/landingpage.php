@@ -53,33 +53,33 @@
     }
 
     $pageContent = '
-    <div class="page-content">
-        <style>
-            .selected-row { background-color: #eef7ff; }
-            .select-order-radio { transform: translateY(1px); }
-        </style>
+    <div class="page-content container">
         <h1>Orders</h1>
         <p>Here is where all of the orders are listed. Press "Add Order" to create a new order, or select an existing order and press "Edit Order" to modify it.</p>
-        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-            <tr style="background-color: #f2f2f2;">
-                <th>Name</th>
-                <th>Date</th>
-                <th>Items</th>
-                <th>Notes</th>
-                <th>Status</th>
-            </tr>
+        <table class="table" border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+            <thead>    
+                <tr style="background-color: #f2f2f2;">
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Items</th>
+                    <th>Notes</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
             ' . $tableRows . '
+            </tbody>
         </table>
         <br>
-        <a href="addorder.php">
-            <button id="add-order-btn">Add Order</button>
+        <a class="text-decoration-none" href="addorder.php">
+            <button class="btn btn-primary" id="add-order-btn">Add Order</button>
         </a>
         
-        <button id="edit-order-btn" disabled style="opacity: 0.5; margin-left: 10px;">Edit Order</button>
+        <button class="btn btn-primary" id="edit-order-btn" disabled style="opacity: 0.5; margin-left: 10px;">Edit Order</button>
     </div>
     ';
 
-    $page = new PageClass('Orders',$pageContent,[],['orders.js']);
+    $page = new PageClass('Orders',$pageContent,['orders.css'],['orders.js']);
     $page->standardize();
     $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();

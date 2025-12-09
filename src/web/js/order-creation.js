@@ -20,10 +20,10 @@ function runWithOrder(){
             newRow.className = "item-row";
             newRow.dataset.itemIdx = rowIdx;
             newRow.innerHTML = `
-                        <td><input type="text" class="item-name" value="" style="width:100%;" /></td>
-                        <td><input type="number" class="item-qty" value="1" min="1" style="width:100%;" /></td>
-                        <td><input type="number" class="item-price" value="0.0" min="0" step="0.01" style="width:100%;" /></td>
-                        <td><button type="button" class="item-remove-btn" style="cursor:pointer;color:red;">Remove</button></td>
+                        <td><input type="text" class="item-name form-control" value="" style="width:100%;" /></td>
+                        <td><input type="number" class="item-qty form-control" value="1" min="1" style="width:100%;" /></td>
+                        <td><input type="number" class="item-price form-control" value="0.0" min="0" step="0.01" style="width:100%;" /></td>
+                        <td><button type="button" class="item-remove-btn form-control" style="cursor:pointer;color:red;">Remove</button></td>
                     `;
             table.appendChild(newRow);
             attachItemRowHandlers();

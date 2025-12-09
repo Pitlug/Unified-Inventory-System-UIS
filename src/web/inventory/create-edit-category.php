@@ -66,7 +66,7 @@ $pageContent = '
             <p class="form-text">Select a category and press the edit button to enter edit mode.</p>
             <form id="categoryEditSelect" action="create-edit-category.php">
             <div class="row form-group">
-                <div class="col"><select id="categorySelect" name="id">
+                <div class="col"><select id="categorySelect" class="form-control" name="id">
                 '.$catFormatted.'
                 </select></div>
                 <div class="col"><button type="submit" class="btn btn-primary">Edit</button></div>
@@ -85,18 +85,18 @@ $pageContent = '
         
             '<div class="col-2">
             <label for="categoryName">Category ID</label>
-            <input type="text" readonly disabled value='.$catID.'>
+            <input class="form-control" type="text" readonly disabled value='.$catID.'>
             </div>'
             : '').'</input>
         <div class="col-10">
             <label for="categoryName">Category Name</label>
-            <input id="categoryName" name="categoryName" type="text" placeholder="Enter Category Name" required value="'.(isset($catSelected) ? $catSelected['categoryName'] : '').'"/>
+            <input id="categoryName" class="form-control" name="categoryName" type="text" placeholder="Enter Category Name" required value="'.(isset($catSelected) ? $catSelected['categoryName'] : '').'"/>
         </div> 
       </div>
 
       <div class="form-group">
         <label for="categoryDesc">Category Description</label>
-        <textarea id="categoryDesc" name="categoryDesc" rows="3" placeholder="Category Description">'.(isset($catSelected) ? $catSelected['categoryDesc'] : '').'</textarea>
+        <textarea id="categoryDesc" class="form-control" name="categoryDesc" rows="3" placeholder="Category Description">'.(isset($catSelected) ? $catSelected['categoryDesc'] : '').'</textarea>
       </div>
 
     <div>

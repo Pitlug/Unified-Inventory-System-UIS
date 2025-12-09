@@ -68,23 +68,25 @@ $pageContent = '
             ' . ($orderID ? '<input type="hidden" id="orderID" value="' . $orderID . '" />' : '') . '
             <div class="form-group">
                 <label for="orderName">Order Name</label>
-                <input id="orderName" type="text" placeholder="Enter Order Name" required value="' . htmlspecialchars($orderNameVal) . '" />
+                <input id="orderName" class="form-control" type="text" placeholder="Enter Order Name" required value="' . htmlspecialchars($orderNameVal) . '" />
             </div>
 
             <div class="form-group">
                 <label for="orderDate">Order Date</label>
-                <input id="orderDate" type="date" required value="' . htmlspecialchars($orderDateVal) . '" />
+                <input id="orderDate" class="form-control" type="date" required value="' . htmlspecialchars($orderDateVal) . '" />
             </div>
 
             <div class="form-group">
                 <label>Items</label>
-                <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
-                    <tr style="background-color: #f2f2f2;">
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
+                <table class="table" border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <tbody id="itemsTable">
                         ' . ($orderItemsArray ? implode('', array_map(function ($item, $idx) {
         $name = htmlspecialchars($item['name'] ?? '');
@@ -92,9 +94,9 @@ $pageContent = '
         $price = htmlspecialchars($item['price'] ?? '0.0');
         return "
                                 <tr class=\"item-row\" data-item-idx=\"$idx\">
-                                    <td><input type=\"text\" class=\"item-name\" value=\"$name\" style=\"width:100%;\" /></td>
-                                    <td><input type=\"number\" class=\"item-qty\" value=\"$qty\" min=\"1\" style=\"width:100%;\" /></td>
-                                    <td><input type=\"number\" class=\"item-price\" value=\"$price\" min=\"0\" step=\"0.01\" style=\"width:100%;\" /></td>
+                                    <td><input type=\"text\" class=\"item-name form-control\" value=\"$name\" style=\"width:100%;\" /></td>
+                                    <td><input type=\"number\" class=\"item-qty form-control\" value=\"$qty\" min=\"1\" style=\"width:100%;\" /></td>
+                                    <td><input type=\"number\" class=\"item-price form-control\" value=\"$price\" min=\"0\" step=\"0.01\" style=\"width:100%;\" /></td>
                                     <td><button type=\"button\" class=\"item-remove-btn\" style=\"cursor:pointer;color:red;\">Remove</button></td>
                                 </tr>
                             ";
@@ -107,12 +109,12 @@ $pageContent = '
 
             <div class="form-group">
                 <label for="notes">Notes</label>
-                <textarea id="notes" rows="3" placeholder="Enter any notes about the order here">' . htmlspecialchars($notesVal) . '</textarea>
+                <textarea id="notes" class="form-control" rows="3" placeholder="Enter any notes about the order here">' . htmlspecialchars($notesVal) . '</textarea>
             </div>
 
             <div class="form-group">
                 <label for="status">Order Status</label>
-                <select id="status" required>
+                <select id="status" class="form-control" required>
                     <option value="pending" ' . ($statusVal === 'pending' ? 'selected' : '') . '>Pending</option>
                     <option value="processing" ' . ($statusVal === 'processing' ? 'selected' : '') . '>Processing</option>
                     <option value="completed" ' . ($statusVal === 'completed' ? 'selected' : '') . '>Completed</option>
