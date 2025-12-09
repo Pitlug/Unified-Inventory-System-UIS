@@ -83,6 +83,8 @@ function requestAPI($api, $method='GET', $input=null){
     curl_setopt($ch, CURLOPT_URL, $api);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the transfer as a string
     $returnValue = curl_exec($ch);
+    //only use this if debugging and referencing in the dbTest.php file, otherwise it will break most pages.
+    //return $returnValue;
     if ($returnValue === false) {
         $err = curl_error($ch);
         curl_close($ch);

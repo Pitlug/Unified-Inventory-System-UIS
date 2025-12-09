@@ -64,6 +64,7 @@ $GLOBALS['imgUrl'] = $GLOBALS['webRoot'] . '/images/';
 $GLOBALS['classUrl'] = $GLOBALS['webRoot'] . '/classes/';
 $GLOBALS['includeUrl'] = $GLOBALS['webRoot'] . '/includes/';
 $GLOBALS['inventory'] = $GLOBALS['webRoot'] . '/inventory/';
+$GLOBALS['headshots'] = $GLOBALS['imgUrl'] . 'headshots/';
 
 /*API Directories*/
 $GLOBALS['apiUrl'] = $GLOBALS['src'] . '/api/';

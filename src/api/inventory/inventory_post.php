@@ -10,9 +10,9 @@ include_once $GLOBALS['singleton'];
 function handlePost($input) {
     try {
         // Validate input
-        if (!isset($input['name']) || !isset($input['quantity']) || !isset($input['categoryID'])) {
+        if (!isset($input['name']) || !isset($input['quantity']) || !isset($input['categoryID']) || !isset($input['description'])) {
             http_response_code(400);
-            echo json_encode(['error' => 'Missing required fields: name, quantity, categoryID']);
+            echo json_encode(['error' => 'Missing required fields: name, quantity, categoryID, description']);
             return;
         }
         

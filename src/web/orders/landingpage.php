@@ -4,7 +4,7 @@
     require_once '../../classes/db_config.php';
     require_once '../../classes/UISDatabase.php';
 
-    // Fetch all orders with their items
+    // Fetch all orders via database (direct access for list view)
     $orders = UISDatabase::getDataFromSQL("SELECT * FROM orders ORDER BY orderID DESC", []);
     
     $tableRows = '';
@@ -53,75 +53,34 @@
     }
 
     $pageContent = '
-    <div class="page-content">
-        <style>
-            .selected-row { background-color: #eef7ff; }
-            .select-order-radio { transform: translateY(1px); }
-        </style>
+    <div class="page-content container">
         <h1>Orders</h1>
-        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-            <tr style="background-color: #f2f2f2;">
-                <th>Name</th>
-                <th>Date</th>
-                <th>Items</th>
-                <th>Notes</th>
-                <th>Status</th>
-            </tr>
+        <p>Here is where all of the orders are listed. Press "Add Order" to create a new order, or select an existing order and press "Edit Order" to modify it.</p>
+        <table class="table" border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+            <thead>    
+                <tr style="background-color: #f2f2f2;">
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Items</th>
+                    <th>Notes</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
             ' . $tableRows . '
+            </tbody>
         </table>
         <br>
-        <a href="addorder.php">
-            <button id="add-order-btn">Add Order</button>
+        <a class="text-decoration-none" href="addorder.php">
+            <button class="btn btn-primary" id="add-order-btn">Add Order</button>
         </a>
         
-        <button id="edit-order-btn" disabled style="opacity: 0.5; margin-left: 10px;">Edit Order</button>
-    
-    <script>
-    (function() {
-        // Enable Edit Order button only when a radio is selected
-        const editBtn = document.getElementById("edit-order-btn");
-        let selectedOrderId = null;
-        let prevSelectedOrderId = null;
-
-        document.addEventListener("change", function(e) {
-            if (e.target && e.target.classList && e.target.classList.contains("select-order-radio")) {
-                selectedOrderId = e.target.value;
-
-                // Enable edit button
-                if (selectedOrderId) {
-                    editBtn.disabled = false;
-                    editBtn.style.opacity = 1;
-                } else {
-                    editBtn.disabled = true;
-                    editBtn.style.opacity = 0.5;
-                }
-
-                // Toggle row highlight
-                try {
-                    if (prevSelectedOrderId) {
-                        const prevRow = document.getElementById("order_row_" + prevSelectedOrderId);
-                        if (prevRow) prevRow.classList.remove("selected-row");
-                    }
-                    const newRow = document.getElementById("order_row_" + selectedOrderId);
-                    if (newRow) newRow.classList.add("selected-row");
-                    prevSelectedOrderId = selectedOrderId;
-                } catch (err) {
-                    // ignore DOM errors
-                }
-            }
-        });
-
-        editBtn.addEventListener("click", function() {
-            if (!selectedOrderId) return;
-            // Navigate to the order edit page with the selected order id
-            window.location.href = "addorder.php?id=" + encodeURIComponent(selectedOrderId);
-        });
-    })();
-    </script>
+        <button id="edit-order-btn" class="btn btn-primary" disabled>Edit Order</button>
+        <button id="delete-order-btn" class="btn btn-danger" disabled>Delete Order</button>
     </div>
     ';
 
-    $page = new PageClass('Orders',$pageContent);
+    $page = new PageClass('Orders',$pageContent,['orders.css'],['orders.js']);
     $page->standardize();
     $page->checkCredentials($_SESSION['credentialLevel'],2);
     echo $page->render();

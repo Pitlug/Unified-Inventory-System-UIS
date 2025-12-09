@@ -2,29 +2,25 @@
     include_once 'classes/PageClass.php';
 
     $pageContent = '
-<html>
-<head></head>
-<body>
 <div class="bgPattern"></div>
     <header class="header">
         <h1 class="header">Welcome to UIS</h1>
         <p class="header">Your Unified Inventory Management System.</p>
     </header>
     <div class="header">
-        <nav>
+        <div class="sm-nav">
             <a href="#about">About</a> |
             <a href="#Features">Features</a> |
-            <a href="#authors">Authors</a> |
-            <a href="#contact">Contact</a>
-        </nav>
+            <a href="#authors">Authors</a> 
+        </div>
     </div>
     <div class="about">
         <section id="about">
             <h2>About UIS</h2>
             <p>UIS is a inventory management site built by Alexander Pellet, Rein Alderfer, Hector Franco, and Drew Urenko. 
-                This project is setup to provide a solution to your companies internal inventry needs! 
-                From traking incoming orders of the company. To managing internal inventory under specific categories. 
-                And only employs can use the site.
+                This project is setup to provide a solution to your companies internal inventory needs! 
+                From tracking incoming orders of the company. To managing internal inventory under specific categories. 
+                And only employees can use the site.
             </p>
         </section>
     </div>
@@ -66,31 +62,27 @@
         <section id="authors">
             <h2>Meet the Authors</h2>
             <ul>
-                <li><strong>Mr. Alexander Pellet:</strong> Junior Computer Science major</li>
-                <li><strong>Mr.Rein Alderfer:</strong> Junior Information Systems Major</li>
-                <li><strong>Mr. Hector Franco:</strong> Junior Computer Science Major</li>
-                <li><strong>Mr. Drew Urenko:</strong> Junior Computer Science Major</li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/alex.jpg" alt="Alexander Pellet" class="author-photo" />
+                    <div class="author-text"><strong>Alexander Pellet:</strong> Junior Computer Science Major</div>
+                </li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/gif2.gif" alt="Rein Alderfer" class="author-photo" />
+                    <div class="author-text"><strong>Mr. Rein Alderfer:</strong> Junior Information Systems Major</div>
+                </li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/hector.jpeg" alt="Hector Franco" class="author-photo" />
+                    <div class="author-text"><strong>Hector Franco:</strong> Junior Computer Science Major</div>
+                </li>
+                <li class="author-item">
+                    <img src="' . $GLOBALS['headshots'] . '/drew.jpg" alt="Drew Urenko" class="author-photo" />
+                    <div class="author-text"><strong>Drew Urenko:</strong> Junior Computer Science Major</div>
+                </li>
             </ul>
         </section>
     </div>
-    <div class="contact">
-        <section id="contact">
-            <h2>Contact Us to Sign Up Today!</h2>
-            <form>
-                <label for="name">Name:</label><br>
-                <input type="text" id="name" name="name"><br><br>
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email"><br><br>
-                <label for="message">Company Name:</label><br>
-                <textarea id="message" name="message" rows="4"></textarea><br><br>
-                <button type="button" class="btn btn-primary btn-lg">Submit</button>
-            </form>
-        </section>
-    </div>
-</body>
-</html>
     ';
-    $page = new PageClass('Home',$pageContent, ['homepage.css'], []);
+    $page = new PageClass('Home',$pageContent, ['homepage.css'], ['index-animations.js']);
     $page->standardize();
     echo $page->render();
 ?>

@@ -23,6 +23,9 @@
     --veryblack: #000000;
     --blueText: #5185b9;
     --white: #ffffff;
+
+    /*Styling for Inventory*/
+    --sidebar-color: #1f2937;
 }
 
 /* Override variables for dark mode */
@@ -35,7 +38,7 @@
     --border: #4b5563; /* Subtle dividing lines/borders */
     --modeColor: #111827; /* Deepest background color */ 
     --modeColorOPP: #f9fafb; /* Lightest background color */
-    --helper-text-color: #9ca3af; /* Muted text color for hints/placeholders */
+    --helper-text-color: #ffffff; /* Muted text color for hints/placeholders */
 
     /* Custom Styling for Homepage */
     --lightblue: #4A70A9;
@@ -44,4 +47,12 @@
     --veryblack: #EFECE3;
     --blueText: #EFECE3;
     --white: #000000;
+
+    /*Styling for Inventory*/
+    --sidebar-color: #1f2937;
+    
+    /*Bootstrap Override*/
+    --bs-body-bg: var(--modeColor) !important;
+    --bs-emphasis-color: var(--modeColorOPP) !important;
+    --bs-secondary-color: var(--light) !important;
 }
