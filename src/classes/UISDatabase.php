@@ -1,7 +1,8 @@
 <?php
 
+// Singleton Database Access Class by Drew Urenko
 class UISDatabase {
-    private static $conn = NULL;
+    private static $conn = NULL; // DB connection
 
     private static function connect() {
         $settings = include $GLOBALS['datacon'];
@@ -12,9 +13,11 @@ class UISDatabase {
 
         if (self::$conn === NULL) {
             try {
+                // Create a new PDO connection
                 self::$conn = new PDO("mysql:host=$servername;dbname=$database", $dbUsername, $dbPassword);
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
+                // If a connection cannot be made, report error and exit
                 echo "Connection failed: " . $e->getMessage();
                 echo var_dump($e);
                 http_response_code(500);
